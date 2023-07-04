@@ -3,6 +3,7 @@ package softeer2nd.chess.object;
 import org.junit.jupiter.api.*;
 
 import static org.assertj.core.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class PawnTest {
 
@@ -30,4 +31,11 @@ public class PawnTest {
         Pawn pawn = new Pawn(color);
         return pawn.getColor().equals(color);
     }
+
+    @Test
+    public void create_기본생성자() throws Exception {
+        Pawn pawn = new Pawn();
+        assertEquals("white", pawn.getColor());
+    }
+
 }

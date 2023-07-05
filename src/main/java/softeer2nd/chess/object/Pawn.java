@@ -2,7 +2,13 @@ package softeer2nd.chess.object;
 
 public class Pawn {
 
-    String color;
+    public final String WHITE_COLOR = "white";
+    public final String BLACK_COLOR = "black";
+
+    String color = WHITE_COLOR;
+
+    public Pawn() {
+    }
 
     public Pawn(String color) {
         this.color = color;

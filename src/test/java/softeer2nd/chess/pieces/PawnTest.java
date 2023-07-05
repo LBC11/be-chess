@@ -1,4 +1,4 @@
-package softeer2nd.chess.object;
+package softeer2nd.chess.pieces;
 
 import org.junit.jupiter.api.*;
 
@@ -37,4 +37,5 @@ public class PawnTest {
         Pawn pawn = new Pawn();
         assertEquals("white", pawn.getColor());
     }
+
 }

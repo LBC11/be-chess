@@ -26,7 +26,13 @@ public class Board {
     public Board() {
     }
 
-    // 체스의 map, pieces 초기화
+    /*
+        pieces
+        - 초기 기물들을 색깔별로 더해준다.
+        
+        map 초기화
+        - row 가 1이면 white pawn, row 가 6이면 black pawn, 그 외는 empty pawn 으로 채운다.
+     */
     public void initialize() {
         pieces = new ArrayList<>();
 
@@ -34,13 +40,6 @@ public class Board {
         addInitPieces(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION);
 
         map = new HashMap<>();
-
-        /*
-        map 초기화
-        row 가 1이면 white pawn 으로
-        row 가 6이면 black pawn 으로
-        그 외는 empty pawn 으로 채운다.
-         */
         IntStream.range(0, ROW_SIZE).forEach(row ->
                 IntStream.range(0, COLUMN_SIZE).forEach(col ->
                         map.put(row * 10 + col,
@@ -66,22 +65,21 @@ public class Board {
     }
 
     public String getWhitePawnsResult() {
-
-        StringBuilder ret = new StringBuilder();
-
-        IntStream.range(0, COLUMN_SIZE).forEach(col ->
-                ret.append(map.get(WHITE_PAWN_INIT_ROW * 10 + col).getRepresentation()));
-
-        return ret.toString();
+        return getPawnsResult(WHITE_PAWN_INIT_ROW);
     }
 
     public String getBlackPawnsResult() {
+        return getPawnsResult(BLACK_PAWN_INIT_ROW);
+    }
 
+    private String getPawnsResult(int row) {
         StringBuilder ret = new StringBuilder();
 
         IntStream.range(0, COLUMN_SIZE).forEach(col ->
-                ret.append(map.get(BLACK_PAWN_INIT_ROW * 10 + col).getRepresentation()));
+                ret.append(map.get(row * 10 + col).getRepresentation()));
 
         return ret.toString();
     }
+
+
 }

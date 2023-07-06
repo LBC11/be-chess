@@ -1,6 +1,6 @@
 package softeer2nd.chess;
 
-import softeer2nd.chess.pieces.Pawn;
+import softeer2nd.chess.pieces.Piece;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,10 +18,10 @@ public class Board {
     private final int BLACK_PAWN_INIT_ROW = 1;
 
     // key: row_idx * 10 + col_idx value: Pawn 객체
-    private Map<Integer, Pawn> map;
+    private Map<Integer, Piece> map;
 
     // 현재 보드 위에 있는 기물들
-    private List<Pawn> pieces;
+    private List<Piece> pieces;
 
     public Board() {
     }
@@ -36,31 +36,31 @@ public class Board {
     public void initialize() {
         pieces = new ArrayList<>();
 
-        addInitPieces(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION);
-        addInitPieces(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION);
+        addInitPieces(Piece.WHITE_COLOR, Piece.WHITE_REPRESENTATION);
+        addInitPieces(Piece.BLACK_COLOR, Piece.BLACK_REPRESENTATION);
 
         map = new HashMap<>();
         IntStream.range(0, ROW_SIZE).forEach(row ->
                 IntStream.range(0, COLUMN_SIZE).forEach(col ->
                         map.put(row * 10 + col,
-                                row == WHITE_PAWN_INIT_ROW ? new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION) :
-                                row == BLACK_PAWN_INIT_ROW ? new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION) :
-                                new Pawn(Pawn.EMPTY_COLOR, Pawn.EMPTY_REPRESENTATION))));
+                                row == WHITE_PAWN_INIT_ROW ? new Piece(Piece.WHITE_COLOR, Piece.WHITE_REPRESENTATION) :
+                                row == BLACK_PAWN_INIT_ROW ? new Piece(Piece.BLACK_COLOR, Piece.BLACK_REPRESENTATION) :
+                                new Piece(Piece.EMPTY_COLOR, Piece.EMPTY_REPRESENTATION))));
     }
 
     private void addInitPieces(final String color, final char representation) {
-        IntStream.range(0, PAWN_NUMBER).forEach((i) -> pieces.add(new Pawn(color, representation)));
+        IntStream.range(0, PAWN_NUMBER).forEach((i) -> pieces.add(new Piece(color, representation)));
     }
 
-    public void add(Pawn pawn) {
-        pieces.add(pawn);
+    public void add(Piece piece) {
+        pieces.add(piece);
     }
 
     public int size() {
         return pieces.size();
     }
 
-    public Pawn findPawn(int idx) {
+    public Piece findPawn(int idx) {
         return pieces.get(idx);
     }
 

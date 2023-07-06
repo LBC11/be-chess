@@ -3,24 +3,85 @@ package softeer2nd.chess;
 import softeer2nd.chess.pieces.Pawn;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.IntStream;
 
 public class Board {
 
-    ArrayList<Pawn> board;
+
+    private final int ROW_SIZE = 8;
+    private final int COLUMN_SIZE = 8;
+    private final int PAWN_NUMBER = 8;
+    private final int WHITE_PAWN_INIT_ROW = 1;
+    private final int BLACK_PAWN_INIT_ROW = 6;
+
+    // key: row_idx * 10 + col_idx value: Pawn 객체
+    Map<Integer, Pawn> map;
+
+    // 현재 보드 위에 있는 기물들
+    List<Pawn> pieces;
 
     public Board() {
-        board = new ArrayList<>();
+    }
+
+    // 체스의 map, pieces 초기화
+    public void initialize() {
+        pieces = new ArrayList<>();
+
+        addInitPieces(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION);
+        addInitPieces(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION);
+
+        map = new HashMap<>();
+
+        /*
+        map 초기화
+        row 가 1이면 white pawn 으로
+        row 가 6이면 black pawn 으로
+        그 외는 empty pawn 으로 채운다.
+         */
+        IntStream.range(0, ROW_SIZE).forEach(row ->
+                IntStream.range(0, COLUMN_SIZE).forEach(col ->
+                        map.put(row * 10 + col,
+                                row == WHITE_PAWN_INIT_ROW ? new Pawn(Pawn.WHITE_COLOR, Pawn.WHITE_REPRESENTATION) :
+                                row == BLACK_PAWN_INIT_ROW ? new Pawn(Pawn.BLACK_COLOR, Pawn.BLACK_REPRESENTATION) :
+                                new Pawn(Pawn.EMPTY_COLOR, Pawn.EMPTY_REPRESENTATION))));
+    }
+
+    private void addInitPieces(final String color, final char representation) {
+        IntStream.range(0, PAWN_NUMBER).forEach((i) -> pieces.add(new Pawn(color, representation)));
     }
 
     public void add(Pawn pawn) {
-        board.add(pawn);
+        pieces.add(pawn);
     }
 
     public int size() {
-        return board.size();
+        return pieces.size();
     }
 
     public Pawn findPawn(int idx) {
-        return board.get(idx);
+        return pieces.get(idx);
+    }
+
+    public String getWhitePawnsResult() {
+
+        StringBuilder ret = new StringBuilder();
+
+        IntStream.range(0, COLUMN_SIZE).forEach(col ->
+                ret.append(map.get(WHITE_PAWN_INIT_ROW * 10 + col).getRepresentation()));
+
+        return ret.toString();
+    }
+
+    public String getBlackPawnsResult() {
+
+        StringBuilder ret = new StringBuilder();
+
+        IntStream.range(0, COLUMN_SIZE).forEach(col ->
+                ret.append(map.get(BLACK_PAWN_INIT_ROW * 10 + col).getRepresentation()));
+
+        return ret.toString();
     }
 }

@@ -14,8 +14,8 @@ public class Board {
     private final int ROW_SIZE = 8;
     private final int COLUMN_SIZE = 8;
     private final int PAWN_NUMBER = 8;
-    private final int WHITE_PAWN_INIT_ROW = 1;
-    private final int BLACK_PAWN_INIT_ROW = 6;
+    private final int WHITE_PAWN_INIT_ROW = 6;
+    private final int BLACK_PAWN_INIT_ROW = 1;
 
     // key: row_idx * 10 + col_idx value: Pawn 객체
     Map<Integer, Pawn> map;
@@ -81,5 +81,15 @@ public class Board {
         return ret.toString();
     }
 
+    public String print() {
+        StringBuilder ret = new StringBuilder();
 
+        IntStream.range(0, ROW_SIZE).forEach(row -> {
+            IntStream.range(0, COLUMN_SIZE).forEach(col ->
+                    ret.append(map.get(row * 10 + col).getRepresentation()));
+            ret.append("\n");
+        });
+
+        return ret.toString();
+    }
 }

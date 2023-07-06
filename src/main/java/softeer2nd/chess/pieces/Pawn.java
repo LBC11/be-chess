@@ -7,7 +7,7 @@ public class Pawn {
     public static final String EMPTY_COLOR = "empty";
     public static final char WHITE_REPRESENTATION = 'p';
     public static final char BLACK_REPRESENTATION = 'P';
-    public static final char EMPTY_REPRESENTATION = 'e';
+    public static final char EMPTY_REPRESENTATION = '.';
 
     String color = WHITE_COLOR;
     char representation = WHITE_REPRESENTATION;

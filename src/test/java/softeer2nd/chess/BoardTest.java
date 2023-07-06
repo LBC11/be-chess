@@ -15,4 +15,24 @@ public class BoardTest {
         assertEquals("pppppppp", board.getWhitePawnsResult());
         assertEquals("PPPPPPPP", board.getBlackPawnsResult());
     }
+
+    @Test
+    @DisplayName("보드판이 정상적으로 출려되어야 합니다.")
+    public void print() {
+        Board board = new Board();
+        board.initialize();
+
+        String s = new StringBuilder()
+                .append("........\n")
+                .append("PPPPPPPP\n")
+                .append("........\n")
+                .append("........\n")
+                .append("........\n")
+                .append("........\n")
+                .append("pppppppp\n")
+                .append("........\n")
+                .toString();
+
+        assertEquals(s, board.print());
+    }
 }

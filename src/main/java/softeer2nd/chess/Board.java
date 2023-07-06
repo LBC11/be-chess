@@ -18,10 +18,10 @@ public class Board {
     private final int BLACK_PAWN_INIT_ROW = 1;
 
     // key: row_idx * 10 + col_idx value: Pawn 객체
-    Map<Integer, Pawn> map;
+    private Map<Integer, Pawn> map;
 
     // 현재 보드 위에 있는 기물들
-    List<Pawn> pieces;
+    private List<Pawn> pieces;
 
     public Board() {
     }

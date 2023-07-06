@@ -9,8 +9,8 @@ public class Pawn {
     public static final char BLACK_REPRESENTATION = 'P';
     public static final char EMPTY_REPRESENTATION = '.';
 
-    String color = WHITE_COLOR;
-    char representation = WHITE_REPRESENTATION;
+    private String color = WHITE_COLOR;
+    private char representation = WHITE_REPRESENTATION;
 
     public Pawn() {
     }

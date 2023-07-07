@@ -1,38 +1,33 @@
 package softeer2nd.chess;
 
 import static org.junit.Assert.*;
-
+import static softeer2nd.utils.StringUtils.appendNewLine;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.Before;
 
 public class BoardTest {
-    @Test
-    @DisplayName("board 가 정상적으로 생성되어야 한다.")
-    public void initialize() throws Exception {
-        Board board = new Board();
-        board.initialize();
-        assertEquals("pppppppp", board.getWhitePawnsResult());
-        assertEquals("PPPPPPPP", board.getBlackPawnsResult());
+
+    Board board;
+
+    @Before
+    public void setup() {
+        board = new Board();
     }
 
     @Test
-    @DisplayName("보드판이 정상적으로 출려되어야 합니다.")
-    public void print() {
-        Board board = new Board();
+    @DisplayName("board 가 정상적으로 생성되어야 한다.")
+    public void create() throws Exception {
         board.initialize();
-
-        String s = new StringBuilder()
-                .append("........\n")
-                .append("PPPPPPPP\n")
-                .append("........\n")
-                .append("........\n")
-                .append("........\n")
-                .append("........\n")
-                .append("pppppppp\n")
-                .append("........\n")
-                .toString();
-
-        assertEquals(s, board.print());
+        assertEquals(32, board.pieceCount());
+        String blankRank = appendNewLine("........");
+        assertEquals(
+                appendNewLine("RNBQKBNR") +
+                        appendNewLine("PPPPPPPP") +
+                        blankRank + blankRank + blankRank + blankRank +
+                        appendNewLine("pppppppp") +
+                        appendNewLine("rnbqkbnr"),
+                board.print());
     }
 }

@@ -55,4 +55,11 @@ public class Piece {
         return new Piece(type, color);
     }
 
+    public static boolean isWhite(Piece piece) {
+        return Color.WHITE.equals(piece.getColor());
+    }
+
+    public static boolean isBlack(Piece piece) {
+        return Color.BLACK.equals(piece.getColor());
+    }
 }

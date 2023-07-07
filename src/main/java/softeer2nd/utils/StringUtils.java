@@ -13,4 +13,8 @@ public class StringUtils {
     public static StringBuilder appendNewLine(StringBuilder sb) {
         return sb.append(NEWLINE);
     }
+
+    public static char Uppercase(char c) {
+        return (char) (c - ('a' - 'A'));
+    }
 }

@@ -20,4 +20,10 @@ class StringUtilsTest {
         assertEquals(sb2.append(a).append("\n").append(b).toString(), StringUtils.appendNewLine(sb1.append(a)).append(b).toString());
     }
 
+    @Test
+    @DisplayName("정상적으로 소문자에서 대문자가 되어야 한다.")
+    public void uppercase() {
+        assertEquals('D', StringUtils.Uppercase('d'));
+    }
+
 }

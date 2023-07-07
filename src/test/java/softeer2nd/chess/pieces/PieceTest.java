@@ -29,4 +29,11 @@ public class PieceTest {
         assertEquals(color, piece.getColor());
     }
 
+    @Test
+    @DisplayName("기물의 색깔이 정상적으로 검증되어야 한다.")
+    public void colorCheck() {
+
+        assertEquals(true, Piece.isWhite(Piece.create(Piece.Type.PAWN, Piece.Color.WHITE)));
+        assertEquals(true, Piece.isBlack(Piece.create(Piece.Type.PAWN, Piece.Color.BLACK)));
+    }
 }

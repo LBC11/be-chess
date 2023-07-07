@@ -3,15 +3,15 @@ package softeer2nd.chess;
 import static org.junit.Assert.*;
 import static softeer2nd.utils.StringUtils.appendNewLine;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.Before;
 
 public class BoardTest {
 
     Board board;
 
-    @Before
+    @BeforeEach
     public void setup() {
         board = new Board();
     }

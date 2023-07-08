@@ -26,14 +26,19 @@ public class PieceTest {
 
     private void verifyPiece(final Piece piece, final Piece.Color color, final Piece.Type type) {
         assertEquals(type, piece.getType());
-        assertEquals(color, piece.getColor());
+        assertEquals(true, color == Piece.Color.WHITE ? piece.isWhite() : piece.isBlack());
     }
 
     @Test
     @DisplayName("기물의 색깔이 정상적으로 검증되어야 한다.")
     public void colorCheck() {
 
-        assertEquals(true, Piece.isWhite(Piece.create(Piece.Type.PAWN, Piece.Color.WHITE)));
-        assertEquals(true, Piece.isBlack(Piece.create(Piece.Type.PAWN, Piece.Color.BLACK)));
+        Piece whitePawn = Piece.create(Piece.Type.PAWN, Piece.Color.WHITE);
+        Piece blackPawn = Piece.create(Piece.Type.PAWN, Piece.Color.BLACK);
+
+        assertEquals(true, whitePawn.isWhite());
+        assertEquals(false, whitePawn.isBlack());
+        assertEquals(true, blackPawn.isBlack());
+        assertEquals(false, blackPawn.isWhite());
     }
 }

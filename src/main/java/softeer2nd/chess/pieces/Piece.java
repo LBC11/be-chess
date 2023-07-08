@@ -36,9 +36,6 @@ public class Piece {
         this.color = color;
     }
 
-    public Color getColor() {
-        return color;
-    }
 
     public Type getType() {
         return this.type;
@@ -55,11 +52,11 @@ public class Piece {
         return new Piece(type, color);
     }
 
-    public static boolean isWhite(Piece piece) {
-        return Color.WHITE.equals(piece.getColor());
+    public boolean isWhite() {
+        return Color.WHITE.equals(this.color);
     }
 
-    public static boolean isBlack(Piece piece) {
-        return Color.BLACK.equals(piece.getColor());
+    public boolean isBlack() {
+        return Color.BLACK.equals(this.color);
     }
 }

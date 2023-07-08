@@ -10,6 +10,7 @@ public class Board {
 
     private final int ROW_LENGTH = 8;
     private final int COLUMN_LENGTH = 8;
+    private final int KEY_GENERATION_MULTIPLIER = 10;
     private final int WHITE_NON_PAWN_PIECES_INIT_ROW = 7;
     private final int WHITE_PAWN_INIT_ROW = 6;
     private final int BLACK_NON_PAWN_PIECES_INIT_ROW = 0;
@@ -44,12 +45,7 @@ public class Board {
         map = new HashMap<>();
         IntStream.range(0, ROW_LENGTH).forEach(row ->
                 IntStream.range(0, COLUMN_LENGTH).forEach(col ->
-                        map.put(row * 10 + col,
-                                row == WHITE_PAWN_INIT_ROW ? Piece.create(Piece.Type.PAWN, Piece.Color.WHITE) :
-                                row == WHITE_NON_PAWN_PIECES_INIT_ROW ? Piece.create(checkPieceType(nonPawnPieces.get(col)), Piece.Color.WHITE) :
-                                row == BLACK_PAWN_INIT_ROW ? Piece.create(Piece.Type.PAWN, Piece.Color.BLACK) :
-                                row == BLACK_NON_PAWN_PIECES_INIT_ROW ? Piece.create(checkPieceType(nonPawnPieces.get(col)), Piece.Color.BLACK) :
-                                Piece.create(Piece.Type.EMPTY, Piece.Color.EMPTY))));
+                        map.put(row * KEY_GENERATION_MULTIPLIER + col, createInitPiece(row, col))));
     }
 
     private void addInitPiecesToList(final Piece.Color color) {
@@ -59,26 +55,6 @@ public class Board {
 
         // pawn 을 제외한 기물
         IntStream.range(0, COLUMN_LENGTH).forEach((i) -> pieceList.add(Piece.create(checkPieceType(nonPawnPieces.get(i)), color)));
-    }
-
-    public void add(Piece piece) {
-        pieceList.add(piece);
-    }
-
-    public int size() {
-        return pieceList.size();
-    }
-
-    public Piece findPawn(int idx) {
-        return pieceList.get(idx);
-    }
-
-    public String getWhitePawnsResult() {
-        return getPawnsResult(WHITE_PAWN_INIT_ROW);
-    }
-
-    public String getBlackPawnsResult() {
-        return getPawnsResult(BLACK_PAWN_INIT_ROW);
     }
 
     private void nonPawnPiecesListInit() {
@@ -95,6 +71,20 @@ public class Board {
         nonPawnPieces = Collections.unmodifiableList(nonPawnPieces);
     }
 
+    private Piece createInitPiece(int row, int col) {
+        if (row == WHITE_PAWN_INIT_ROW) {
+            return Piece.create(Piece.Type.PAWN, Piece.Color.WHITE);
+        } else if (row == WHITE_NON_PAWN_PIECES_INIT_ROW) {
+            return Piece.create(checkPieceType(nonPawnPieces.get(col)), Piece.Color.WHITE);
+        } else if (row == BLACK_PAWN_INIT_ROW) {
+            return Piece.create(Piece.Type.PAWN, Piece.Color.BLACK);
+        } else if (row == BLACK_NON_PAWN_PIECES_INIT_ROW) {
+            return Piece.create(checkPieceType(nonPawnPieces.get(col)), Piece.Color.BLACK);
+        } else {
+            return Piece.create(Piece.Type.EMPTY, Piece.Color.EMPTY);
+        }
+    }
+
     private Piece.Type checkPieceType(Piece piece) {
 
         if(piece.isPawn()) return Piece.Type.PAWN;
@@ -105,21 +95,12 @@ public class Board {
         else return Piece.Type.KING;
     }
 
-    private String getPawnsResult(int row) {
-        StringBuilder ret = new StringBuilder();
-
-        IntStream.range(0, COLUMN_LENGTH).forEach(col ->
-                ret.append(map.get(row * 10 + col).getRepresentation()));
-
-        return ret.toString();
-    }
-
     public String print() {
         StringBuilder ret = new StringBuilder();
 
         IntStream.range(0, ROW_LENGTH).forEach(row -> {
             IntStream.range(0, COLUMN_LENGTH).forEach(col ->
-                    ret.append(map.get(row * 10 + col).getRepresentation()));
+                    ret.append(map.get(row * KEY_GENERATION_MULTIPLIER + col).getRepresentation()));
             ret.append("\n");
         });
 

@@ -36,11 +36,6 @@ public class Piece {
         this.color = color;
     }
 
-
-    public Type getType() {
-        return this.type;
-    }
-
     public char getRepresentation() {
 
         char representation = this.type.getRepresentation();
@@ -57,6 +52,31 @@ public class Piece {
     }
 
     public boolean isBlack() {
+
         return Color.BLACK.equals(this.color);
+    }
+
+    public boolean isPawn() {
+        return Type.PAWN.equals(this.type);
+    }
+
+    public boolean isKnight() {
+        return Type.KNIGHT.equals(this.type);
+    }
+
+    public boolean isRook() {
+        return Type.ROOK.equals(this.type);
+    }
+
+    public boolean isBishop() {
+        return Type.BISHOP.equals(this.type);
+    }
+
+    public boolean isQueen() {
+        return Type.QUEEN.equals(this.type);
+    }
+
+    public boolean isKing() {
+        return Type.KING.equals(this.type);
     }
 }

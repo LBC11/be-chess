@@ -46,9 +46,9 @@ public class Board {
                 IntStream.range(0, COLUMN_LENGTH).forEach(col ->
                         map.put(row * 10 + col,
                                 row == WHITE_PAWN_INIT_ROW ? Piece.create(Piece.Type.PAWN, Piece.Color.WHITE) :
-                                row == WHITE_NON_PAWN_PIECES_INIT_ROW ? Piece.create(nonPawnPieces.get(col).getType(), Piece.Color.WHITE) :
+                                row == WHITE_NON_PAWN_PIECES_INIT_ROW ? Piece.create(checkPieceType(nonPawnPieces.get(col)), Piece.Color.WHITE) :
                                 row == BLACK_PAWN_INIT_ROW ? Piece.create(Piece.Type.PAWN, Piece.Color.BLACK) :
-                                row == BLACK_NON_PAWN_PIECES_INIT_ROW ? Piece.create(nonPawnPieces.get(col).getType(), Piece.Color.BLACK) :
+                                row == BLACK_NON_PAWN_PIECES_INIT_ROW ? Piece.create(checkPieceType(nonPawnPieces.get(col)), Piece.Color.BLACK) :
                                 Piece.create(Piece.Type.EMPTY, Piece.Color.EMPTY))));
     }
 
@@ -58,7 +58,7 @@ public class Board {
         IntStream.range(0, COLUMN_LENGTH).forEach((i) -> pieceList.add(Piece.create(Piece.Type.PAWN, color)));
 
         // pawn 을 제외한 기물
-        IntStream.range(0, COLUMN_LENGTH).forEach((i) -> pieceList.add(Piece.create(nonPawnPieces.get(i).getType(), color)));
+        IntStream.range(0, COLUMN_LENGTH).forEach((i) -> pieceList.add(Piece.create(checkPieceType(nonPawnPieces.get(i)), color)));
     }
 
     public void add(Piece piece) {
@@ -93,6 +93,16 @@ public class Board {
         nonPawnPieces.add(Piece.create(Piece.Type.ROOK, Piece.Color.EMPTY));
 
         nonPawnPieces = Collections.unmodifiableList(nonPawnPieces);
+    }
+
+    private Piece.Type checkPieceType(Piece piece) {
+
+        if(piece.isPawn()) return Piece.Type.PAWN;
+        else if(piece.isKnight()) return Piece.Type.KNIGHT;
+        else if(piece.isRook()) return Piece.Type.ROOK;
+        else if(piece.isBishop()) return Piece.Type.BISHOP;
+        else if(piece.isQueen()) return Piece.Type.QUEEN;
+        else return Piece.Type.KING;
     }
 
     private String getPawnsResult(int row) {

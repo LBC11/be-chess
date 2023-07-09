@@ -59,14 +59,14 @@ public class Board {
 
     private void nonPawnPiecesListInit() {
         nonPawnPieces = new ArrayList<>();
-        nonPawnPieces.add(Piece.create(Piece.Type.ROOK, Piece.Color.EMPTY));
-        nonPawnPieces.add(Piece.create(Piece.Type.KNIGHT, Piece.Color.EMPTY));
-        nonPawnPieces.add(Piece.create(Piece.Type.BISHOP, Piece.Color.EMPTY));
-        nonPawnPieces.add(Piece.create(Piece.Type.QUEEN, Piece.Color.EMPTY));
-        nonPawnPieces.add(Piece.create(Piece.Type.KING, Piece.Color.EMPTY));
-        nonPawnPieces.add(Piece.create(Piece.Type.BISHOP, Piece.Color.EMPTY));
-        nonPawnPieces.add(Piece.create(Piece.Type.KNIGHT, Piece.Color.EMPTY));
-        nonPawnPieces.add(Piece.create(Piece.Type.ROOK, Piece.Color.EMPTY));
+        nonPawnPieces.add(Piece.create(Piece.Type.ROOK, Piece.Color.NOCOLOR));
+        nonPawnPieces.add(Piece.create(Piece.Type.KNIGHT, Piece.Color.NOCOLOR));
+        nonPawnPieces.add(Piece.create(Piece.Type.BISHOP, Piece.Color.NOCOLOR));
+        nonPawnPieces.add(Piece.create(Piece.Type.QUEEN, Piece.Color.NOCOLOR));
+        nonPawnPieces.add(Piece.create(Piece.Type.KING, Piece.Color.NOCOLOR));
+        nonPawnPieces.add(Piece.create(Piece.Type.BISHOP, Piece.Color.NOCOLOR));
+        nonPawnPieces.add(Piece.create(Piece.Type.KNIGHT, Piece.Color.NOCOLOR));
+        nonPawnPieces.add(Piece.create(Piece.Type.ROOK, Piece.Color.NOCOLOR));
 
         nonPawnPieces = Collections.unmodifiableList(nonPawnPieces);
     }
@@ -81,7 +81,7 @@ public class Board {
         } else if (row == BLACK_NON_PAWN_PIECES_INIT_ROW) {
             return Piece.create(checkPieceType(nonPawnPieces.get(col)), Piece.Color.BLACK);
         } else {
-            return Piece.create(Piece.Type.EMPTY, Piece.Color.EMPTY);
+            return Piece.create(Piece.Type.NO_PIECE, Piece.Color.NOCOLOR);
         }
     }
 

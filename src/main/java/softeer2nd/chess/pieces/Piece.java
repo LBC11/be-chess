@@ -5,7 +5,7 @@ import softeer2nd.utils.StringUtils;
 public class Piece {
 
     public enum Color {
-        WHITE, BLACK, EMPTY
+        WHITE, BLACK, NOCOLOR
     }
 
 
@@ -13,7 +13,7 @@ public class Piece {
 
         PAWN('p'), KNIGHT('n'), ROOK('r'),
         BISHOP('b'), QUEEN('q'), KING('k'),
-        EMPTY('.');
+        NO_PIECE('.');
 
         private final char representation;
 

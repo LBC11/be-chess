@@ -1,6 +1,7 @@
 package softeer2nd.chess;
 
 import softeer2nd.chess.pieces.Piece;
+import softeer2nd.utils.StringUtils;
 
 import java.util.*;
 import java.util.stream.IntStream;
@@ -39,60 +40,85 @@ public class Board {
 
         pieceList = new ArrayList<>();
 
-        addInitPiecesToList(Piece.Color.WHITE);
-        addInitPiecesToList(Piece.Color.BLACK);
+        addInitPiecesToList();
 
         map = new HashMap<>();
-        IntStream.range(0, ROW_LENGTH).forEach(row ->
-                IntStream.range(0, COLUMN_LENGTH).forEach(col ->
-                        map.put(row * KEY_GENERATION_MULTIPLIER + col, createInitPiece(row, col))));
+        IntStream.range(0, ROW_LENGTH).forEach(this::addInitPiecesToMap);
     }
 
-    private void addInitPiecesToList(final Piece.Color color) {
+    private void addInitPiecesToList() {
 
         // pawn
-        IntStream.range(0, COLUMN_LENGTH).forEach((i) -> pieceList.add(Piece.create(Piece.Type.PAWN, color)));
+        IntStream.range(0, COLUMN_LENGTH).forEach((i) -> pieceList.add(Piece.createWhitePawn()));
+        IntStream.range(0, COLUMN_LENGTH).forEach((i) -> pieceList.add(Piece.createBlackPawn()));
 
         // pawn 을 제외한 기물
-        IntStream.range(0, COLUMN_LENGTH).forEach((i) -> pieceList.add(Piece.create(checkPieceType(nonPawnPieces.get(i)), color)));
+        pieceList.add(Piece.createWhiteRook());
+        pieceList.add(Piece.createWhiteKnight());
+        pieceList.add(Piece.createWhiteBishop());
+        pieceList.add(Piece.createWhiteQueen());
+        pieceList.add(Piece.createWhiteKing());
+        pieceList.add(Piece.createWhiteBishop());
+        pieceList.add(Piece.createWhiteKnight());
+        pieceList.add(Piece.createWhiteRook());
+
+        pieceList.add(Piece.createBlackRook());
+        pieceList.add(Piece.createBlackKnight());
+        pieceList.add(Piece.createBlackBishop());
+        pieceList.add(Piece.createBlackQueen());
+        pieceList.add(Piece.createBlackKing());
+        pieceList.add(Piece.createBlackBishop());
+        pieceList.add(Piece.createBlackKnight());
+        pieceList.add(Piece.createBlackRook());
+
     }
 
     private void nonPawnPiecesListInit() {
         nonPawnPieces = new ArrayList<>();
-        nonPawnPieces.add(Piece.create(Piece.Type.ROOK, Piece.Color.NOCOLOR));
-        nonPawnPieces.add(Piece.create(Piece.Type.KNIGHT, Piece.Color.NOCOLOR));
-        nonPawnPieces.add(Piece.create(Piece.Type.BISHOP, Piece.Color.NOCOLOR));
-        nonPawnPieces.add(Piece.create(Piece.Type.QUEEN, Piece.Color.NOCOLOR));
-        nonPawnPieces.add(Piece.create(Piece.Type.KING, Piece.Color.NOCOLOR));
-        nonPawnPieces.add(Piece.create(Piece.Type.BISHOP, Piece.Color.NOCOLOR));
-        nonPawnPieces.add(Piece.create(Piece.Type.KNIGHT, Piece.Color.NOCOLOR));
-        nonPawnPieces.add(Piece.create(Piece.Type.ROOK, Piece.Color.NOCOLOR));
+        nonPawnPieces.add(Piece.createWhiteRook());
+        nonPawnPieces.add(Piece.createWhiteKnight());
+        nonPawnPieces.add(Piece.createWhiteBishop());
+        nonPawnPieces.add(Piece.createWhiteQueen());
+        nonPawnPieces.add(Piece.createWhiteKing());
+        nonPawnPieces.add(Piece.createWhiteBishop());
+        nonPawnPieces.add(Piece.createWhiteKnight());
+        nonPawnPieces.add(Piece.createWhiteRook());
 
         nonPawnPieces = Collections.unmodifiableList(nonPawnPieces);
     }
 
-    private Piece createInitPiece(int row, int col) {
+    private void addInitPiecesToMap(int row) {
         if (row == WHITE_PAWN_INIT_ROW) {
-            return Piece.create(Piece.Type.PAWN, Piece.Color.WHITE);
+            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createWhitePawn()));
         } else if (row == WHITE_NON_PAWN_PIECES_INIT_ROW) {
-            return Piece.create(checkPieceType(nonPawnPieces.get(col)), Piece.Color.WHITE);
+            int col = 0;
+
+            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createWhiteRook());
+            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createWhiteKnight());
+            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createWhiteBishop());
+            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createWhiteQueen());
+            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createWhiteKing());
+            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createWhiteBishop());
+            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createWhiteKnight());
+            map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createWhiteRook());
+
         } else if (row == BLACK_PAWN_INIT_ROW) {
-            return Piece.create(Piece.Type.PAWN, Piece.Color.BLACK);
+            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createBlackPawn()));
         } else if (row == BLACK_NON_PAWN_PIECES_INIT_ROW) {
-            return Piece.create(checkPieceType(nonPawnPieces.get(col)), Piece.Color.BLACK);
+            int col = 0;
+
+            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createBlackRook());
+            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createBlackKnight());
+            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createBlackBishop());
+            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createBlackQueen());
+            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createBlackKing());
+            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createBlackBishop());
+            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createBlackKnight());
+            map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createBlackRook());
+
         } else {
-            return Piece.create(Piece.Type.NO_PIECE, Piece.Color.NOCOLOR);
+            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createNoPiece()));
         }
-    }
-
-    private Piece.Type checkPieceType(Piece piece) {
-
-        if(piece.isPawn()) return Piece.Type.PAWN;
-        else if(piece.isKnight()) return Piece.Type.KNIGHT;
-        else if(piece.isRook()) return Piece.Type.ROOK;
-        else if(piece.isBishop()) return Piece.Type.BISHOP;
-        else if(piece.isQueen()) return Piece.Type.QUEEN;
-        else return Piece.Type.KING;
     }
 
     public String print() {
@@ -101,7 +127,7 @@ public class Board {
         IntStream.range(0, ROW_LENGTH).forEach(row -> {
             IntStream.range(0, COLUMN_LENGTH).forEach(col ->
                     ret.append(map.get(row * KEY_GENERATION_MULTIPLIER + col).getRepresentation()));
-            ret.append("\n");
+            StringUtils.appendNewLine(ret);
         });
 
         return ret.toString();

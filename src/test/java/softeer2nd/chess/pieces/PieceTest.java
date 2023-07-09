@@ -65,5 +65,14 @@ class PieceTest {
         assertEquals(true, piece.isNoPiece());
     }
 
+    @Test
+    @DisplayName("색깔에 따라 대문자인지 소문자인지 정화가하게 표현되어야 한다.")
+    public void getRepresentationPerPiece() throws Exception {
 
+        Piece whitePawn = Piece.createWhitePawn();
+        Piece blackPawn = Piece.createBlackPawn();
+
+        assertEquals('p', whitePawn.getRepresentation());
+        assertEquals('P', blackPawn.getRepresentation());
+    }
 }

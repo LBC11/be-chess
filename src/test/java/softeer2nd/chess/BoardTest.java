@@ -6,6 +6,7 @@ import static softeer2nd.utils.StringUtils.appendNewLine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.pieces.Piece;
 
 public class BoardTest {
 
@@ -48,6 +49,15 @@ public class BoardTest {
         assertEquals(1, board.whiteQueenCount());
         assertEquals(1, board.blackKingCount());
         assertEquals(1, board.whiteKingCount());
+    }
 
+    @Test
+    @DisplayName("위치에 따른 기물이 정상적으로 반환된다.")
+    public void findPiece() throws Exception {
+
+        assertEquals(Piece.createBlackRook(), board.findPiece("a8"));
+        assertEquals(Piece.createBlackRook(), board.findPiece("h8"));
+        assertEquals(Piece.createWhiteRook(), board.findPiece("a1"));
+        assertEquals(Piece.createWhiteRook(), board.findPiece("h1"));
     }
 }

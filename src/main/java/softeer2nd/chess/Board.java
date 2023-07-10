@@ -117,7 +117,7 @@ public class Board {
             map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createBlackRook());
 
         } else {
-            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createNoPiece()));
+            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createBlank()));
         }
     }
 

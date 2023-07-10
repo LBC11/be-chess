@@ -34,7 +34,7 @@ class PieceTest {
         verifyBishopType(Piece.createWhiteBishop());
         verifyQueenType(Piece.createWhiteQueen());
         verifyKingType(Piece.createWhiteKing());
-        verifyNoPieceType(Piece.createNoPiece());
+        verifyNoPieceType(Piece.createBlank());
     }
 
     private void verifyPawnType(Piece piece) {
@@ -62,7 +62,7 @@ class PieceTest {
     }
 
     private void verifyNoPieceType(Piece piece) {
-        assertEquals(true, piece.isNoPiece());
+        assertEquals(true, piece.isBlank());
     }
 
     @Test

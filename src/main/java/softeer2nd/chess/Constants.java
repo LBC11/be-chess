@@ -33,4 +33,6 @@ public class Constants {
             return this.defaultPoint;
         }
     }
+
+    public enum SortOrder {ASCENDING, DESCENDING}
 }

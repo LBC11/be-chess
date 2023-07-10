@@ -43,6 +43,13 @@ public class Board {
         IntStream.range(0, ROW_LENGTH).forEach(this::addInitPiecesToMap);
     }
 
+    public void initializeEmpty() {
+        pieceList = new ArrayList<>();
+
+        map = new HashMap<>();
+        IntStream.range(0, ROW_LENGTH).forEach(this::addInitBlankPiecesToMap);
+    }
+
     private void addInitPiecesToList() {
 
         // pawn
@@ -100,11 +107,15 @@ public class Board {
             map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createBlackRook());
 
         } else {
-            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createBlank()));
+            addInitBlankPiecesToMap(row);
         }
     }
 
-    public String print() {
+    private void addInitBlankPiecesToMap(int row) {
+        IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createBlank()));
+    }
+
+    public String showBoard() {
         StringBuilder ret = new StringBuilder();
 
         IntStream.range(0, ROW_LENGTH).forEach(row -> {
@@ -180,18 +191,25 @@ public class Board {
         return pieceList.size();
     }
 
-    public Piece findPiece(String loc) {
+    public Piece findPiece(String position) {
 
-        int key = locToKey(loc);
+        int key = positionToKey(position);
 
         return map.get(key);
     }
 
-    private int locToKey(String loc) {
+    private int positionToKey(String position) {
 
-        int row = 7 - (loc.charAt(1) - '1');
-        int col = loc.charAt(0) - 'a';
+        int row = 7 - (position.charAt(1) - '1');
+        int col = position.charAt(0) - 'a';
 
         return row * KEY_GENERATION_MULTIPLIER + col;
+    }
+
+    public void move(String position, Piece piece) {
+
+        int key = positionToKey(position);
+        map.put(key, piece);
+
     }
 }

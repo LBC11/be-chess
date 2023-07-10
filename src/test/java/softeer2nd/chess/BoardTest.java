@@ -30,7 +30,7 @@ public class BoardTest {
                         blankRank + blankRank + blankRank + blankRank +
                         appendNewLine("pppppppp") +
                         appendNewLine("rnbqkbnr"),
-                board.print());
+                board.showBoard());
     }
 
     @Test

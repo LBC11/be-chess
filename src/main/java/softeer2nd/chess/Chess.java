@@ -15,7 +15,7 @@ public class Chess {
         if(isStarted) return "이미 게임중입니다.";
 
         board.initialize();
-        System.out.println(board.print());
+        System.out.println(board.showBoard());
         isStarted = true;
         return "게임이 시작되었습니다.";
     }

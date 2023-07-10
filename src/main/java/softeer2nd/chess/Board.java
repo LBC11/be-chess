@@ -1,5 +1,9 @@
 package softeer2nd.chess;
 
+
+import softeer2nd.chess.Constants.Type;
+import softeer2nd.chess.Constants.Color;
+
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.utils.StringUtils;
 
@@ -22,6 +26,7 @@ public class Board {
 
     // 현재 보드 위에 있는 기물들
     private List<Piece> pieceList;
+    private List<Piece> nonPawnPieces;
 
     public Board() {
     }
@@ -34,6 +39,8 @@ public class Board {
         - row 가 1이면 white pawn, row 가 6이면 black pawn, 그 외는 empty pawn 으로 채운다.
      */
     public void initialize() {
+
+        nonPawnPiecesListInit();
 
         pieceList = new ArrayList<>();
 
@@ -50,69 +57,48 @@ public class Board {
         IntStream.range(0, ROW_LENGTH).forEach(this::addInitBlankPiecesToMap);
     }
 
+    private void nonPawnPiecesListInit() {
+        nonPawnPieces = new ArrayList<>();
+        nonPawnPieces.add(Piece.create(Type.ROOK, Color.NOCOLOR));
+        nonPawnPieces.add(Piece.create(Type.KNIGHT, Color.NOCOLOR));
+        nonPawnPieces.add(Piece.create(Type.BISHOP, Color.NOCOLOR));
+        nonPawnPieces.add(Piece.create(Type.QUEEN, Color.NOCOLOR));
+        nonPawnPieces.add(Piece.create(Type.KING, Color.NOCOLOR));
+        nonPawnPieces.add(Piece.create(Type.BISHOP, Color.NOCOLOR));
+        nonPawnPieces.add(Piece.create(Type.KNIGHT, Color.NOCOLOR));
+        nonPawnPieces.add(Piece.create(Type.ROOK, Color.NOCOLOR));
+
+        nonPawnPieces = Collections.unmodifiableList(nonPawnPieces);
+    }
+
     private void addInitPiecesToList() {
 
         // pawn
-        IntStream.range(0, COLUMN_LENGTH).forEach((i) -> pieceList.add(Piece.createWhitePawn()));
-        IntStream.range(0, COLUMN_LENGTH).forEach((i) -> pieceList.add(Piece.createBlackPawn()));
+        IntStream.range(0, COLUMN_LENGTH).forEach((i) -> pieceList.add(Piece.create(Type.PAWN, Color.WHITE)));
+        IntStream.range(0, COLUMN_LENGTH).forEach((i) -> pieceList.add(Piece.create(Type.PAWN, Color.BLACK)));
 
-        // pawn 을 제외한 기물
-        pieceList.add(Piece.createWhiteRook());
-        pieceList.add(Piece.createWhiteKnight());
-        pieceList.add(Piece.createWhiteBishop());
-        pieceList.add(Piece.createWhiteQueen());
-        pieceList.add(Piece.createWhiteKing());
-        pieceList.add(Piece.createWhiteBishop());
-        pieceList.add(Piece.createWhiteKnight());
-        pieceList.add(Piece.createWhiteRook());
+        IntStream.range(0, COLUMN_LENGTH).forEach((col) -> pieceList.add(Piece.create(nonPawnPieces.get(col).getType(), Color.WHITE)));
+        IntStream.range(0, COLUMN_LENGTH).forEach((col) -> pieceList.add(Piece.create(nonPawnPieces.get(col).getType(), Color.BLACK)));
 
-        pieceList.add(Piece.createBlackRook());
-        pieceList.add(Piece.createBlackKnight());
-        pieceList.add(Piece.createBlackBishop());
-        pieceList.add(Piece.createBlackQueen());
-        pieceList.add(Piece.createBlackKing());
-        pieceList.add(Piece.createBlackBishop());
-        pieceList.add(Piece.createBlackKnight());
-        pieceList.add(Piece.createBlackRook());
 
     }
 
     private void addInitPiecesToMap(int row) {
         if (row == WHITE_PAWN_INIT_ROW) {
-            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createWhitePawn()));
+            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(Type.PAWN, Color.WHITE)));
         } else if (row == WHITE_NON_PAWN_PIECES_INIT_ROW) {
-            int col = 0;
-
-            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createWhiteRook());
-            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createWhiteKnight());
-            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createWhiteBishop());
-            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createWhiteQueen());
-            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createWhiteKing());
-            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createWhiteBishop());
-            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createWhiteKnight());
-            map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createWhiteRook());
-
+            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(nonPawnPieces.get(col).getType(), Color.WHITE)));
         } else if (row == BLACK_PAWN_INIT_ROW) {
-            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createBlackPawn()));
+            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(Type.PAWN, Color.BLACK)));
         } else if (row == BLACK_NON_PAWN_PIECES_INIT_ROW) {
-            int col = 0;
-
-            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createBlackRook());
-            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createBlackKnight());
-            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createBlackBishop());
-            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createBlackQueen());
-            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createBlackKing());
-            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createBlackBishop());
-            map.put(row * KEY_GENERATION_MULTIPLIER + col++, Piece.createBlackKnight());
-            map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createBlackRook());
-
+            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(nonPawnPieces.get(col).getType(), Color.BLACK)));
         } else {
             addInitBlankPiecesToMap(row);
         }
     }
 
     private void addInitBlankPiecesToMap(int row) {
-        IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.createBlank()));
+        IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(Type.NO_PIECE, Color.NOCOLOR)));
     }
 
     public String showBoard() {
@@ -127,67 +113,13 @@ public class Board {
         return ret.toString();
     }
 
-    public int blackPawnCount() {
-
-        return (int) pieceList.stream().filter(piece -> piece.isBlack() && piece.isPawn()).count();
+    public int pieceCount(Type type, Color color) {
+        return (int) pieceList.stream()
+                .filter(piece -> piece.getType().equals(type) && piece.getColor().equals(color))
+                .count();
     }
 
-    public int whitePawnCount() {
-
-        return (int) pieceList.stream().filter(piece -> piece.isWhite() && piece.isPawn()).count();
-    }
-
-    public int blackKnightCount() {
-
-        return (int) pieceList.stream().filter(piece -> piece.isBlack() && piece.isKnight()).count();
-    }
-
-    public int whiteKnightCount() {
-
-        return (int) pieceList.stream().filter(piece -> piece.isWhite() && piece.isKnight()).count();
-    }
-
-    public int blackRookCount() {
-
-        return (int) pieceList.stream().filter(piece -> piece.isBlack() && piece.isRook()).count();
-    }
-
-    public int whiteRookCount() {
-
-        return (int) pieceList.stream().filter(piece -> piece.isWhite() && piece.isRook()).count();
-    }
-
-    public int blackBishopCount() {
-
-        return (int) pieceList.stream().filter(piece -> piece.isBlack() && piece.isBishop()).count();
-    }
-
-    public int whiteBishopCount() {
-
-        return (int) pieceList.stream().filter(piece -> piece.isWhite() && piece.isBishop()).count();
-    }
-
-    public int blackQueenCount() {
-
-        return (int) pieceList.stream().filter(piece -> piece.isBlack() && piece.isQueen()).count();
-    }
-
-    public int whiteQueenCount() {
-
-        return (int) pieceList.stream().filter(piece -> piece.isWhite() && piece.isQueen()).count();
-    }
-
-    public int blackKingCount() {
-
-        return (int) pieceList.stream().filter(piece -> piece.isBlack() && piece.isKing()).count();
-    }
-
-    public int whiteKingCount() {
-
-        return (int) pieceList.stream().filter(piece -> piece.isWhite() && piece.isKing()).count();
-    }
-
-    public int pieceCount() {
+    public int allPiecesCount() {
         return pieceList.size();
     }
 

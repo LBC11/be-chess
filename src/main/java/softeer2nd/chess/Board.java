@@ -16,7 +16,6 @@ public class Board {
     private final int WHITE_PAWN_INIT_ROW = 6;
     private final int BLACK_NON_PAWN_PIECES_INIT_ROW = 0;
     private final int BLACK_PAWN_INIT_ROW = 1;
-    private List<Piece> nonPawnPieces;
 
     // key: row_idx * 10 + col_idx value: Pawn 객체
     private Map<Integer, Piece> map;
@@ -35,8 +34,6 @@ public class Board {
         - row 가 1이면 white pawn, row 가 6이면 black pawn, 그 외는 empty pawn 으로 채운다.
      */
     public void initialize() {
-
-        nonPawnPiecesListInit();
 
         pieceList = new ArrayList<>();
 
@@ -71,20 +68,6 @@ public class Board {
         pieceList.add(Piece.createBlackKnight());
         pieceList.add(Piece.createBlackRook());
 
-    }
-
-    private void nonPawnPiecesListInit() {
-        nonPawnPieces = new ArrayList<>();
-        nonPawnPieces.add(Piece.createWhiteRook());
-        nonPawnPieces.add(Piece.createWhiteKnight());
-        nonPawnPieces.add(Piece.createWhiteBishop());
-        nonPawnPieces.add(Piece.createWhiteQueen());
-        nonPawnPieces.add(Piece.createWhiteKing());
-        nonPawnPieces.add(Piece.createWhiteBishop());
-        nonPawnPieces.add(Piece.createWhiteKnight());
-        nonPawnPieces.add(Piece.createWhiteRook());
-
-        nonPawnPieces = Collections.unmodifiableList(nonPawnPieces);
     }
 
     private void addInitPiecesToMap(int row) {

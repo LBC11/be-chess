@@ -83,7 +83,7 @@ public class Board {
 
     }
 
-    private void addInitPiecesToMap(int row) {
+    private void addInitPiecesToMap(final int row) {
         if (row == WHITE_PAWN_INIT_ROW) {
             IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(Type.PAWN, Color.WHITE)));
         } else if (row == WHITE_NON_PAWN_PIECES_INIT_ROW) {
@@ -97,7 +97,7 @@ public class Board {
         }
     }
 
-    private void addInitBlankPiecesToMap(int row) {
+    private void addInitBlankPiecesToMap(final int row) {
         IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(Type.NO_PIECE, Color.NOCOLOR)));
     }
 
@@ -113,7 +113,7 @@ public class Board {
         return ret.toString();
     }
 
-    public int pieceCount(Type type, Color color) {
+    public int pieceCount(final Type type, final Color color) {
         return (int) pieceList.stream()
                 .filter(piece -> piece.getType().equals(type) && piece.getColor().equals(color))
                 .count();
@@ -123,14 +123,14 @@ public class Board {
         return pieceList.size();
     }
 
-    public Piece findPiece(String position) {
+    public Piece findPiece(final String position) {
 
         int key = positionToKey(position);
 
         return map.get(key);
     }
 
-    private int positionToKey(String position) {
+    private int positionToKey(final String position) {
 
         int row = 7 - (position.charAt(1) - '1');
         int col = position.charAt(0) - 'a';
@@ -138,7 +138,7 @@ public class Board {
         return row * KEY_GENERATION_MULTIPLIER + col;
     }
 
-    public void move(String position, Piece piece) {
+    public void move(final String position, final Piece piece) {
 
         int key = positionToKey(position);
         map.put(key, piece);

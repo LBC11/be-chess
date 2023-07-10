@@ -24,7 +24,7 @@ public class Piece {
         return this.color == Color.BLACK ? StringUtils.Uppercase(representation) : representation;
     }
 
-    public static Piece create(Type type, Color color) {
+    public static Piece create(final Type type, final Color color) {
         return new Piece(type, color);
     }
 

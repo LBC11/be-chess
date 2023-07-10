@@ -2,6 +2,8 @@ package softeer2nd.chess.pieces;
 
 import softeer2nd.utils.StringUtils;
 
+import java.util.Objects;
+
 public class Piece {
 
     public enum Color {
@@ -45,7 +47,7 @@ public class Piece {
     private static Piece createWhite(Type type) {
         return new Piece(type, Color.WHITE);
     }
-    
+
     private static Piece createBlack(Type type) {
         return new Piece(type, Color.BLACK);
     }
@@ -53,6 +55,7 @@ public class Piece {
     public static Piece createWhitePawn() {
         return createWhite(Type.PAWN);
     }
+
     public static Piece createBlackPawn() {
         return createBlack(Type.PAWN);
     }
@@ -136,5 +139,19 @@ public class Piece {
 
     public boolean isBlank() {
         return Type.NO_PIECE.equals(this.type);
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Piece piece = (Piece) o;
+        return type == piece.type && color == piece.color;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(type, color);
     }
 }

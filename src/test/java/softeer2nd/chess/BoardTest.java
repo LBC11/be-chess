@@ -72,9 +72,35 @@ public class BoardTest {
 
         String position = "b5";
         Piece piece = Piece.create(Type.ROOK, Color.BLACK);
-        board.move(position, piece);
+        addPiece(position, piece);
 
         assertEquals(piece, board.findPiece(position));
         System.out.println(board.showBoard());
+    }
+
+    @Test
+    @DisplayName("보드판의 점수가 정상적으로 계산되어야 한다.")
+    public void caculcatePoint() throws Exception {
+        board.initializeEmpty();
+
+        addPiece("b6", Piece.create(Type.PAWN, Color.BLACK));
+        addPiece("e6", Piece.create(Type.QUEEN, Color.BLACK));
+        addPiece("b8", Piece.create(Type.KING, Color.BLACK));
+        addPiece("c8", Piece.create(Type.ROOK, Color.BLACK));
+
+        addPiece("f2", Piece.create(Type.PAWN, Color.WHITE));
+        addPiece("g2", Piece.create(Type.PAWN, Color.WHITE));
+        addPiece("e1", Piece.create(Type.ROOK, Color.WHITE));
+        addPiece("f1", Piece.create(Type.KING, Color.WHITE));
+
+        // 0.01은 오차범위를 의미한다.
+        assertEquals(15.0, board.caculcatePoint(Color.BLACK), 0.01);
+        assertEquals(7.0, board.caculcatePoint(Color.WHITE), 0.01);
+
+        System.out.println(board.showBoard());
+    }
+
+    private void addPiece(String position, Piece piece) {
+        board.move(position, piece);
     }
 }

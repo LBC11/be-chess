@@ -142,42 +142,52 @@ public class Board {
 
         return (int) pieceList.stream().filter(piece -> piece.isWhite() && piece.isPawn()).count();
     }
+
     public int blackKnightCount() {
 
         return (int) pieceList.stream().filter(piece -> piece.isBlack() && piece.isKnight()).count();
     }
+
     public int whiteKnightCount() {
 
         return (int) pieceList.stream().filter(piece -> piece.isWhite() && piece.isKnight()).count();
     }
+
     public int blackRookCount() {
 
         return (int) pieceList.stream().filter(piece -> piece.isBlack() && piece.isRook()).count();
     }
+
     public int whiteRookCount() {
 
         return (int) pieceList.stream().filter(piece -> piece.isWhite() && piece.isRook()).count();
     }
+
     public int blackBishopCount() {
 
         return (int) pieceList.stream().filter(piece -> piece.isBlack() && piece.isBishop()).count();
     }
+
     public int whiteBishopCount() {
 
         return (int) pieceList.stream().filter(piece -> piece.isWhite() && piece.isBishop()).count();
     }
+
     public int blackQueenCount() {
 
         return (int) pieceList.stream().filter(piece -> piece.isBlack() && piece.isQueen()).count();
     }
+
     public int whiteQueenCount() {
 
         return (int) pieceList.stream().filter(piece -> piece.isWhite() && piece.isQueen()).count();
     }
+
     public int blackKingCount() {
 
         return (int) pieceList.stream().filter(piece -> piece.isBlack() && piece.isKing()).count();
     }
+
     public int whiteKingCount() {
 
         return (int) pieceList.stream().filter(piece -> piece.isWhite() && piece.isKing()).count();
@@ -185,5 +195,20 @@ public class Board {
 
     public int pieceCount() {
         return pieceList.size();
+    }
+
+    public Piece findPiece(String loc) {
+
+        int key = locToKey(loc);
+
+        return map.get(key);
+    }
+
+    private int locToKey(String loc) {
+
+        int row = 7 - (loc.charAt(1) - '1');
+        int col = loc.charAt(0) - 'a';
+
+        return row * KEY_GENERATION_MULTIPLIER + col;
     }
 }

@@ -98,6 +98,11 @@ public class BoardTest {
         assertEquals(7.0, board.calculatePoint(Color.WHITE), 0.01);
 
         System.out.println(board.showBoard());
+
+        // Pawn 이 같은 세로줄에 2개 이상 있는 경우
+        addPiece("b5", Piece.create(Type.PAWN, Color.BLACK));
+        assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
+
     }
 
     private void addPiece(String position, Piece piece) {

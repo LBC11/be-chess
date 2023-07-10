@@ -80,7 +80,7 @@ public class BoardTest {
 
     @Test
     @DisplayName("보드판의 점수가 정상적으로 계산되어야 한다.")
-    public void caculcatePoint() throws Exception {
+    public void calculatePoint() throws Exception {
         board.initializeEmpty();
 
         addPiece("b6", Piece.create(Type.PAWN, Color.BLACK));
@@ -94,8 +94,8 @@ public class BoardTest {
         addPiece("f1", Piece.create(Type.KING, Color.WHITE));
 
         // 0.01은 오차범위를 의미한다.
-        assertEquals(15.0, board.caculcatePoint(Color.BLACK), 0.01);
-        assertEquals(7.0, board.caculcatePoint(Color.WHITE), 0.01);
+        assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
+        assertEquals(7.0, board.calculatePoint(Color.WHITE), 0.01);
 
         System.out.println(board.showBoard());
     }

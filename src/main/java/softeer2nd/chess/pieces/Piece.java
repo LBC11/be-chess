@@ -36,6 +36,14 @@ public class Piece {
         return this.type;
     }
 
+    public boolean isSameColor(final Color color) {
+        return this.color.equals(color);
+    }
+
+    public boolean isPawn(final Piece piece) {
+        return this.type.equals(Type.PAWN);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

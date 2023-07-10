@@ -142,6 +142,41 @@ public class Board {
 
         int key = positionToKey(position);
         map.put(key, piece);
+    }
 
+    public double calculatePoint(final Color color) {
+
+        return IntStream.range(0, COLUMN_LENGTH)
+                .mapToDouble(col -> calculateRowPoint(col, color)).sum();
+    }
+
+    /*
+    각 col 의 piece 를 순회하면서 점수를 계산한다.
+    만약, 한 col 에 두 개 이상의 pawn 이 있다면 pawn 의 점수를 반으로 줄인다.
+     */
+    private double calculateRowPoint(final int col, final Color color) {
+
+        double nonPawnPointSum = 0.0;
+        double pawnPointSum = 0.0;
+
+        for(int row = 0; row < 8; row++) {
+
+            int key = row * KEY_GENERATION_MULTIPLIER + col;
+
+            Piece piece = map.get(key);
+
+            if(!piece.isSameColor(color)) continue;
+
+            if(piece.isPawn(piece)) {
+
+                pawnPointSum += piece.getType().getDefaultPoint();
+            }
+
+            else {
+                nonPawnPointSum += piece.getType().getDefaultPoint();
+            }
+        }
+
+        return pawnPointSum > 1 ? nonPawnPointSum + pawnPointSum / 2 : nonPawnPointSum + pawnPointSum;
     }
 }

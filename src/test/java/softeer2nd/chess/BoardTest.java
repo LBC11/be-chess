@@ -12,6 +12,9 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.pieces.Piece;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BoardTest {
 
     Board board;
@@ -75,6 +78,7 @@ public class BoardTest {
         addPiece(position, piece);
 
         assertEquals(piece, board.findPiece(position));
+        assertEquals(1, board.allPiecesCount());
         System.out.println(board.showBoard());
     }
 
@@ -107,5 +111,45 @@ public class BoardTest {
 
     private void addPiece(String position, Piece piece) {
         board.move(position, piece);
+    }
+
+    @Test
+    @DisplayName("보드판의 기물이 정상적으로 정렬되어야 한다.")
+    public void sortPieceList() {
+        board.initializeEmpty();
+
+        addPiece("b6", Piece.create(Type.PAWN, Color.BLACK));
+        addPiece("e6", Piece.create(Type.QUEEN, Color.BLACK));
+        addPiece("b8", Piece.create(Type.KING, Color.BLACK));
+        addPiece("c8", Piece.create(Type.ROOK, Color.BLACK));
+
+        addPiece("f2", Piece.create(Type.PAWN, Color.WHITE));
+        addPiece("g2", Piece.create(Type.PAWN, Color.WHITE));
+        addPiece("e1", Piece.create(Type.ROOK, Color.WHITE));
+        addPiece("f1", Piece.create(Type.KING, Color.WHITE));
+
+        List<Piece> pieceList = new ArrayList<>();
+        pieceList.add(Piece.create(Type.KING, Color.BLACK));
+        pieceList.add(Piece.create(Type.PAWN, Color.BLACK));
+        pieceList.add(Piece.create(Type.ROOK, Color.BLACK));
+        pieceList.add(Piece.create(Type.QUEEN, Color.BLACK));
+
+        assertEquals(pieceList, board.SortByPointAscending(Color.BLACK));
+
+        pieceList.clear();
+        pieceList.add(Piece.create(Type.KING, Color.WHITE));
+        pieceList.add(Piece.create(Type.PAWN, Color.WHITE));
+        pieceList.add(Piece.create(Type.PAWN, Color.WHITE));
+        pieceList.add(Piece.create(Type.ROOK, Color.WHITE));
+
+        assertEquals(true, pieceList.equals(board.SortByPointAscending(Color.WHITE)));
+
+        pieceList.clear();
+        pieceList.add(Piece.create(Type.ROOK, Color.WHITE));
+        pieceList.add(Piece.create(Type.PAWN, Color.WHITE));
+        pieceList.add(Piece.create(Type.PAWN, Color.WHITE));
+        pieceList.add(Piece.create(Type.KING, Color.WHITE));
+
+        assertEquals(true, pieceList.equals(board.SortByPointDescending(Color.WHITE)));
     }
 }

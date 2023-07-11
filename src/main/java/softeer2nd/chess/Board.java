@@ -3,11 +3,13 @@ package softeer2nd.chess;
 
 import softeer2nd.chess.Constants.Type;
 import softeer2nd.chess.Constants.Color;
+import softeer2nd.chess.Constants.SortOrder;
 
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.utils.StringUtils;
 
 import java.util.*;
+import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Board {
@@ -142,6 +144,7 @@ public class Board {
 
         int key = positionToKey(position);
         map.put(key, piece);
+        pieceList.add(piece);
     }
 
     public double calculatePoint(final Color color) {
@@ -167,7 +170,7 @@ public class Board {
 
             if(!piece.isSameColor(color)) continue;
 
-            if(piece.isPawn(piece)) {
+            if(piece.isPawn()) {
 
                 pawnPointSum += piece.getType().getDefaultPoint();
             }
@@ -178,5 +181,20 @@ public class Board {
         }
 
         return pawnPointSum > 1 ? nonPawnPointSum + pawnPointSum / 2 : nonPawnPointSum + pawnPointSum;
+    }
+
+    public List<Piece> SortByPointAscending(final Color color) {
+        return sortByPoint(color, SortOrder.ASCENDING);
+    }
+
+    public List<Piece> SortByPointDescending(final Color color) {
+        return sortByPoint(color, SortOrder.DESCENDING);
+    }
+
+    public List<Piece> sortByPoint(final Color color, final SortOrder sortOrder) {
+        return pieceList.stream()
+                .filter(piece -> piece.getColor().equals(color))
+                .sorted(new Piece.PieceComparator(sortOrder))
+                .collect(Collectors.toList());
     }
 }

@@ -27,7 +27,6 @@ public class Board {
     private Map<Integer, Piece> map;
 
     // 현재 보드 위에 있는 기물들
-    private List<Piece> pieceList;
     private List<Piece> nonPawnPieces;
 
     public Board() {
@@ -44,17 +43,11 @@ public class Board {
 
         nonPawnPiecesListInit();
 
-        pieceList = new ArrayList<>();
-
-        addInitPiecesToList();
-
         map = new HashMap<>();
         IntStream.range(0, ROW_LENGTH).forEach(this::addInitPiecesToMap);
     }
 
     public void initializeEmpty() {
-        pieceList = new ArrayList<>();
-
         map = new HashMap<>();
         IntStream.range(0, ROW_LENGTH).forEach(this::addInitBlankPiecesToMap);
     }
@@ -71,18 +64,6 @@ public class Board {
         nonPawnPieces.add(Piece.create(Type.ROOK, Color.NOCOLOR));
 
         nonPawnPieces = Collections.unmodifiableList(nonPawnPieces);
-    }
-
-    private void addInitPiecesToList() {
-
-        // pawn
-        IntStream.range(0, COLUMN_LENGTH).forEach((i) -> pieceList.add(Piece.create(Type.PAWN, Color.WHITE)));
-        IntStream.range(0, COLUMN_LENGTH).forEach((i) -> pieceList.add(Piece.create(Type.PAWN, Color.BLACK)));
-
-        IntStream.range(0, COLUMN_LENGTH).forEach((col) -> pieceList.add(Piece.create(nonPawnPieces.get(col).getType(), Color.WHITE)));
-        IntStream.range(0, COLUMN_LENGTH).forEach((col) -> pieceList.add(Piece.create(nonPawnPieces.get(col).getType(), Color.BLACK)));
-
-
     }
 
     private void addInitPiecesToMap(final int row) {
@@ -116,13 +97,15 @@ public class Board {
     }
 
     public int pieceCount(final Type type, final Color color) {
-        return (int) pieceList.stream()
+        return (int) map.values().stream()
                 .filter(piece -> piece.getType().equals(type) && piece.getColor().equals(color))
                 .count();
     }
 
     public int allPiecesCount() {
-        return pieceList.size();
+        return (int) map.values().stream()
+                .filter(piece -> !piece.getType().equals(Type.NO_PIECE))
+                .count();
     }
 
     public Piece findPiece(final String position) {
@@ -144,7 +127,6 @@ public class Board {
 
         int key = positionToKey(position);
         map.put(key, piece);
-        pieceList.add(piece);
     }
 
     public double calculatePoint(final Color color) {
@@ -192,7 +174,8 @@ public class Board {
     }
 
     public List<Piece> sortByPoint(final Color color, final SortOrder sortOrder) {
-        return pieceList.stream()
+        return map.values().stream()
+                .filter(piece -> !piece.getType().equals(Type.NO_PIECE))
                 .filter(piece -> piece.getColor().equals(color))
                 .sorted(new Piece.PieceComparator(sortOrder))
                 .collect(Collectors.toList());

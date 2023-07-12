@@ -3,10 +3,14 @@ package softeer2nd.chess;
 public class Chess {
 
     private Board board;
+    private View view;
     private boolean isStarted;
 
     public void init() {
         board = new Board();
+        board.initialize();
+        view = new View(board);
+
         isStarted = false;
     }
 
@@ -14,8 +18,7 @@ public class Chess {
 
         if(isStarted) return "이미 게임중입니다.";
 
-        board.initialize();
-        System.out.println(board.showBoard());
+        System.out.println(view.showBoard());
         isStarted = true;
         return "게임이 시작되었습니다.";
     }

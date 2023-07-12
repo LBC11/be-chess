@@ -30,16 +30,8 @@ public class Piece {
         return new Piece(type, color);
     }
 
-    public Color getColor() {
-        return this.color;
-    }
-
-    public Type getType() {
-        return this.type;
-    }
-
     public double getDefaultPoint() {
-        return this.getType().getDefaultPoint();
+        return this.type.getDefaultPoint();
     }
 
     public boolean isSameColor(final Color color) {
@@ -65,7 +57,7 @@ public class Piece {
         @Override
         public int compare(final Piece o1, final Piece o2) {
 
-            int result = (int) (o1.getType().getDefaultPoint() - o2.getType().getDefaultPoint());
+            int result = (int) (o1.type.getDefaultPoint() - o2.type.getDefaultPoint());
 
             return sortOrder == SortOrder.ASCENDING ? result : -result;
         }

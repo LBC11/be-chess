@@ -38,12 +38,20 @@ public class Piece {
         return this.type;
     }
 
+    public double getDefaultPoint() {
+        return this.getType().getDefaultPoint();
+    }
+
     public boolean isSameColor(final Color color) {
         return this.color.equals(color);
     }
 
-    public boolean isPawn() {
-        return this.type.equals(Type.PAWN);
+    public boolean isSameType(final Type type) {
+        return this.type.equals(type);
+    }
+
+    public boolean compare(final Type type, final Color color) {
+        return this.isSameType(type) && this.isSameColor(color);
     }
 
     public static class PieceComparator implements Comparator<Piece> {
@@ -55,7 +63,7 @@ public class Piece {
         }
 
         @Override
-        public int compare(Piece o1, Piece o2) {
+        public int compare(final Piece o1, final Piece o2) {
 
             int result = (int) (o1.getType().getDefaultPoint() - o2.getType().getDefaultPoint());
 
@@ -64,7 +72,7 @@ public class Piece {
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(final Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Piece piece = (Piece) o;

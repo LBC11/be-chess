@@ -35,4 +35,21 @@ public class Constants {
     }
 
     public enum SortOrder {ASCENDING, DESCENDING}
+
+    public enum BoardConfig {
+
+        COLUMN_LENGTH(8),
+        ROW_LENGTH(8),
+        KEY_GENERATION_MULTIPLIER(10);
+
+        private final int value;
+
+        BoardConfig(int value) {
+            this.value = value;
+        }
+
+        public int getValue() {
+            return this.value;
+        }
+    }
 }

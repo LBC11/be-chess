@@ -11,14 +11,14 @@ class ChessTest {
     Chess chess;
 
     @BeforeEach
-    public void init() {
+    void init() {
         chess = new Chess();
         chess.init();
     }
 
     @Test
     @DisplayName("게임이 정상적으로 실행되어야 한다.")
-    public void start() {
+    void start() {
 
         assertEquals(chess.start(), "게임이 시작되었습니다.");
         assertEquals(chess.start(), "이미 게임중입니다.");
@@ -26,7 +26,7 @@ class ChessTest {
 
     @Test
     @DisplayName("게임이 정상적으로 종료되어야 한다.")
-    public void end() {
+    void end() {
 
         assertEquals(chess.end(), "게임를 하고 있지 않습니다.");
         assertEquals(chess.start(), "게임이 시작되었습니다.");

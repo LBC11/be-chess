@@ -11,7 +11,7 @@ class PieceTest {
 
     @Test
     @DisplayName("기물의 색깔이 정상적으로 검증되어야 한다.")
-    public void verifyColor() {
+    void verifyColor() {
 
         Piece whitePawn = Piece.create(Type.PAWN, Color.WHITE);
         Piece BlackPawn = Piece.create(Type.PAWN, Color.BLACK);
@@ -24,7 +24,7 @@ class PieceTest {
 
     @Test
     @DisplayName("기물의 타입이 정상적으로 검증되어야 한다.")
-    public void verifyType() {
+    void verifyType() {
         assertEquals(true, Piece.create(Type.PAWN, Color.WHITE).isSameType(Type.PAWN));
         assertEquals(true, Piece.create(Type.KNIGHT, Color.WHITE).isSameType(Type.KNIGHT));
         assertEquals(true, Piece.create(Type.ROOK, Color.WHITE).isSameType(Type.ROOK));
@@ -36,7 +36,7 @@ class PieceTest {
 
     @Test
     @DisplayName("기물이 정상적으로 비교되어야 한다.")
-    public void compare() {
+    void compare() {
         assertEquals(true, Piece.create(Type.PAWN, Color.WHITE).compare(Type.PAWN, Color.WHITE));
         assertEquals(true, Piece.create(Type.KNIGHT, Color.BLACK).compare(Type.KNIGHT, Color.BLACK));
         assertEquals(true, Piece.create(Type.NO_PIECE, Color.NOCOLOR).compare(Type.NO_PIECE, Color.NOCOLOR));
@@ -44,7 +44,7 @@ class PieceTest {
 
     @Test
     @DisplayName("색깔에 따라 대문자인지 소문자인지 정확하게 표현되어야 한다.")
-    public void getRepresentationPerPiece() throws Exception {
+    void getRepresentationPerPiece() throws Exception {
 
         Piece whitePawn = Piece.create(Type.PAWN, Color.WHITE);
         Piece blackPawn = Piece.create(Type.PAWN, Color.BLACK);
@@ -55,7 +55,7 @@ class PieceTest {
 
     @Test
     @DisplayName("기물의 기본점수가 정확하게 표현되어야 한다.")
-    public void getDefaultPoint() {
+    void getDefaultPoint() {
 
         assertEquals(1.0, Piece.create(Type.PAWN, Color.WHITE).getDefaultPoint());
         assertEquals(2.5, Piece.create(Type.KNIGHT, Color.WHITE).getDefaultPoint());

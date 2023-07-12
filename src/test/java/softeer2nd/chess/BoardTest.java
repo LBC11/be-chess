@@ -15,7 +15,7 @@ import softeer2nd.chess.pieces.Piece;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BoardTest {
+class BoardTest {
 
     Board board;
 
@@ -28,7 +28,7 @@ public class BoardTest {
 
     @Test
     @DisplayName("board 가 정상적으로 생성되어야 한다.")
-    public void create() throws Exception {
+    void create() throws Exception {
         assertEquals(32, board.allPiecesCount());
         String blankRank = appendNewLine("........");
         assertEquals(
@@ -42,7 +42,7 @@ public class BoardTest {
 
     @Test
     @DisplayName("board의 piece 개수가 정상적으로 반환된다.")
-    public void pieceTypeColorCount() {
+    void pieceTypeColorCount() {
 
         assertEquals(8, board.pieceCount(Type.PAWN, Color.BLACK));
         assertEquals(8, board.pieceCount(Type.PAWN, Color.WHITE));
@@ -60,7 +60,7 @@ public class BoardTest {
 
     @Test
     @DisplayName("위치에 따른 기물이 정상적으로 반환된다.")
-    public void findPiece() throws Exception {
+    void findPiece() throws Exception {
 
         assertEquals(Piece.create(Type.ROOK, Color.BLACK), board.findPiece("a8"));
         assertEquals(Piece.create(Type.ROOK, Color.BLACK), board.findPiece("h8"));
@@ -70,7 +70,7 @@ public class BoardTest {
 
     @Test
     @DisplayName("기물의 이동이 정상적으로 실행되어야 한다.")
-    public void move() throws Exception {
+    void move() throws Exception {
         board.initializeEmpty();
 
         String position = "b5";
@@ -84,7 +84,7 @@ public class BoardTest {
 
     @Test
     @DisplayName("보드판의 점수가 정상적으로 계산되어야 한다.")
-    public void calculatePoint() throws Exception {
+    void calculatePoint() throws Exception {
         board.initializeEmpty();
 
         addPiece("b6", Piece.create(Type.PAWN, Color.BLACK));
@@ -115,7 +115,7 @@ public class BoardTest {
 
     @Test
     @DisplayName("보드판의 기물이 정상적으로 정렬되어야 한다.")
-    public void sortPieceList() {
+    void sortPieceList() {
         board.initializeEmpty();
 
         addPiece("b6", Piece.create(Type.PAWN, Color.BLACK));

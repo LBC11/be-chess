@@ -102,25 +102,14 @@ public class Board {
                 .count();
     }
 
-    public Piece findPiece(final String position) {
+    public Piece findPiece(final int loc) {
 
-        int key = positionToKey(position);
-
-        return map.get(key);
+        return map.get(loc);
     }
 
-    private int positionToKey(final String position) {
+    public void move(final int loc, final Piece piece) {
 
-        int row = ROW_LENGTH - (position.charAt(1) - '0');
-        int col = position.charAt(0) - 'a';
-
-        return row * KEY_GENERATION_MULTIPLIER + col;
-    }
-
-    public void move(final String position, final Piece piece) {
-
-        int key = positionToKey(position);
-        map.put(key, piece);
+        map.put(loc, piece);
     }
 
     public double calculatePoint(final Color color) {

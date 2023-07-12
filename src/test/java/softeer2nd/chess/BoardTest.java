@@ -62,10 +62,10 @@ class BoardTest {
     @DisplayName("위치에 따른 기물이 정상적으로 반환된다.")
     void findPiece() throws Exception {
 
-        assertEquals(Piece.create(Type.ROOK, Color.BLACK), board.findPiece("a8"));
-        assertEquals(Piece.create(Type.ROOK, Color.BLACK), board.findPiece("h8"));
-        assertEquals(Piece.create(Type.ROOK, Color.WHITE), board.findPiece("a1"));
-        assertEquals(Piece.create(Type.ROOK, Color.WHITE), board.findPiece("h1"));
+        assertEquals(Piece.create(Type.ROOK, Color.BLACK), board.findPiece(0));
+        assertEquals(Piece.create(Type.ROOK, Color.BLACK), board.findPiece(7));
+        assertEquals(Piece.create(Type.ROOK, Color.WHITE), board.findPiece(70));
+        assertEquals(Piece.create(Type.ROOK, Color.WHITE), board.findPiece(77));
     }
 
     @Test
@@ -73,11 +73,11 @@ class BoardTest {
     void move() throws Exception {
         board.initializeEmpty();
 
-        String position = "b5";
+        int loc = 31;
         Piece piece = Piece.create(Type.ROOK, Color.BLACK);
-        addPiece(position, piece);
+        addPiece(loc, piece);
 
-        assertEquals(piece, board.findPiece(position));
+        assertEquals(piece, board.findPiece(loc));
         assertEquals(1, board.allPiecesCount());
         System.out.println(board.showBoard());
     }
@@ -87,15 +87,15 @@ class BoardTest {
     void calculatePoint() throws Exception {
         board.initializeEmpty();
 
-        addPiece("b6", Piece.create(Type.PAWN, Color.BLACK));
-        addPiece("e6", Piece.create(Type.QUEEN, Color.BLACK));
-        addPiece("b8", Piece.create(Type.KING, Color.BLACK));
-        addPiece("c8", Piece.create(Type.ROOK, Color.BLACK));
+        addPiece(21, Piece.create(Type.PAWN, Color.BLACK));
+        addPiece(24, Piece.create(Type.QUEEN, Color.BLACK));
+        addPiece(1, Piece.create(Type.KING, Color.BLACK));
+        addPiece(2, Piece.create(Type.ROOK, Color.BLACK));
 
-        addPiece("f2", Piece.create(Type.PAWN, Color.WHITE));
-        addPiece("g2", Piece.create(Type.PAWN, Color.WHITE));
-        addPiece("e1", Piece.create(Type.ROOK, Color.WHITE));
-        addPiece("f1", Piece.create(Type.KING, Color.WHITE));
+        addPiece(65, Piece.create(Type.PAWN, Color.WHITE));
+        addPiece(66, Piece.create(Type.PAWN, Color.WHITE));
+        addPiece(74, Piece.create(Type.ROOK, Color.WHITE));
+        addPiece(75, Piece.create(Type.KING, Color.WHITE));
 
         // 0.01은 오차범위를 의미한다.
         assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
@@ -104,13 +104,13 @@ class BoardTest {
         System.out.println(board.showBoard());
 
         // Pawn 이 같은 세로줄에 2개 이상 있는 경우
-        addPiece("b5", Piece.create(Type.PAWN, Color.BLACK));
+        addPiece(31, Piece.create(Type.PAWN, Color.BLACK));
         assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
 
     }
 
-    private void addPiece(String position, Piece piece) {
-        board.move(position, piece);
+    private void addPiece(int loc, Piece piece) {
+        board.move(loc, piece);
     }
 
     @Test
@@ -118,15 +118,15 @@ class BoardTest {
     void sortPieceList() {
         board.initializeEmpty();
 
-        addPiece("b6", Piece.create(Type.PAWN, Color.BLACK));
-        addPiece("e6", Piece.create(Type.QUEEN, Color.BLACK));
-        addPiece("b8", Piece.create(Type.KING, Color.BLACK));
-        addPiece("c8", Piece.create(Type.ROOK, Color.BLACK));
+        addPiece(21, Piece.create(Type.PAWN, Color.BLACK));
+        addPiece(24, Piece.create(Type.QUEEN, Color.BLACK));
+        addPiece(1, Piece.create(Type.KING, Color.BLACK));
+        addPiece(2, Piece.create(Type.ROOK, Color.BLACK));
 
-        addPiece("f2", Piece.create(Type.PAWN, Color.WHITE));
-        addPiece("g2", Piece.create(Type.PAWN, Color.WHITE));
-        addPiece("e1", Piece.create(Type.ROOK, Color.WHITE));
-        addPiece("f1", Piece.create(Type.KING, Color.WHITE));
+        addPiece(65, Piece.create(Type.PAWN, Color.WHITE));
+        addPiece(66, Piece.create(Type.PAWN, Color.WHITE));
+        addPiece(74, Piece.create(Type.ROOK, Color.WHITE));
+        addPiece(75, Piece.create(Type.KING, Color.WHITE));
 
         List<Piece> pieceList = new ArrayList<>();
         pieceList.add(Piece.create(Type.KING, Color.BLACK));

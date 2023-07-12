@@ -6,15 +6,15 @@ public class StringUtils {
 
     private StringUtils() {}
 
-    public static String appendNewLine(String s) {
+    public static String appendNewLine(final String s) {
         return s + NEWLINE;
     }
 
-    public static StringBuilder appendNewLine(StringBuilder sb) {
+    public static StringBuilder appendNewLine(final StringBuilder sb) {
         return sb.append(NEWLINE);
     }
 
-    public static char Uppercase(char c) {
+    public static char Uppercase(final char c) {
         return (char) (c - ('a' - 'A'));
     }
 }

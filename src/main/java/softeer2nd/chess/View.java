@@ -16,15 +16,7 @@ public class View {
         this.board = board;
     }
 
-    public String showBoard() {
-        StringBuilder ret = new StringBuilder();
-
-        IntStream.range(0, ROW_LENGTH).forEach(row -> {
-            IntStream.range(0, COLUMN_LENGTH).forEach(col ->
-                    ret.append(board.findPiece(row * KEY_GENERATION_MULTIPLIER + col).getRepresentation()));
-            StringUtils.appendNewLine(ret);
-        });
-
-        return ret.toString();
+    public void showBoard() {
+        System.out.println(board.showBoard());
     }
 }

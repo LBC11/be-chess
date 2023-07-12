@@ -22,13 +22,6 @@ class ViewTest {
     @Test
     @DisplayName("보드판이 정상적으로 반환되어야 한다.")
     void showBoard() throws Exception {
-        String blankRank = appendNewLine("........");
-        assertEquals(
-                appendNewLine("RNBQKBNR") +
-                        appendNewLine("PPPPPPPP") +
-                        blankRank + blankRank + blankRank + blankRank +
-                        appendNewLine("pppppppp") +
-                        appendNewLine("rnbqkbnr"),
-                view.showBoard());
+        view.showBoard();
     }
 }

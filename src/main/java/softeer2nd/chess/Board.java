@@ -7,6 +7,7 @@ import softeer2nd.chess.Constants.SortOrder;
 import softeer2nd.chess.Constants.BoardConfig;
 
 import softeer2nd.chess.pieces.Piece;
+import softeer2nd.utils.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -75,7 +76,18 @@ public class Board {
         map.put(row * KEY_GENERATION_MULTIPLIER + SECOND_BISHOP_INIT_COL, Piece.create(Type.BISHOP, color));
         map.put(row * KEY_GENERATION_MULTIPLIER + SECOND_KNIGHT_INIT_COL, Piece.create(Type.KNIGHT, color));
         map.put(row * KEY_GENERATION_MULTIPLIER + SECOND_ROOK_INIT_COL, Piece.create(Type.ROOK, color));
+    }
 
+    public String showBoard() {
+        StringBuilder ret = new StringBuilder();
+
+        IntStream.range(0, ROW_LENGTH).forEach(row -> {
+            IntStream.range(0, COLUMN_LENGTH).forEach(col ->
+                    ret.append(map.get(row * KEY_GENERATION_MULTIPLIER + col).getRepresentation()));
+            StringUtils.appendNewLine(ret);
+        });
+
+        return ret.toString();
     }
 
     public int pieceCount(final Type type, final Color color) {

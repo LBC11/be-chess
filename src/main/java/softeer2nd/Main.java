@@ -15,6 +15,7 @@ public class Main {
         chess = new Chess();
         chess.init();
 
+        // 명령어 입력 받는 이 부분 chess class 안으로 넣어버리자
         // 2중 반복문을 한번에 종료하기 위한 라벨
         outer:
         while(true) {

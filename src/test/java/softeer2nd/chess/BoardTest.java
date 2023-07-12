@@ -26,6 +26,20 @@ class BoardTest {
         board.initialize();
     }
 
+    @Test
+    @DisplayName("보드판이 정상적으로 생성되어야 한다.")
+    void create() throws Exception {
+        assertEquals(32, board.allPiecesCount());
+        String blankRank = appendNewLine("........");
+        assertEquals(
+                appendNewLine("RNBQKBNR") +
+                        appendNewLine("PPPPPPPP") +
+                        blankRank + blankRank + blankRank + blankRank +
+                        appendNewLine("pppppppp") +
+                        appendNewLine("rnbqkbnr"),
+                board.showBoard());
+    }
+
 
 
     @Test

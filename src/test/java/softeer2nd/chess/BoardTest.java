@@ -26,19 +26,7 @@ class BoardTest {
         board.initialize();
     }
 
-    @Test
-    @DisplayName("board 가 정상적으로 생성되어야 한다.")
-    void create() throws Exception {
-        assertEquals(32, board.allPiecesCount());
-        String blankRank = appendNewLine("........");
-        assertEquals(
-                appendNewLine("RNBQKBNR") +
-                        appendNewLine("PPPPPPPP") +
-                        blankRank + blankRank + blankRank + blankRank +
-                        appendNewLine("pppppppp") +
-                        appendNewLine("rnbqkbnr"),
-                board.showBoard());
-    }
+
 
     @Test
     @DisplayName("board의 piece 개수가 정상적으로 반환된다.")
@@ -79,7 +67,6 @@ class BoardTest {
 
         assertEquals(piece, board.findPiece(loc));
         assertEquals(1, board.allPiecesCount());
-        System.out.println(board.showBoard());
     }
 
     @Test
@@ -100,8 +87,6 @@ class BoardTest {
         // 0.01은 오차범위를 의미한다.
         assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
         assertEquals(7.0, board.calculatePoint(Color.WHITE), 0.01);
-
-        System.out.println(board.showBoard());
 
         // Pawn 이 같은 세로줄에 2개 이상 있는 경우
         addPiece(31, Piece.create(Type.PAWN, Color.BLACK));

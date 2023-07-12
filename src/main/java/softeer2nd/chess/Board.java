@@ -4,9 +4,9 @@ package softeer2nd.chess;
 import softeer2nd.chess.Constants.Type;
 import softeer2nd.chess.Constants.Color;
 import softeer2nd.chess.Constants.SortOrder;
+import softeer2nd.chess.Constants.BoardConfig;
 
 import softeer2nd.chess.pieces.Piece;
-import softeer2nd.utils.StringUtils;
 
 import java.util.*;
 import java.util.stream.Collectors;
@@ -14,9 +14,9 @@ import java.util.stream.IntStream;
 
 public class Board {
 
-    private final int ROW_LENGTH = 8;
-    private final int COLUMN_LENGTH = 8;
-    private final int KEY_GENERATION_MULTIPLIER = 10;
+    private final int ROW_LENGTH = BoardConfig.ROW_LENGTH.getValue();
+    private final int COLUMN_LENGTH = BoardConfig.COLUMN_LENGTH.getValue();
+    private final int KEY_GENERATION_MULTIPLIER = BoardConfig.KEY_GENERATION_MULTIPLIER.getValue();
     private final int WHITE_NON_PAWN_PIECES_INIT_ROW = 7;
     private final int WHITE_PAWN_INIT_ROW = 6;
     private final int BLACK_NON_PAWN_PIECES_INIT_ROW = 0;
@@ -76,18 +76,6 @@ public class Board {
         map.put(row * KEY_GENERATION_MULTIPLIER + SECOND_KNIGHT_INIT_COL, Piece.create(Type.KNIGHT, color));
         map.put(row * KEY_GENERATION_MULTIPLIER + SECOND_ROOK_INIT_COL, Piece.create(Type.ROOK, color));
 
-    }
-
-    public String showBoard() {
-        StringBuilder ret = new StringBuilder();
-
-        IntStream.range(0, ROW_LENGTH).forEach(row -> {
-            IntStream.range(0, COLUMN_LENGTH).forEach(col ->
-                    ret.append(map.get(row * KEY_GENERATION_MULTIPLIER + col).getRepresentation()));
-            StringUtils.appendNewLine(ret);
-        });
-
-        return ret.toString();
     }
 
     public int pieceCount(final Type type, final Color color) {

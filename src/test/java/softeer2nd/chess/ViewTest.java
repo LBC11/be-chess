@@ -5,7 +5,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.jupiter.api.Assertions.*;
 import static softeer2nd.utils.StringUtils.appendNewLine;
 
 class ViewTest {
@@ -21,8 +20,8 @@ class ViewTest {
     }
 
     @Test
-    @DisplayName("board 가 정상적으로 생성되어야 한다.")
-    void create() throws Exception {
+    @DisplayName("보드판이 정상적으로 반환되어야 한다.")
+    void showBoard() throws Exception {
         String blankRank = appendNewLine("........");
         assertEquals(
                 appendNewLine("RNBQKBNR") +

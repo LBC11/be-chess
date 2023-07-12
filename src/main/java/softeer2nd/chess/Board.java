@@ -14,7 +14,6 @@ import java.util.stream.IntStream;
 
 public class Board {
 
-
     private final int ROW_LENGTH = 8;
     private final int COLUMN_LENGTH = 8;
     private final int KEY_GENERATION_MULTIPLIER = 10;
@@ -26,30 +25,22 @@ public class Board {
     // key: row_idx * 10 + col_idx value: Pawn 객체
     private Map<Integer, Piece> map;
 
-    // 현재 보드 위에 있는 기물들
     private List<Piece> nonPawnPieces;
 
     public Board() {
     }
 
-    /*
-        pieceList
-        - 초기 기물들을 색깔별로 더해준다.
-        
-        map 초기화
-        - row 가 1이면 white pawn, row 가 6이면 black pawn, 그 외는 empty pawn 으로 채운다.
-     */
     public void initialize() {
 
         nonPawnPiecesListInit();
 
         map = new HashMap<>();
-        IntStream.range(0, ROW_LENGTH).forEach(this::addInitPiecesToMap);
+        IntStream.range(0, ROW_LENGTH).forEach(this::addInitPieces);
     }
 
     public void initializeEmpty() {
         map = new HashMap<>();
-        IntStream.range(0, ROW_LENGTH).forEach(this::addInitBlankPiecesToMap);
+        IntStream.range(0, ROW_LENGTH).forEach(this::addInitBlankPieces);
     }
 
     private void nonPawnPiecesListInit() {
@@ -66,7 +57,7 @@ public class Board {
         nonPawnPieces = Collections.unmodifiableList(nonPawnPieces);
     }
 
-    private void addInitPiecesToMap(final int row) {
+    private void addInitPieces(final int row) {
         if (row == WHITE_PAWN_INIT_ROW) {
             IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(Type.PAWN, Color.WHITE)));
         } else if (row == WHITE_NON_PAWN_PIECES_INIT_ROW) {
@@ -76,11 +67,11 @@ public class Board {
         } else if (row == BLACK_NON_PAWN_PIECES_INIT_ROW) {
             IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(nonPawnPieces.get(col).getType(), Color.BLACK)));
         } else {
-            addInitBlankPiecesToMap(row);
+            addInitBlankPieces(row);
         }
     }
 
-    private void addInitBlankPiecesToMap(final int row) {
+    private void addInitBlankPieces(final int row) {
         IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(Type.NO_PIECE, Color.NOCOLOR)));
     }
 
@@ -98,13 +89,13 @@ public class Board {
 
     public int pieceCount(final Type type, final Color color) {
         return (int) map.values().stream()
-                .filter(piece -> piece.getType().equals(type) && piece.getColor().equals(color))
+                .filter(piece -> piece.compare(type, color))
                 .count();
     }
 
     public int allPiecesCount() {
         return (int) map.values().stream()
-                .filter(piece -> !piece.getType().equals(Type.NO_PIECE))
+                .filter(piece -> !piece.isSameType(Type.NO_PIECE))
                 .count();
     }
 
@@ -117,7 +108,7 @@ public class Board {
 
     private int positionToKey(final String position) {
 
-        int row = 7 - (position.charAt(1) - '1');
+        int row = ROW_LENGTH - (position.charAt(1) - '0');
         int col = position.charAt(0) - 'a';
 
         return row * KEY_GENERATION_MULTIPLIER + col;
@@ -132,35 +123,26 @@ public class Board {
     public double calculatePoint(final Color color) {
 
         return IntStream.range(0, COLUMN_LENGTH)
-                .mapToDouble(col -> calculateRowPoint(col, color)).sum();
+                .mapToDouble(col -> calculateColPoint(col, color)).sum();
     }
 
     /*
     각 col 의 piece 를 순회하면서 점수를 계산한다.
     만약, 한 col 에 두 개 이상의 pawn 이 있다면 pawn 의 점수를 반으로 줄인다.
      */
-    private double calculateRowPoint(final int col, final Color color) {
+    private double calculateColPoint(final int col, final Color color) {
 
-        double nonPawnPointSum = 0.0;
-        double pawnPointSum = 0.0;
+        double nonPawnPointSum = IntStream.range(0, ROW_LENGTH)
+                .mapToObj(row -> map.get(row * KEY_GENERATION_MULTIPLIER + col))
+                .filter(piece -> !piece.isSameType(Type.PAWN) && piece.isSameColor(color))
+                .mapToDouble(Piece::getDefaultPoint)
+                .sum();
 
-        for(int row = 0; row < 8; row++) {
-
-            int key = row * KEY_GENERATION_MULTIPLIER + col;
-
-            Piece piece = map.get(key);
-
-            if(!piece.isSameColor(color)) continue;
-
-            if(piece.isPawn()) {
-
-                pawnPointSum += piece.getType().getDefaultPoint();
-            }
-
-            else {
-                nonPawnPointSum += piece.getType().getDefaultPoint();
-            }
-        }
+        double pawnPointSum = IntStream.range(0, ROW_LENGTH)
+                .mapToObj(row -> map.get(row * KEY_GENERATION_MULTIPLIER + col))
+                .filter(piece -> piece.isSameType(Type.PAWN) && piece.isSameColor(color))
+                .mapToDouble(Piece::getDefaultPoint)
+                .sum();
 
         return pawnPointSum > 1 ? nonPawnPointSum + pawnPointSum / 2 : nonPawnPointSum + pawnPointSum;
     }
@@ -173,10 +155,10 @@ public class Board {
         return sortByPoint(color, SortOrder.DESCENDING);
     }
 
-    public List<Piece> sortByPoint(final Color color, final SortOrder sortOrder) {
+    private List<Piece> sortByPoint(final Color color, final SortOrder sortOrder) {
         return map.values().stream()
-                .filter(piece -> !piece.getType().equals(Type.NO_PIECE))
-                .filter(piece -> piece.getColor().equals(color))
+                .filter(piece -> !piece.isSameType(Type.NO_PIECE))
+                .filter(piece -> piece.isSameColor(color))
                 .sorted(new Piece.PieceComparator(sortOrder))
                 .collect(Collectors.toList());
     }

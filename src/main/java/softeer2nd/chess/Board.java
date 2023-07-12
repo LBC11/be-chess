@@ -21,18 +21,22 @@ public class Board {
     private final int WHITE_PAWN_INIT_ROW = 6;
     private final int BLACK_NON_PAWN_PIECES_INIT_ROW = 0;
     private final int BLACK_PAWN_INIT_ROW = 1;
+    private final int FIRST_ROOK_INIT_COL = 0;
+    private final int FIRST_KNIGHT_INIT_COL = 1;
+    private final int FIRST_BISHOP_INIT_COL = 2;
+    private final int QUEEN_INIT_COL = 3;
+    private final int KING_INIT_COL = 4;
+    private final int SECOND_BISHOP_INIT_COL = 5;
+    private final int SECOND_KNIGHT_INIT_COL = 6;
+    private final int SECOND_ROOK_INIT_COL = 7;
 
     // key: row_idx * 10 + col_idx value: Pawn 객체
     private Map<Integer, Piece> map;
-
-    private List<Piece> nonPawnPieces;
 
     public Board() {
     }
 
     public void initialize() {
-
-        nonPawnPiecesListInit();
 
         map = new HashMap<>();
         IntStream.range(0, ROW_LENGTH).forEach(this::addInitPieces);
@@ -40,39 +44,38 @@ public class Board {
 
     public void initializeEmpty() {
         map = new HashMap<>();
-        IntStream.range(0, ROW_LENGTH).forEach(this::addInitBlankPieces);
-    }
-
-    private void nonPawnPiecesListInit() {
-        nonPawnPieces = new ArrayList<>();
-        nonPawnPieces.add(Piece.create(Type.ROOK, Color.NOCOLOR));
-        nonPawnPieces.add(Piece.create(Type.KNIGHT, Color.NOCOLOR));
-        nonPawnPieces.add(Piece.create(Type.BISHOP, Color.NOCOLOR));
-        nonPawnPieces.add(Piece.create(Type.QUEEN, Color.NOCOLOR));
-        nonPawnPieces.add(Piece.create(Type.KING, Color.NOCOLOR));
-        nonPawnPieces.add(Piece.create(Type.BISHOP, Color.NOCOLOR));
-        nonPawnPieces.add(Piece.create(Type.KNIGHT, Color.NOCOLOR));
-        nonPawnPieces.add(Piece.create(Type.ROOK, Color.NOCOLOR));
-
-        nonPawnPieces = Collections.unmodifiableList(nonPawnPieces);
+        IntStream.range(0, ROW_LENGTH).forEach(row -> fillRowWithPieces(row, Type.NO_PIECE, Color.NOCOLOR));
     }
 
     private void addInitPieces(final int row) {
         if (row == WHITE_PAWN_INIT_ROW) {
-            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(Type.PAWN, Color.WHITE)));
+            fillRowWithPieces(row, Type.PAWN, Color.WHITE);
         } else if (row == WHITE_NON_PAWN_PIECES_INIT_ROW) {
-            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(nonPawnPieces.get(col).getType(), Color.WHITE)));
+            fillRowWithNonPawnPieces(row, Color.WHITE);
         } else if (row == BLACK_PAWN_INIT_ROW) {
-            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(Type.PAWN, Color.BLACK)));
+            fillRowWithPieces(row, Type.PAWN, Color.BLACK);
         } else if (row == BLACK_NON_PAWN_PIECES_INIT_ROW) {
-            IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(nonPawnPieces.get(col).getType(), Color.BLACK)));
+            fillRowWithNonPawnPieces(row, Color.BLACK);
         } else {
-            addInitBlankPieces(row);
+            fillRowWithPieces(row, Type.NO_PIECE, Color.NOCOLOR);
         }
     }
 
-    private void addInitBlankPieces(final int row) {
-        IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(Type.NO_PIECE, Color.NOCOLOR)));
+    private void fillRowWithPieces(final int row, final Type type, final Color color) {
+        IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(type, color)));
+    }
+
+    private void fillRowWithNonPawnPieces(final int row, Color color) {
+
+        map.put(row * KEY_GENERATION_MULTIPLIER + FIRST_ROOK_INIT_COL, Piece.create(Type.ROOK, color));
+        map.put(row * KEY_GENERATION_MULTIPLIER + FIRST_KNIGHT_INIT_COL, Piece.create(Type.KNIGHT, color));
+        map.put(row * KEY_GENERATION_MULTIPLIER + FIRST_BISHOP_INIT_COL, Piece.create(Type.BISHOP, color));
+        map.put(row * KEY_GENERATION_MULTIPLIER + QUEEN_INIT_COL, Piece.create(Type.QUEEN, color));
+        map.put(row * KEY_GENERATION_MULTIPLIER + KING_INIT_COL, Piece.create(Type.KING, color));
+        map.put(row * KEY_GENERATION_MULTIPLIER + SECOND_BISHOP_INIT_COL, Piece.create(Type.BISHOP, color));
+        map.put(row * KEY_GENERATION_MULTIPLIER + SECOND_KNIGHT_INIT_COL, Piece.create(Type.KNIGHT, color));
+        map.put(row * KEY_GENERATION_MULTIPLIER + SECOND_ROOK_INIT_COL, Piece.create(Type.ROOK, color));
+
     }
 
     public String showBoard() {

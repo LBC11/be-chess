@@ -6,6 +6,6 @@ import static softeer2nd.chess.Board.Constants.Direction.*;
 public class Bishop extends Piece{
 
     protected Bishop(Color color) {
-        super(Type.BISHOP, color, diagonalDirection())
+        super(Type.BISHOP, color, diagonalDirection());
     }
 }

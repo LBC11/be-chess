@@ -15,21 +15,23 @@ public class Constants {
 
     public enum Type {
 
-        PAWN('p', 1.0),
-        KNIGHT('n', 2.5),
-        ROOK('r', 5.0),
-        BISHOP('b', 3.0),
-        QUEEN('q', 9.0),
-        KING('k', 0.0),
-        NO_PIECE('.', 0.0);
+        PAWN('p', 1.0, 1),
+        KNIGHT('n', 2.5, 1),
+        ROOK('r', 5.0, 8),
+        BISHOP('b', 3.0, 8),
+        QUEEN('q', 9.0, 8),
+        KING('k', 0.0, 1),
+        NO_PIECE('.', 0.0, 0);
 
         private final char representation;
         private final double defaultPoint;
+        private final int maxMovement;
 
-        Type(char representation, double defaultPoint) {
+        Type(char representation, double defaultPoint, int maxMovement) {
 
             this.representation = representation;
             this.defaultPoint = defaultPoint;
+            this.maxMovement = maxMovement;
         }
 
         public char getRepresentation() {
@@ -39,6 +41,8 @@ public class Constants {
         public double getDefaultPoint() {
             return this.defaultPoint;
         }
+
+        public int getMaxMovement() {return this.maxMovement;}
     }
 
     public enum SortOrder {ASCENDING, DESCENDING}

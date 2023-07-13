@@ -3,7 +3,6 @@ package softeer2nd.chess.board;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import softeer2nd.chess.Board.Constants;
 import softeer2nd.chess.Board.Rank;
 import softeer2nd.chess.Board.RankFactory;
 import softeer2nd.chess.pieces.Piece;

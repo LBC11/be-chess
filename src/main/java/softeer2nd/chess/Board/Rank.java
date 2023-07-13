@@ -49,28 +49,6 @@ public class Rank {
                 .count();
     }
 
-    public double calculatePoint(final Color color) {
-
-        return calculatePawnPoint(color) + calculateNonPawnPoint(color);
-    }
-
-    private double calculateNonPawnPoint(final Color color) {
-
-        return pieces.stream()
-                .filter(piece -> !piece.isSameType(Type.PAWN) && piece.isSameColor(color))
-                .mapToDouble(Piece::getDefaultPoint)
-                .sum();
-    }
-
-    private double calculatePawnPoint(final Color color) {
-
-        double pawnCount = pieces.stream()
-                .filter(piece -> piece.isSameType(Type.PAWN) && piece.isSameColor(color))
-                .count();
-
-        return pawnCount > 1 ? pawnCount * DUPLICATE_PAWN_POINT : pawnCount * Type.PAWN.getDefaultPoint();
-    }
-
     public List<Piece> pieceList(final Color color) {
         return pieces.stream()
                 .filter(piece -> !piece.isSameType(Type.NO_PIECE))

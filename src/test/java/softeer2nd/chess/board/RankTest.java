@@ -9,7 +9,6 @@ import softeer2nd.chess.Board.Constants.Color;
 
 import static org.junit.Assert.assertEquals;
 import static softeer2nd.chess.Board.Constants.*;
-import static softeer2nd.utils.StringUtils.appendNewLine;
 
 class RankTest {
     
@@ -64,11 +63,5 @@ class RankTest {
     @DisplayName("정상적으로 blank 가 아닌 모든 기물들의 숫자가 반환되어야 한다.")
     void allPieceCount() {
         assertEquals(8, rank.allPieceCount());
-    }
-
-    @Test
-    void calculatePoint() {
-        assertEquals(22.0, rank.calculatePoint(Color.WHITE));
-        assertEquals(0.0, rank.calculatePoint(Color.BLACK));
     }
 }

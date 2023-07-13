@@ -1,25 +1,24 @@
 package softeer2nd.chess.Board;
 
+import static softeer2nd.chess.Board.Constants.COLUMN_LENGTH;
+
 public class Position {
 
-    private final int row;
-    private final int col;
+    private final int xPos;
+    private final int yPos;
 
     public Position(String position) {
 
-        this.row = Constants.ROW_LENGTH - (position.charAt(1) - '0');
-        this.col = position.charAt(0) - 'a';
+        this.xPos = position.charAt(0) - 'a';
+        this.yPos = COLUMN_LENGTH - (position.charAt(1) - '0');
     }
 
-    public int getCol() {
-        return col;
+    public int getYPos() {
+        return yPos;
     }
 
-    public int getRow() {
-        return row;
+    public int getXPos() {
+        return xPos;
     }
 
-    public int generatePieceLoc() {
-        return Constants.KEY_GENERATION_MULTIPLIER * row + col;
-    }
 }

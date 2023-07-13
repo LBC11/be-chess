@@ -4,7 +4,6 @@ package softeer2nd.chess;
 import softeer2nd.chess.Constants.Type;
 import softeer2nd.chess.Constants.Color;
 import softeer2nd.chess.Constants.SortOrder;
-import softeer2nd.chess.Constants.BoardConfig;
 
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.utils.StringUtils;
@@ -15,9 +14,30 @@ import java.util.stream.IntStream;
 
 public class Board {
 
-    private final int ROW_LENGTH = BoardConfig.ROW_LENGTH.getValue();
-    private final int COLUMN_LENGTH = BoardConfig.COLUMN_LENGTH.getValue();
-    private final int KEY_GENERATION_MULTIPLIER = BoardConfig.KEY_GENERATION_MULTIPLIER.getValue();
+    public static class Position {
+
+        private final int row;
+        private final int col;
+
+        public Position(String position) {
+
+            this.row = Constants.ROW_LENGTH - (position.charAt(1) - '0');
+            this.col = position.charAt(0) - 'a';
+        }
+
+        public int getCol() {
+            return col;
+        }
+
+        public int getRow() {
+            return row;
+        }
+
+        public int generatePieceLoc() {
+            return Constants.KEY_GENERATION_MULTIPLIER * row + col;
+        }
+    }
+
     private final int WHITE_NON_PAWN_PIECES_INIT_ROW = 7;
     private final int WHITE_PAWN_INIT_ROW = 6;
     private final int BLACK_NON_PAWN_PIECES_INIT_ROW = 0;
@@ -40,12 +60,12 @@ public class Board {
     public void initialize() {
 
         map = new HashMap<>();
-        IntStream.range(0, ROW_LENGTH).forEach(this::addInitPieces);
+        IntStream.range(0, Constants.ROW_LENGTH).forEach(this::addInitPieces);
     }
 
     public void initializeEmpty() {
         map = new HashMap<>();
-        IntStream.range(0, ROW_LENGTH).forEach(row -> fillRowWithPieces(row, Type.NO_PIECE, Color.NOCOLOR));
+        IntStream.range(0, Constants.ROW_LENGTH).forEach(row -> fillRowWithPieces(row, Type.NO_PIECE, Color.NOCOLOR));
     }
 
     private void addInitPieces(final int row) {
@@ -63,27 +83,27 @@ public class Board {
     }
 
     private void fillRowWithPieces(final int row, final Type type, final Color color) {
-        IntStream.range(0, COLUMN_LENGTH).forEach((col) -> map.put(row * KEY_GENERATION_MULTIPLIER + col, Piece.create(type, color)));
+        IntStream.range(0, Constants.COLUMN_LENGTH).forEach((col) -> map.put(row * Constants.KEY_GENERATION_MULTIPLIER + col, Piece.create(type, color)));
     }
 
     private void fillRowWithNonPawnPieces(final int row, Color color) {
 
-        map.put(row * KEY_GENERATION_MULTIPLIER + FIRST_ROOK_INIT_COL, Piece.create(Type.ROOK, color));
-        map.put(row * KEY_GENERATION_MULTIPLIER + FIRST_KNIGHT_INIT_COL, Piece.create(Type.KNIGHT, color));
-        map.put(row * KEY_GENERATION_MULTIPLIER + FIRST_BISHOP_INIT_COL, Piece.create(Type.BISHOP, color));
-        map.put(row * KEY_GENERATION_MULTIPLIER + QUEEN_INIT_COL, Piece.create(Type.QUEEN, color));
-        map.put(row * KEY_GENERATION_MULTIPLIER + KING_INIT_COL, Piece.create(Type.KING, color));
-        map.put(row * KEY_GENERATION_MULTIPLIER + SECOND_BISHOP_INIT_COL, Piece.create(Type.BISHOP, color));
-        map.put(row * KEY_GENERATION_MULTIPLIER + SECOND_KNIGHT_INIT_COL, Piece.create(Type.KNIGHT, color));
-        map.put(row * KEY_GENERATION_MULTIPLIER + SECOND_ROOK_INIT_COL, Piece.create(Type.ROOK, color));
+        map.put(row * Constants.KEY_GENERATION_MULTIPLIER + FIRST_ROOK_INIT_COL, Piece.create(Type.ROOK, color));
+        map.put(row * Constants.KEY_GENERATION_MULTIPLIER + FIRST_KNIGHT_INIT_COL, Piece.create(Type.KNIGHT, color));
+        map.put(row * Constants.KEY_GENERATION_MULTIPLIER + FIRST_BISHOP_INIT_COL, Piece.create(Type.BISHOP, color));
+        map.put(row * Constants.KEY_GENERATION_MULTIPLIER + QUEEN_INIT_COL, Piece.create(Type.QUEEN, color));
+        map.put(row * Constants.KEY_GENERATION_MULTIPLIER + KING_INIT_COL, Piece.create(Type.KING, color));
+        map.put(row * Constants.KEY_GENERATION_MULTIPLIER + SECOND_BISHOP_INIT_COL, Piece.create(Type.BISHOP, color));
+        map.put(row * Constants.KEY_GENERATION_MULTIPLIER + SECOND_KNIGHT_INIT_COL, Piece.create(Type.KNIGHT, color));
+        map.put(row * Constants.KEY_GENERATION_MULTIPLIER + SECOND_ROOK_INIT_COL, Piece.create(Type.ROOK, color));
     }
 
     public String showBoard() {
         StringBuilder ret = new StringBuilder();
 
-        IntStream.range(0, ROW_LENGTH).forEach(row -> {
-            IntStream.range(0, COLUMN_LENGTH).forEach(col ->
-                    ret.append(map.get(row * KEY_GENERATION_MULTIPLIER + col).getRepresentation()));
+        IntStream.range(0, Constants.ROW_LENGTH).forEach(row -> {
+            IntStream.range(0, Constants.COLUMN_LENGTH).forEach(col ->
+                    ret.append(map.get(row * Constants.KEY_GENERATION_MULTIPLIER + col).getRepresentation()));
             StringUtils.appendNewLine(ret);
         });
 
@@ -102,19 +122,19 @@ public class Board {
                 .count();
     }
 
-    public Piece findPiece(final int loc) {
+    public Piece findPiece(final Position position) {
 
-        return map.get(loc);
+        return map.get(position.generatePieceLoc());
     }
 
-    public void move(final int loc, final Piece piece) {
+    public void move(final Position position, final Piece piece) {
 
-        map.put(loc, piece);
+        map.put(position.generatePieceLoc(), piece);
     }
 
     public double calculatePoint(final Color color) {
 
-        return IntStream.range(0, COLUMN_LENGTH)
+        return IntStream.range(0, Constants.COLUMN_LENGTH)
                 .mapToDouble(col -> calculateColPoint(col, color)).sum();
     }
 
@@ -124,14 +144,14 @@ public class Board {
      */
     private double calculateColPoint(final int col, final Color color) {
 
-        double nonPawnPointSum = IntStream.range(0, ROW_LENGTH)
-                .mapToObj(row -> map.get(row * KEY_GENERATION_MULTIPLIER + col))
+        double nonPawnPointSum = IntStream.range(0, Constants.ROW_LENGTH)
+                .mapToObj(row -> map.get(row * Constants.KEY_GENERATION_MULTIPLIER + col))
                 .filter(piece -> !piece.isSameType(Type.PAWN) && piece.isSameColor(color))
                 .mapToDouble(Piece::getDefaultPoint)
                 .sum();
 
-        double pawnPointSum = IntStream.range(0, ROW_LENGTH)
-                .mapToObj(row -> map.get(row * KEY_GENERATION_MULTIPLIER + col))
+        double pawnPointSum = IntStream.range(0, Constants.ROW_LENGTH)
+                .mapToObj(row -> map.get(row * Constants.KEY_GENERATION_MULTIPLIER + col))
                 .filter(piece -> piece.isSameType(Type.PAWN) && piece.isSameColor(color))
                 .mapToDouble(Piece::getDefaultPoint)
                 .sum();

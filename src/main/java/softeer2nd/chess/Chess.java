@@ -10,15 +10,15 @@ public class Chess {
 
     public void init() {
         board = new Board();
-        board.initialize();
-        view = new View(board);
-
         isStarted = false;
     }
 
     public String start() {
 
         if(isStarted) return "이미 게임중입니다.";
+
+        board.initialize();
+        view = new View(board);
 
         view.showBoard();
         isStarted = true;
@@ -31,5 +31,12 @@ public class Chess {
 
         isStarted = false;
         return "게임이 종료되었습니다.";
+    }
+
+    public void move(String sourcePosition, String targetPosition) {
+        if(!isStarted) System.out.println("게임을 하고 있지 않습니다.");
+
+        board.move(sourcePosition, targetPosition);
+        view.showBoard();
     }
 }

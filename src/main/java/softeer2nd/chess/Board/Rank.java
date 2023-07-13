@@ -1,6 +1,7 @@
 package softeer2nd.chess.Board;
 
 import softeer2nd.chess.pieces.Piece;
+import softeer2nd.chess.pieces.PieceFactory;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -8,6 +9,8 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static softeer2nd.chess.Board.Constants.*;
+import static softeer2nd.chess.Board.Constants.Color.*;
+import static softeer2nd.chess.Board.Constants.Type.*;
 
 public class Rank {
 
@@ -25,12 +28,18 @@ public class Rank {
         return ret.toString();
     }
 
-    public void addPiece(final int idx, Piece piece) {
+    public void addInitPiece(final int idx, final Piece piece) {
+        pieces.add(idx, piece);
+    }
+
+    public void addPiece(final int idx, final Piece piece) {
+        pieces.remove(idx);
         pieces.add(idx, piece);
     }
 
     public void removePiece(final int idx) {
         pieces.remove(idx);
+        pieces.add(idx, PieceFactory.create(NO_PIECE, NOCOLOR));
     }
 
     public Piece findPiece(final int idx) {
@@ -45,13 +54,13 @@ public class Rank {
 
     public int allPieceCount() {
         return (int) pieces.stream()
-                .filter(piece -> !piece.compare(Type.NO_PIECE, Color.NOCOLOR))
+                .filter(piece -> !piece.compare(NO_PIECE, NOCOLOR))
                 .count();
     }
 
     public List<Piece> pieceList(final Color color) {
         return pieces.stream()
-                .filter(piece -> !piece.isSameType(Type.NO_PIECE))
+                .filter(piece -> !piece.isSameType(NO_PIECE))
                 .filter(piece -> piece.isSameColor(color))
                 .collect(Collectors.toList());
     }

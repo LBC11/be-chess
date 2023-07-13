@@ -1,6 +1,6 @@
 package softeer2nd.chess.Board;
 
-import softeer2nd.chess.pieces.Piece;
+import softeer2nd.chess.pieces.PieceFactory;
 
 import static softeer2nd.chess.Board.Constants.*;
 
@@ -10,14 +10,14 @@ public enum RankFactory {
     public Rank createNonPawnPieces(Color color) {
         Rank rank = new Rank();
 
-        rank.addPiece(0, Piece.create(Type.ROOK, color));
-        rank.addPiece(1, Piece.create(Type.KNIGHT, color));
-        rank.addPiece(2, Piece.create(Type.BISHOP, color));
-        rank.addPiece(3, Piece.create(Type.QUEEN, color));
-        rank.addPiece(4, Piece.create(Type.KING, color));
-        rank.addPiece(5, Piece.create(Type.BISHOP, color));
-        rank.addPiece(6, Piece.create(Type.KNIGHT, color));
-        rank.addPiece(7, Piece.create(Type.ROOK, color));
+        rank.addInitPiece(0, PieceFactory.create(Type.ROOK, color));
+        rank.addInitPiece(1, PieceFactory.create(Type.KNIGHT, color));
+        rank.addInitPiece(2, PieceFactory.create(Type.BISHOP, color));
+        rank.addInitPiece(3, PieceFactory.create(Type.QUEEN, color));
+        rank.addInitPiece(4, PieceFactory.create(Type.KING, color));
+        rank.addInitPiece(5, PieceFactory.create(Type.BISHOP, color));
+        rank.addInitPiece(6, PieceFactory.create(Type.KNIGHT, color));
+        rank.addInitPiece(7, PieceFactory.create(Type.ROOK, color));
 
         return rank;
     }
@@ -25,14 +25,14 @@ public enum RankFactory {
     public Rank createPawnPieces(Color color) {
         Rank rank = new Rank();
 
-        rank.addPiece(0, Piece.create(Type.PAWN, color));
-        rank.addPiece(1, Piece.create(Type.PAWN, color));
-        rank.addPiece(2, Piece.create(Type.PAWN, color));
-        rank.addPiece(3, Piece.create(Type.PAWN, color));
-        rank.addPiece(4, Piece.create(Type.PAWN, color));
-        rank.addPiece(5, Piece.create(Type.PAWN, color));
-        rank.addPiece(6, Piece.create(Type.PAWN, color));
-        rank.addPiece(7, Piece.create(Type.PAWN, color));
+        rank.addInitPiece(0, PieceFactory.create(Type.PAWN, color));
+        rank.addInitPiece(1, PieceFactory.create(Type.PAWN, color));
+        rank.addInitPiece(2, PieceFactory.create(Type.PAWN, color));
+        rank.addInitPiece(3, PieceFactory.create(Type.PAWN, color));
+        rank.addInitPiece(4, PieceFactory.create(Type.PAWN, color));
+        rank.addInitPiece(5, PieceFactory.create(Type.PAWN, color));
+        rank.addInitPiece(6, PieceFactory.create(Type.PAWN, color));
+        rank.addInitPiece(7, PieceFactory.create(Type.PAWN, color));
 
         return rank;
     }
@@ -40,14 +40,14 @@ public enum RankFactory {
     public Rank createBlankPieces() {
         Rank rank = new Rank();
 
-        rank.addPiece(0, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        rank.addPiece(1, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        rank.addPiece(2, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        rank.addPiece(3, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        rank.addPiece(4, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        rank.addPiece(5, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        rank.addPiece(6, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        rank.addPiece(7, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(0, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(1, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(2, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(3, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(4, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(5, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(6, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(7, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
 
         return rank;
     }

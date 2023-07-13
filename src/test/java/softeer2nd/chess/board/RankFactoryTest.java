@@ -5,7 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.Board.Rank;
 import softeer2nd.chess.Board.RankFactory;
-import softeer2nd.chess.pieces.Piece;
+import softeer2nd.chess.pieces.PieceFactory;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static softeer2nd.chess.Board.Constants.*;
@@ -25,14 +25,14 @@ class RankFactoryTest {
 
         Rank rank = new Rank();
 
-        rank.addPiece(0, Piece.create(Type.ROOK, Color.WHITE));
-        rank.addPiece(1, Piece.create(Type.KNIGHT, Color.WHITE));
-        rank.addPiece(2, Piece.create(Type.BISHOP, Color.WHITE));
-        rank.addPiece(3, Piece.create(Type.QUEEN, Color.WHITE));
-        rank.addPiece(4, Piece.create(Type.KING, Color.WHITE));
-        rank.addPiece(5, Piece.create(Type.BISHOP, Color.WHITE));
-        rank.addPiece(6, Piece.create(Type.KNIGHT, Color.WHITE));
-        rank.addPiece(7, Piece.create(Type.ROOK, Color.WHITE));
+        rank.addInitPiece(0, PieceFactory.create(Type.ROOK, Color.WHITE));
+        rank.addInitPiece(1, PieceFactory.create(Type.KNIGHT, Color.WHITE));
+        rank.addInitPiece(2, PieceFactory.create(Type.BISHOP, Color.WHITE));
+        rank.addInitPiece(3, PieceFactory.create(Type.QUEEN, Color.WHITE));
+        rank.addInitPiece(4, PieceFactory.create(Type.KING, Color.WHITE));
+        rank.addInitPiece(5, PieceFactory.create(Type.BISHOP, Color.WHITE));
+        rank.addInitPiece(6, PieceFactory.create(Type.KNIGHT, Color.WHITE));
+        rank.addInitPiece(7, PieceFactory.create(Type.ROOK, Color.WHITE));
 
         assertEquals(rankFactory.createNonPawnPieces(Color.WHITE), rank);
     }
@@ -43,14 +43,14 @@ class RankFactoryTest {
 
         Rank rank = new Rank();
 
-        rank.addPiece(0, Piece.create(Type.PAWN, Color.WHITE));
-        rank.addPiece(1, Piece.create(Type.PAWN, Color.WHITE));
-        rank.addPiece(2, Piece.create(Type.PAWN, Color.WHITE));
-        rank.addPiece(3, Piece.create(Type.PAWN, Color.WHITE));
-        rank.addPiece(4, Piece.create(Type.PAWN, Color.WHITE));
-        rank.addPiece(5, Piece.create(Type.PAWN, Color.WHITE));
-        rank.addPiece(6, Piece.create(Type.PAWN, Color.WHITE));
-        rank.addPiece(7, Piece.create(Type.PAWN, Color.WHITE));
+        rank.addInitPiece(0, PieceFactory.create(Type.PAWN, Color.WHITE));
+        rank.addInitPiece(1, PieceFactory.create(Type.PAWN, Color.WHITE));
+        rank.addInitPiece(2, PieceFactory.create(Type.PAWN, Color.WHITE));
+        rank.addInitPiece(3, PieceFactory.create(Type.PAWN, Color.WHITE));
+        rank.addInitPiece(4, PieceFactory.create(Type.PAWN, Color.WHITE));
+        rank.addInitPiece(5, PieceFactory.create(Type.PAWN, Color.WHITE));
+        rank.addInitPiece(6, PieceFactory.create(Type.PAWN, Color.WHITE));
+        rank.addInitPiece(7, PieceFactory.create(Type.PAWN, Color.WHITE));
 
         assertEquals(rankFactory.createPawnPieces(Color.WHITE), rank);
     }
@@ -61,14 +61,14 @@ class RankFactoryTest {
 
         Rank rank = new Rank();
 
-        rank.addPiece(0, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        rank.addPiece(1, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        rank.addPiece(2, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        rank.addPiece(3, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        rank.addPiece(4, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        rank.addPiece(5, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        rank.addPiece(6, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        rank.addPiece(7, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(0, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(1, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(2, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(3, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(4, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(5, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(6, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        rank.addInitPiece(7, PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
 
         assertEquals(rankFactory.createBlankPieces(), rank);
     }

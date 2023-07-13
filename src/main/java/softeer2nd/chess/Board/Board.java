@@ -92,16 +92,18 @@ public class Board {
 
         Rank rank = ranks.get(position.getYPos());
 
-        rank.removePiece(position.getXPos());
-        rank.addPiece(position.getXPos(), piece);
+        rank.addInitPiece(position.getXPos(), piece);
     }
 
     public void move(final Position sourcePosition, final Position targetPosition) {
 
         Piece piece = findPiece(sourcePosition);
 
-        addPiece(sourcePosition, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
-        addPiece(targetPosition, piece);
+        Rank sourceRank = ranks.get(sourcePosition.getYPos());
+        Rank targetRank = ranks.get(targetPosition.getYPos());
+
+        sourceRank.removePiece(sourcePosition.getXPos());
+        targetRank.addPiece(targetPosition.getXPos(), piece);
     }
 
     public double calculatePoint(final Color color) {

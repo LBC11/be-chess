@@ -127,9 +127,16 @@ public class Board {
         return map.get(position.generatePieceLoc());
     }
 
-    public void move(final Position position, final Piece piece) {
-
+    public void addPiece(final Position position, final Piece piece) {
         map.put(position.generatePieceLoc(), piece);
+    }
+
+    public void move(final Position sourcePosition, final Position targetPosition) {
+
+        Piece piece = findPiece(sourcePosition);
+
+        addPiece(sourcePosition, Piece.create(Type.NO_PIECE, Color.NOCOLOR));
+        addPiece(targetPosition, piece);
     }
 
     public double calculatePoint(final Color color) {
@@ -144,19 +151,26 @@ public class Board {
      */
     private double calculateColPoint(final int col, final Color color) {
 
-        double nonPawnPointSum = IntStream.range(0, Constants.ROW_LENGTH)
+        return calculateColPawnPoint(col, color) + calculateColNonPawnPoint(col, color);
+    }
+
+    private double calculateColNonPawnPoint(final int col, final Color color) {
+
+        return IntStream.range(0, Constants.ROW_LENGTH)
                 .mapToObj(row -> map.get(row * Constants.KEY_GENERATION_MULTIPLIER + col))
                 .filter(piece -> !piece.isSameType(Type.PAWN) && piece.isSameColor(color))
                 .mapToDouble(Piece::getDefaultPoint)
                 .sum();
+    }
 
-        double pawnPointSum = IntStream.range(0, Constants.ROW_LENGTH)
+    private double calculateColPawnPoint(final int col, final Color color) {
+
+        double pawnCount = IntStream.range(0, Constants.ROW_LENGTH)
                 .mapToObj(row -> map.get(row * Constants.KEY_GENERATION_MULTIPLIER + col))
                 .filter(piece -> piece.isSameType(Type.PAWN) && piece.isSameColor(color))
-                .mapToDouble(Piece::getDefaultPoint)
-                .sum();
+                .count();
 
-        return pawnPointSum > 1 ? nonPawnPointSum + pawnPointSum / 2 : nonPawnPointSum + pawnPointSum;
+        return pawnCount > 1 ? pawnCount * Constants.DUPLICATE_PAWN_POINT : pawnCount * Type.PAWN.getDefaultPoint();
     }
 
     public List<Piece> SortByPointAscending(final Color color) {

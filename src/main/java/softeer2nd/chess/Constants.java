@@ -5,6 +5,7 @@ public class Constants {
     public static final int ROW_LENGTH = 8;
     public static final int COLUMN_LENGTH = 8;
     public static final int KEY_GENERATION_MULTIPLIER = 10;
+    public static final double DUPLICATE_PAWN_POINT = 0.5;
 
 
     public enum Color {

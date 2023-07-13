@@ -65,4 +65,19 @@ class RankTest {
     void allPieceCount() {
         assertEquals(8, rank.allPieceCount());
     }
+
+    @Test
+    @DisplayName("정상적으로 기물이 rank 에서 삭제된다.")
+    void removePiece() {
+        rank.removePiece(0);
+        assertEquals(rank.findPiece(0), PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+    }
+
+    @Test
+    @DisplayName("정상적으로 기물이 rank 위에 놓여진다.")
+    void addPiece() {
+        rank.addPiece(0, PieceFactory.create(Type.KING, Color.BLACK));
+        assertEquals(rank.findPiece(0), PieceFactory.create(Type.KING, Color.BLACK));
+    }
+
 }

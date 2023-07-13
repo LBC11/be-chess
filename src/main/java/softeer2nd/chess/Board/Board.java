@@ -1,9 +1,9 @@
-package softeer2nd.chess;
+package softeer2nd.chess.Board;
 
 
-import softeer2nd.chess.Constants.Type;
-import softeer2nd.chess.Constants.Color;
-import softeer2nd.chess.Constants.SortOrder;
+import softeer2nd.chess.Board.Constants.Type;
+import softeer2nd.chess.Board.Constants.Color;
+import softeer2nd.chess.Board.Constants.SortOrder;
 
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.utils.StringUtils;
@@ -13,30 +13,6 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Board {
-
-    public static class Position {
-
-        private final int row;
-        private final int col;
-
-        public Position(String position) {
-
-            this.row = Constants.ROW_LENGTH - (position.charAt(1) - '0');
-            this.col = position.charAt(0) - 'a';
-        }
-
-        public int getCol() {
-            return col;
-        }
-
-        public int getRow() {
-            return row;
-        }
-
-        public int generatePieceLoc() {
-            return Constants.KEY_GENERATION_MULTIPLIER * row + col;
-        }
-    }
 
     private final int WHITE_NON_PAWN_PIECES_INIT_ROW = 7;
     private final int WHITE_PAWN_INIT_ROW = 6;

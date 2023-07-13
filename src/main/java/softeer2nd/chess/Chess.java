@@ -1,5 +1,7 @@
 package softeer2nd.chess;
 
+import softeer2nd.chess.Board.Board;
+
 public class Chess {
 
     private Board board;

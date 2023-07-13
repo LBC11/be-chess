@@ -1,6 +1,8 @@
-package softeer2nd.chess;
+package softeer2nd.chess.Board;
 
-import static softeer2nd.chess.Constants.*;
+import softeer2nd.chess.Board.Board;
+
+import static softeer2nd.chess.Board.Constants.*;
 
 public class PointCalculator {
 

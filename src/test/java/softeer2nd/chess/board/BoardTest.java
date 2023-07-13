@@ -1,8 +1,9 @@
-package softeer2nd.chess;
+package softeer2nd.chess.board;
 
 
-import softeer2nd.chess.Constants.Type;
-import softeer2nd.chess.Constants.Color;
+import softeer2nd.chess.Board.Board;
+import softeer2nd.chess.Board.Constants.Type;
+import softeer2nd.chess.Board.Constants.Color;
 
 import static org.junit.Assert.*;
 import static softeer2nd.utils.StringUtils.appendNewLine;
@@ -10,6 +11,7 @@ import static softeer2nd.utils.StringUtils.appendNewLine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.Board.Position;
 import softeer2nd.chess.pieces.Piece;
 
 import java.util.ArrayList;
@@ -64,10 +66,10 @@ class BoardTest {
     @DisplayName("위치에 따른 기물이 정상적으로 반환된다.")
     void findPiece() throws Exception {
 
-        assertEquals(Piece.create(Type.ROOK, Color.BLACK), board.findPiece(new Board.Position("a8")));
-        assertEquals(Piece.create(Type.ROOK, Color.BLACK), board.findPiece(new Board.Position("h8")));
-        assertEquals(Piece.create(Type.ROOK, Color.WHITE), board.findPiece(new Board.Position("a1")));
-        assertEquals(Piece.create(Type.ROOK, Color.WHITE), board.findPiece(new Board.Position("h1")));
+        assertEquals(Piece.create(Type.ROOK, Color.BLACK), board.findPiece(new Position("a8")));
+        assertEquals(Piece.create(Type.ROOK, Color.BLACK), board.findPiece(new Position("h8")));
+        assertEquals(Piece.create(Type.ROOK, Color.WHITE), board.findPiece(new Position("a1")));
+        assertEquals(Piece.create(Type.ROOK, Color.WHITE), board.findPiece(new Position("h1")));
     }
 
     @Test
@@ -75,8 +77,8 @@ class BoardTest {
     void move() throws Exception {
         board.initialize();
 
-        Board.Position sourcePosition = new Board.Position("b2");
-        Board.Position targetPosition = new Board.Position("b3");
+        Position sourcePosition = new Position("b2");
+        Position targetPosition = new Position("b3");
         
         board.move(sourcePosition, targetPosition);
         assertEquals(Piece.create(Type.NO_PIECE, Color.NOCOLOR), board.findPiece(sourcePosition));
@@ -88,22 +90,22 @@ class BoardTest {
     void calculatePoint() throws Exception {
         board.initializeEmpty();
 
-        board.addPiece(new Board.Position("b6"), Piece.create(Type.PAWN, Color.BLACK));
-        board.addPiece(new Board.Position("e6"), Piece.create(Type.QUEEN, Color.BLACK));
-        board.addPiece(new Board.Position("b8"), Piece.create(Type.KING, Color.BLACK));
-        board.addPiece(new Board.Position("c8"), Piece.create(Type.ROOK, Color.BLACK));
+        board.addPiece(new Position("b6"), Piece.create(Type.PAWN, Color.BLACK));
+        board.addPiece(new Position("e6"), Piece.create(Type.QUEEN, Color.BLACK));
+        board.addPiece(new Position("b8"), Piece.create(Type.KING, Color.BLACK));
+        board.addPiece(new Position("c8"), Piece.create(Type.ROOK, Color.BLACK));
 
-        board.addPiece(new Board.Position("f2"), Piece.create(Type.PAWN, Color.WHITE));
-        board.addPiece(new Board.Position("g2"), Piece.create(Type.PAWN, Color.WHITE));
-        board.addPiece(new Board.Position("e1"), Piece.create(Type.ROOK, Color.WHITE));
-        board.addPiece(new Board.Position("f1"), Piece.create(Type.KING, Color.WHITE));
+        board.addPiece(new Position("f2"), Piece.create(Type.PAWN, Color.WHITE));
+        board.addPiece(new Position("g2"), Piece.create(Type.PAWN, Color.WHITE));
+        board.addPiece(new Position("e1"), Piece.create(Type.ROOK, Color.WHITE));
+        board.addPiece(new Position("f1"), Piece.create(Type.KING, Color.WHITE));
 
         // 0.01은 오차범위를 의미한다.
         assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
         assertEquals(7.0, board.calculatePoint(Color.WHITE), 0.01);
 
         // Pawn 이 같은 세로줄에 2개 이상 있는 경우
-        board.addPiece(new Board.Position("b5"), Piece.create(Type.PAWN, Color.BLACK));
+        board.addPiece(new Position("b5"), Piece.create(Type.PAWN, Color.BLACK));
         assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
 
     }
@@ -113,15 +115,15 @@ class BoardTest {
     void sortPieceList() {
         board.initializeEmpty();
 
-        board.addPiece(new Board.Position("b6"), Piece.create(Type.PAWN, Color.BLACK));
-        board.addPiece(new Board.Position("e6"), Piece.create(Type.QUEEN, Color.BLACK));
-        board.addPiece(new Board.Position("b8"), Piece.create(Type.KING, Color.BLACK));
-        board.addPiece(new Board.Position("c8"), Piece.create(Type.ROOK, Color.BLACK));
+        board.addPiece(new Position("b6"), Piece.create(Type.PAWN, Color.BLACK));
+        board.addPiece(new Position("e6"), Piece.create(Type.QUEEN, Color.BLACK));
+        board.addPiece(new Position("b8"), Piece.create(Type.KING, Color.BLACK));
+        board.addPiece(new Position("c8"), Piece.create(Type.ROOK, Color.BLACK));
 
-        board.addPiece(new Board.Position("f2"), Piece.create(Type.PAWN, Color.WHITE));
-        board.addPiece(new Board.Position("g2"), Piece.create(Type.PAWN, Color.WHITE));
-        board.addPiece(new Board.Position("e1"), Piece.create(Type.ROOK, Color.WHITE));
-        board.addPiece(new Board.Position("f1"), Piece.create(Type.KING, Color.WHITE));
+        board.addPiece(new Position("f2"), Piece.create(Type.PAWN, Color.WHITE));
+        board.addPiece(new Position("g2"), Piece.create(Type.PAWN, Color.WHITE));
+        board.addPiece(new Position("e1"), Piece.create(Type.ROOK, Color.WHITE));
+        board.addPiece(new Position("f1"), Piece.create(Type.KING, Color.WHITE));
         List<Piece> pieceList = new ArrayList<>();
         pieceList.add(Piece.create(Type.KING, Color.BLACK));
         pieceList.add(Piece.create(Type.PAWN, Color.BLACK));

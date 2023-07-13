@@ -1,4 +1,4 @@
-package softeer2nd.chess;
+package softeer2nd.chess.Board;
 
 public class Constants {
 

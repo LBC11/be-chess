@@ -2,8 +2,8 @@ package softeer2nd.chess.pieces;
 
 import org.junit.jupiter.api.*;
 
-import softeer2nd.chess.Constants.Type;
-import softeer2nd.chess.Constants.Color;
+import softeer2nd.chess.Board.Constants.Type;
+import softeer2nd.chess.Board.Constants.Color;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 

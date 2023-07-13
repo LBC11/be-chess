@@ -3,6 +3,7 @@ package softeer2nd.chess;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.Board.Board;
 
 import static org.junit.Assert.assertEquals;
 import static softeer2nd.utils.StringUtils.appendNewLine;

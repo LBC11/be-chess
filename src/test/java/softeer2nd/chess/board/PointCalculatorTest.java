@@ -1,8 +1,10 @@
-package softeer2nd.chess;
+package softeer2nd.chess.board;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.Board.Board;
+import softeer2nd.chess.Board.PointCalculator;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -10,7 +12,6 @@ class PointCalculatorTest {
 
     PointCalculator pointCalculator;
     Board board;
-
 
     @BeforeEach
     void setup() {

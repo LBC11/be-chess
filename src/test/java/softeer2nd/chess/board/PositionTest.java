@@ -18,10 +18,15 @@ class PositionTest {
         Position p4 = new Position("f4");
         Position p5 = new Position("h2");
 
-        assertEquals(31, p1.generatePieceLoc());
-        assertEquals(1, p2.generatePieceLoc());
-        assertEquals(23, p3.generatePieceLoc());
-        assertEquals(45, p4.generatePieceLoc());
-        assertEquals(67, p5.generatePieceLoc());
+        assertEquals(1, p1.getXPos());
+        assertEquals(3, p1.getYPos());
+        assertEquals(1, p2.getXPos());
+        assertEquals(0, p2.getYPos());
+        assertEquals(3, p3.getXPos());
+        assertEquals(2, p3.getYPos());
+        assertEquals(5, p4.getXPos());
+        assertEquals(4, p4.getYPos());
+        assertEquals(7, p5.getXPos());
+        assertEquals(6, p5.getYPos());
     }
 }

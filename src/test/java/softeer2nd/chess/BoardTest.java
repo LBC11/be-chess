@@ -73,14 +73,14 @@ class BoardTest {
     @Test
     @DisplayName("기물의 이동이 정상적으로 실행되어야 한다.")
     void move() throws Exception {
-        board.initializeEmpty();
+        board.initialize();
 
-        Board.Position position = new Board.Position("b5");
-        Piece piece = Piece.create(Type.ROOK, Color.BLACK);
-        addPiece(position, piece);
-
-        assertEquals(piece, board.findPiece(position));
-        assertEquals(1, board.allPiecesCount());
+        Board.Position sourcePosition = new Board.Position("b2");
+        Board.Position targetPosition = new Board.Position("b3");
+        
+        board.move(sourcePosition, targetPosition);
+        assertEquals(Piece.create(Type.NO_PIECE, Color.NOCOLOR), board.findPiece(sourcePosition));
+        assertEquals(Piece.create(Type.PAWN, Color.WHITE), board.findPiece(targetPosition));
     }
 
     @Test
@@ -88,28 +88,24 @@ class BoardTest {
     void calculatePoint() throws Exception {
         board.initializeEmpty();
 
-        addPiece(new Board.Position("b6"), Piece.create(Type.PAWN, Color.BLACK));
-        addPiece(new Board.Position("e6"), Piece.create(Type.QUEEN, Color.BLACK));
-        addPiece(new Board.Position("b8"), Piece.create(Type.KING, Color.BLACK));
-        addPiece(new Board.Position("c8"), Piece.create(Type.ROOK, Color.BLACK));
+        board.addPiece(new Board.Position("b6"), Piece.create(Type.PAWN, Color.BLACK));
+        board.addPiece(new Board.Position("e6"), Piece.create(Type.QUEEN, Color.BLACK));
+        board.addPiece(new Board.Position("b8"), Piece.create(Type.KING, Color.BLACK));
+        board.addPiece(new Board.Position("c8"), Piece.create(Type.ROOK, Color.BLACK));
 
-        addPiece(new Board.Position("f2"), Piece.create(Type.PAWN, Color.WHITE));
-        addPiece(new Board.Position("g2"), Piece.create(Type.PAWN, Color.WHITE));
-        addPiece(new Board.Position("e1"), Piece.create(Type.ROOK, Color.WHITE));
-        addPiece(new Board.Position("f1"), Piece.create(Type.KING, Color.WHITE));
+        board.addPiece(new Board.Position("f2"), Piece.create(Type.PAWN, Color.WHITE));
+        board.addPiece(new Board.Position("g2"), Piece.create(Type.PAWN, Color.WHITE));
+        board.addPiece(new Board.Position("e1"), Piece.create(Type.ROOK, Color.WHITE));
+        board.addPiece(new Board.Position("f1"), Piece.create(Type.KING, Color.WHITE));
 
         // 0.01은 오차범위를 의미한다.
         assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
         assertEquals(7.0, board.calculatePoint(Color.WHITE), 0.01);
 
         // Pawn 이 같은 세로줄에 2개 이상 있는 경우
-        addPiece(new Board.Position("b5"), Piece.create(Type.PAWN, Color.BLACK));
+        board.addPiece(new Board.Position("b5"), Piece.create(Type.PAWN, Color.BLACK));
         assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
 
-    }
-
-    private void addPiece(Board.Position position, Piece piece) {
-        board.move(position, piece);
     }
 
     @Test
@@ -117,15 +113,15 @@ class BoardTest {
     void sortPieceList() {
         board.initializeEmpty();
 
-        addPiece(new Board.Position("b6"), Piece.create(Type.PAWN, Color.BLACK));
-        addPiece(new Board.Position("e6"), Piece.create(Type.QUEEN, Color.BLACK));
-        addPiece(new Board.Position("b8"), Piece.create(Type.KING, Color.BLACK));
-        addPiece(new Board.Position("c8"), Piece.create(Type.ROOK, Color.BLACK));
+        board.addPiece(new Board.Position("b6"), Piece.create(Type.PAWN, Color.BLACK));
+        board.addPiece(new Board.Position("e6"), Piece.create(Type.QUEEN, Color.BLACK));
+        board.addPiece(new Board.Position("b8"), Piece.create(Type.KING, Color.BLACK));
+        board.addPiece(new Board.Position("c8"), Piece.create(Type.ROOK, Color.BLACK));
 
-        addPiece(new Board.Position("f2"), Piece.create(Type.PAWN, Color.WHITE));
-        addPiece(new Board.Position("g2"), Piece.create(Type.PAWN, Color.WHITE));
-        addPiece(new Board.Position("e1"), Piece.create(Type.ROOK, Color.WHITE));
-        addPiece(new Board.Position("f1"), Piece.create(Type.KING, Color.WHITE));
+        board.addPiece(new Board.Position("f2"), Piece.create(Type.PAWN, Color.WHITE));
+        board.addPiece(new Board.Position("g2"), Piece.create(Type.PAWN, Color.WHITE));
+        board.addPiece(new Board.Position("e1"), Piece.create(Type.ROOK, Color.WHITE));
+        board.addPiece(new Board.Position("f1"), Piece.create(Type.KING, Color.WHITE));
         List<Piece> pieceList = new ArrayList<>();
         pieceList.add(Piece.create(Type.KING, Color.BLACK));
         pieceList.add(Piece.create(Type.PAWN, Color.BLACK));

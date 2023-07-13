@@ -1,19 +1,23 @@
 package softeer2nd.chess.pieces;
 
+import softeer2nd.chess.Board.Constants;
 import softeer2nd.chess.Board.Constants.Type;
 import softeer2nd.chess.Board.Constants.Color;
 import softeer2nd.chess.Board.Constants.SortOrder;
 import softeer2nd.utils.StringUtils;
 
 import java.util.Comparator;
+import java.util.List;
 import java.util.Objects;
+
+import static softeer2nd.chess.Board.Constants.*;
 
 public class Piece {
 
     private final Type type;
     private final Color color;
 
-    private Piece(Type type, Color color) {
+    protected Piece(Type type, Color color, List<Direction> directions ) {
 
         this.type = type;
         this.color = color;
@@ -24,10 +28,6 @@ public class Piece {
         char representation = this.type.getRepresentation();
 
         return this.color == Color.BLACK ? StringUtils.Uppercase(representation) : representation;
-    }
-
-    public static Piece create(final Type type, final Color color) {
-        return new Piece(type, color);
     }
 
     public double getDefaultPoint() {

@@ -11,7 +11,6 @@ import static softeer2nd.utils.StringUtils.appendNewLine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import softeer2nd.chess.Board.Position;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.PieceFactory;
 
@@ -67,10 +66,10 @@ class BoardTest {
     @DisplayName("위치에 따른 기물이 정상적으로 반환된다.")
     void findPiece() {
 
-        assertEquals(PieceFactory.create(Type.ROOK, Color.BLACK), board.findPiece(new Position("a8")));
-        assertEquals(PieceFactory.create(Type.ROOK, Color.BLACK), board.findPiece(new Position("h8")));
-        assertEquals(PieceFactory.create(Type.ROOK, Color.WHITE), board.findPiece(new Position("a1")));
-        assertEquals(PieceFactory.create(Type.ROOK, Color.WHITE), board.findPiece(new Position("h1")));
+        assertEquals(PieceFactory.create(Type.ROOK, Color.BLACK), board.findPiece("a8"));
+        assertEquals(PieceFactory.create(Type.ROOK, Color.BLACK), board.findPiece("h8"));
+        assertEquals(PieceFactory.create(Type.ROOK, Color.WHITE), board.findPiece("a1"));
+        assertEquals(PieceFactory.create(Type.ROOK, Color.WHITE), board.findPiece("h1"));
     }
 
     @Test
@@ -78,10 +77,14 @@ class BoardTest {
     void move() {
         board.initialize();
 
-        Position sourcePosition = new Position("b2");
-        Position targetPosition = new Position("b3");
+        String sourcePosition = "b2";
+        String targetPosition = "b3";
         
         board.move(sourcePosition, targetPosition);
+
+        System.out.println(board.allPiecesCount());
+        System.out.println(board.findPiece(sourcePosition).isSameType(Type.NO_PIECE));
+        System.out.println(board.findPiece(targetPosition).isSameType(Type.NO_PIECE));
 
         assertEquals(PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR), board.findPiece(sourcePosition));
         assertEquals(PieceFactory.create(Type.PAWN, Color.WHITE), board.findPiece(targetPosition));
@@ -92,22 +95,22 @@ class BoardTest {
     void calculatePoint() {
         board.initializeEmpty();
 
-        board.addPiece(new Position("b6"), PieceFactory.create(Type.PAWN, Color.BLACK));
-        board.addPiece(new Position("e6"), PieceFactory.create(Type.QUEEN, Color.BLACK));
-        board.addPiece(new Position("b8"), PieceFactory.create(Type.KING, Color.BLACK));
-        board.addPiece(new Position("c8"), PieceFactory.create(Type.ROOK, Color.BLACK));
+        board.addPiece("b6", PieceFactory.create(Type.PAWN, Color.BLACK));
+        board.addPiece("e6", PieceFactory.create(Type.QUEEN, Color.BLACK));
+        board.addPiece("b8", PieceFactory.create(Type.KING, Color.BLACK));
+        board.addPiece("c8", PieceFactory.create(Type.ROOK, Color.BLACK));
 
-        board.addPiece(new Position("f2"), PieceFactory.create(Type.PAWN, Color.WHITE));
-        board.addPiece(new Position("g2"), PieceFactory.create(Type.PAWN, Color.WHITE));
-        board.addPiece(new Position("e1"), PieceFactory.create(Type.ROOK, Color.WHITE));
-        board.addPiece(new Position("f1"), PieceFactory.create(Type.KING, Color.WHITE));
+        board.addPiece("f2", PieceFactory.create(Type.PAWN, Color.WHITE));
+        board.addPiece("g2", PieceFactory.create(Type.PAWN, Color.WHITE));
+        board.addPiece("e1", PieceFactory.create(Type.ROOK, Color.WHITE));
+        board.addPiece("f1", PieceFactory.create(Type.KING, Color.WHITE));
 
         // 0.01은 오차범위를 의미한다.
         assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
         assertEquals(7.0, board.calculatePoint(Color.WHITE), 0.01);
 
         // Pawn 이 같은 세로줄에 2개 이상 있는 경우
-        board.addPiece(new Position("b5"), PieceFactory.create(Type.PAWN, Color.BLACK));
+        board.addPiece("b5", PieceFactory.create(Type.PAWN, Color.BLACK));
         assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
 
     }
@@ -117,15 +120,15 @@ class BoardTest {
     void sortPieceList() {
         board.initializeEmpty();
 
-        board.addPiece(new Position("b6"), PieceFactory.create(Type.PAWN, Color.BLACK));
-        board.addPiece(new Position("e6"), PieceFactory.create(Type.QUEEN, Color.BLACK));
-        board.addPiece(new Position("b8"), PieceFactory.create(Type.KING, Color.BLACK));
-        board.addPiece(new Position("c8"), PieceFactory.create(Type.ROOK, Color.BLACK));
+        board.addPiece("b6", PieceFactory.create(Type.PAWN, Color.BLACK));
+        board.addPiece("e6", PieceFactory.create(Type.QUEEN, Color.BLACK));
+        board.addPiece("b8", PieceFactory.create(Type.KING, Color.BLACK));
+        board.addPiece("c8", PieceFactory.create(Type.ROOK, Color.BLACK));
 
-        board.addPiece(new Position("f2"), PieceFactory.create(Type.PAWN, Color.WHITE));
-        board.addPiece(new Position("g2"), PieceFactory.create(Type.PAWN, Color.WHITE));
-        board.addPiece(new Position("e1"), PieceFactory.create(Type.ROOK, Color.WHITE));
-        board.addPiece(new Position("f1"), PieceFactory.create(Type.KING, Color.WHITE));
+        board.addPiece("f2", PieceFactory.create(Type.PAWN, Color.WHITE));
+        board.addPiece("g2", PieceFactory.create(Type.PAWN, Color.WHITE));
+        board.addPiece("e1", PieceFactory.create(Type.ROOK, Color.WHITE));
+        board.addPiece("f1", PieceFactory.create(Type.KING, Color.WHITE));
         List<Piece> pieceList = new ArrayList<>();
         pieceList.add(PieceFactory.create(Type.KING, Color.BLACK));
         pieceList.add(PieceFactory.create(Type.PAWN, Color.BLACK));

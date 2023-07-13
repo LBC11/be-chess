@@ -81,23 +81,30 @@ public class Board {
                 .sum();
     }
 
-    public Piece findPiece(final Position position) {
+    public Piece findPiece(final String loc) {
+
+        Position position = new Position(loc);
 
         Rank rank = ranks.get(position.getYPos());
 
         return rank.findPiece(position.getXPos());
     }
 
-    public void addPiece(final Position position, final Piece piece) {
+    public void addPiece(final String loc, final Piece piece) {
+
+        Position position = new Position(loc);
 
         Rank rank = ranks.get(position.getYPos());
 
         rank.addInitPiece(position.getXPos(), piece);
     }
 
-    public void move(final Position sourcePosition, final Position targetPosition) {
+    public void move(final String sourceLoc, final String targetLoc) {
 
-        Piece piece = findPiece(sourcePosition);
+        Position sourcePosition = new Position(sourceLoc);
+        Position targetPosition = new Position(targetLoc);
+
+        Piece piece = findPiece(sourceLoc);
 
         Rank sourceRank = ranks.get(sourcePosition.getYPos());
         Rank targetRank = ranks.get(targetPosition.getYPos());

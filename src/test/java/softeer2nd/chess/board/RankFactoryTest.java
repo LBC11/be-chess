@@ -16,7 +16,7 @@ class RankFactoryTest {
 
     @BeforeEach
     void setup() {
-        rankFactory = RankFactory.getInstance();
+        rankFactory = RankFactory.INSTANCE;
     }
 
     @Test

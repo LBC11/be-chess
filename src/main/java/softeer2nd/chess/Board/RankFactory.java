@@ -4,20 +4,10 @@ import softeer2nd.chess.pieces.Piece;
 
 import static softeer2nd.chess.Board.Constants.*;
 
-public class RankFactory {
-
-    private static final RankFactory instance = new RankFactory();
-
-    private RankFactory(){
-
-    }
-
-    public static RankFactory getInstance() {
-        return instance;
-    }
+public enum RankFactory {
+    INSTANCE;
 
     public Rank createNonPawnPieces(Color color) {
-
         Rank rank = new Rank();
 
         rank.addPiece(0, Piece.create(Type.ROOK, color));
@@ -33,7 +23,6 @@ public class RankFactory {
     }
 
     public Rank createPawnPieces(Color color) {
-
         Rank rank = new Rank();
 
         rank.addPiece(0, Piece.create(Type.PAWN, color));
@@ -49,7 +38,6 @@ public class RankFactory {
     }
 
     public Rank createBlankPieces() {
-
         Rank rank = new Rank();
 
         rank.addPiece(0, Piece.create(Type.NO_PIECE, Color.NOCOLOR));

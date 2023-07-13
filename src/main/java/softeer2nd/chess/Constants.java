@@ -2,6 +2,11 @@ package softeer2nd.chess;
 
 public class Constants {
 
+    public static final int ROW_LENGTH = 8;
+    public static final int COLUMN_LENGTH = 8;
+    public static final int KEY_GENERATION_MULTIPLIER = 10;
+
+
     public enum Color {
         WHITE, BLACK, NOCOLOR
     }
@@ -35,21 +40,4 @@ public class Constants {
     }
 
     public enum SortOrder {ASCENDING, DESCENDING}
-
-    public enum BoardConfig {
-
-        COLUMN_LENGTH(8),
-        ROW_LENGTH(8),
-        KEY_GENERATION_MULTIPLIER(10);
-
-        private final int value;
-
-        BoardConfig(int value) {
-            this.value = value;
-        }
-
-        public int getValue() {
-            return this.value;
-        }
-    }
 }

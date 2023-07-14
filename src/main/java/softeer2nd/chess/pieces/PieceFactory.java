@@ -1,8 +1,8 @@
 package softeer2nd.chess.pieces;
 
-import softeer2nd.chess.exception.InvalidColorException;
-import softeer2nd.chess.exception.InvalidPieceFieldException;
-import softeer2nd.chess.exception.InvalidTypeException;
+import softeer2nd.chess.exception.pieceException.InvalidColorException;
+import softeer2nd.chess.exception.pieceException.InvalidPieceFieldException;
+import softeer2nd.chess.exception.pieceException.InvalidTypeException;
 
 import static softeer2nd.chess.Board.Constants.*;
 import static softeer2nd.chess.Board.Constants.Color.*;

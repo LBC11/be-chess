@@ -1,7 +1,7 @@
 package softeer2nd.chess.Board;
 
-import softeer2nd.chess.exception.InvalidBoardBoundException;
-import softeer2nd.chess.exception.InvalidPositionException;
+import softeer2nd.chess.exception.positionException.InvalidBoardBoundException;
+import softeer2nd.chess.exception.positionException.InvalidPositionException;
 
 import static softeer2nd.chess.Board.Constants.COLUMN_LENGTH;
 

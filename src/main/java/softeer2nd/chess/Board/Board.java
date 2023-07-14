@@ -131,19 +131,4 @@ public class Board {
 
         return pawnCount > 1 ? pawnCount * DUPLICATE_PAWN_POINT : pawnCount * Type.PAWN.getDefaultPoint();
     }
-
-    public List<Piece> SortByPointAscending(final Color color) {
-        return sortByPoint(color, SortOrder.ASCENDING);
-    }
-
-    public List<Piece> SortByPointDescending(final Color color) {
-        return sortByPoint(color, SortOrder.DESCENDING);
-    }
-
-    private List<Piece> sortByPoint(final Color color, final SortOrder sortOrder) {
-        return ranks.stream()
-                .flatMap(rank -> rank.pieceList(color).stream())
-                .sorted(new Piece.PieceComparator(sortOrder))
-                .toList();
-    }
 }

@@ -44,9 +44,7 @@ public class Constants {
 
         public int getMaxMovement() {return this.maxMovement;}
     }
-
-    public enum SortOrder {ASCENDING, DESCENDING}
-
+    
     public enum Direction {
         NORTH(0, 1),
         NORTHEAST(1, 1),

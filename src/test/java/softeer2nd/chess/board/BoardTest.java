@@ -114,43 +114,4 @@ class BoardTest {
         assertEquals(15.0, board.calculatePoint(Color.BLACK), 0.01);
 
     }
-
-    @Test
-    @DisplayName("보드판의 기물이 정상적으로 정렬되어야 한다.")
-    void sortPieceList() {
-        board.initializeEmpty();
-
-        board.addPiece("b6", PieceFactory.create(Type.PAWN, Color.BLACK));
-        board.addPiece("e6", PieceFactory.create(Type.QUEEN, Color.BLACK));
-        board.addPiece("b8", PieceFactory.create(Type.KING, Color.BLACK));
-        board.addPiece("c8", PieceFactory.create(Type.ROOK, Color.BLACK));
-
-        board.addPiece("f2", PieceFactory.create(Type.PAWN, Color.WHITE));
-        board.addPiece("g2", PieceFactory.create(Type.PAWN, Color.WHITE));
-        board.addPiece("e1", PieceFactory.create(Type.ROOK, Color.WHITE));
-        board.addPiece("f1", PieceFactory.create(Type.KING, Color.WHITE));
-        List<Piece> pieceList = new ArrayList<>();
-        pieceList.add(PieceFactory.create(Type.KING, Color.BLACK));
-        pieceList.add(PieceFactory.create(Type.PAWN, Color.BLACK));
-        pieceList.add(PieceFactory.create(Type.ROOK, Color.BLACK));
-        pieceList.add(PieceFactory.create(Type.QUEEN, Color.BLACK));
-
-        assertEquals(pieceList, board.SortByPointAscending(Color.BLACK));
-
-        pieceList.clear();
-        pieceList.add(PieceFactory.create(Type.KING, Color.WHITE));
-        pieceList.add(PieceFactory.create(Type.PAWN, Color.WHITE));
-        pieceList.add(PieceFactory.create(Type.PAWN, Color.WHITE));
-        pieceList.add(PieceFactory.create(Type.ROOK, Color.WHITE));
-
-        assertEquals(pieceList, board.SortByPointAscending(Color.WHITE));
-
-        pieceList.clear();
-        pieceList.add(PieceFactory.create(Type.ROOK, Color.WHITE));
-        pieceList.add(PieceFactory.create(Type.PAWN, Color.WHITE));
-        pieceList.add(PieceFactory.create(Type.PAWN, Color.WHITE));
-        pieceList.add(PieceFactory.create(Type.KING, Color.WHITE));
-
-        assertEquals(pieceList, board.SortByPointDescending(Color.WHITE));
-    }
 }

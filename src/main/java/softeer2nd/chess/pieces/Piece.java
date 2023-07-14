@@ -18,16 +18,13 @@ public class Piece {
     private final List<Direction> directions;
 
     protected Piece(Type type, Color color, List<Direction> directions ) {
-
         this.type = type;
         this.color = color;
         this.directions = directions;
     }
 
     public char getRepresentation() {
-
         char representation = this.type.getRepresentation();
-
         return this.color == Color.BLACK ? StringUtils.Uppercase(representation) : representation;
     }
 
@@ -49,21 +46,6 @@ public class Piece {
 
     public List<Direction> getDirections() {
         return directions;
-    }
-
-    public static class PieceComparator implements Comparator<Piece> {
-        private final SortOrder sortOrder;
-
-        public PieceComparator(SortOrder sortOrder) {
-            this.sortOrder = sortOrder;
-        }
-
-        @Override
-        public int compare(final Piece o1, final Piece o2) {
-            int result = (int) (o1.type.getDefaultPoint() - o2.type.getDefaultPoint());
-
-            return sortOrder == SortOrder.ASCENDING ? result : -result;
-        }
     }
 
     @Override

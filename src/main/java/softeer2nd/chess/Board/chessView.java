@@ -1,7 +1,5 @@
 package softeer2nd.chess.Board;
 
-import softeer2nd.utils.StringUtils;
-
 public class chessView {
 
     private final Board board;

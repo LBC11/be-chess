@@ -1,6 +1,5 @@
 package softeer2nd.chess.pieces;
 
-import softeer2nd.chess.Board.Constants;
 import softeer2nd.chess.Board.Constants.Type;
 import softeer2nd.chess.Board.Constants.Color;
 import softeer2nd.chess.Board.Constants.SortOrder;
@@ -16,11 +15,13 @@ public class Piece {
 
     private final Type type;
     private final Color color;
+    private final List<Direction> directions;
 
     protected Piece(Type type, Color color, List<Direction> directions ) {
 
         this.type = type;
         this.color = color;
+        this.directions = directions;
     }
 
     public char getRepresentation() {
@@ -46,8 +47,11 @@ public class Piece {
         return this.isSameType(type) && this.isSameColor(color);
     }
 
-    public static class PieceComparator implements Comparator<Piece> {
+    public List<Direction> getDirections() {
+        return directions;
+    }
 
+    public static class PieceComparator implements Comparator<Piece> {
         private final SortOrder sortOrder;
 
         public PieceComparator(SortOrder sortOrder) {
@@ -56,7 +60,6 @@ public class Piece {
 
         @Override
         public int compare(final Piece o1, final Piece o2) {
-
             int result = (int) (o1.type.getDefaultPoint() - o2.type.getDefaultPoint());
 
             return sortOrder == SortOrder.ASCENDING ? result : -result;

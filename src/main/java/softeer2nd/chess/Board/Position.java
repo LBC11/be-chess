@@ -11,11 +11,9 @@ public class Position {
     private final int yPos;
 
     public Position(String position) {
-
-        verifyPosition(position);
-
         this.xPos = position.charAt(0) - 'a';
         this.yPos = COLUMN_LENGTH - (position.charAt(1) - '0');
+        verifyPosition(position);
     }
 
     public int getYPos() {
@@ -37,12 +35,18 @@ public class Position {
     private void verifyPosition(String position) {
 
         if(!isValidPosition(position)) {
-            throw new InvalidPositionException("Invalid position length: " + position);
+            throw new InvalidPositionException(position);
         }
 
         if (!isWithinBoardBounds(xPos, yPos)) {
-            throw new InvalidBoardBoundException("Invalid position location: " + position);
+            throw new InvalidBoardBoundException(position);
         }
     }
 
+    public String getPositionString() {
+        char x = (char) (this.xPos + 'a');
+        int y = COLUMN_LENGTH - this.yPos;
+
+        return String.valueOf(x) + y;
+    }
 }

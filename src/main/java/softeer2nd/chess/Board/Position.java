@@ -1,5 +1,6 @@
 package softeer2nd.chess.Board;
 
+import softeer2nd.chess.exception.InvalidBoardBoundException;
 import softeer2nd.chess.exception.InvalidPositionException;
 
 import static softeer2nd.chess.Board.Constants.COLUMN_LENGTH;
@@ -10,12 +11,11 @@ public class Position {
     private final int yPos;
 
     public Position(String position) {
+
+        verifyPosition(position);
+
         this.xPos = position.charAt(0) - 'a';
         this.yPos = COLUMN_LENGTH - (position.charAt(1) - '0');
-
-        if (!isValidPosition(position) || !isWithinBoardBounds(xPos, yPos)) {
-            throw new InvalidPositionException("Invalid position: " + position);
-        }
     }
 
     public int getYPos() {
@@ -32,6 +32,17 @@ public class Position {
 
     private boolean isValidPosition(String position) {
         return position.length() == 2;
+    }
+
+    private void verifyPosition(String position) {
+
+        if(!isValidPosition(position)) {
+            throw new InvalidPositionException("Invalid position length: " + position);
+        }
+
+        if (!isWithinBoardBounds(xPos, yPos)) {
+            throw new InvalidBoardBoundException("Invalid position location: " + position);
+        }
     }
 
 }

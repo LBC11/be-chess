@@ -22,20 +22,14 @@ public class Board {
     }
 
     public void initialize() {
-
         rankFactory = RankFactory.INSTANCE;
-
         ranks = new ArrayList<>();
-
         addInitPieces();
     }
 
     public void initializeEmpty() {
-
         rankFactory = RankFactory.INSTANCE;
-
         ranks = new ArrayList<>();
-
         addInitBlankPieces();
     }
 
@@ -63,9 +57,7 @@ public class Board {
 
     public String showBoard() {
         StringBuilder ret = new StringBuilder();
-
         ranks.forEach(rank -> StringUtils.appendNewLine(ret.append(rank.showPieces())));
-
         return ret.toString();
     }
 
@@ -82,39 +74,35 @@ public class Board {
     }
 
     public Piece findPiece(final String loc) {
-
         Position position = new Position(loc);
-
-        Rank rank = ranks.get(position.getYPos());
-
+        Rank rank = getRankByPosition(position);
         return rank.findPiece(position.getXPos());
     }
 
     public void addPiece(final String loc, final Piece piece) {
-
         Position position = new Position(loc);
-
-        Rank rank = ranks.get(position.getYPos());
-
+        Rank rank = getRankByPosition(position);
         rank.addInitPiece(position.getXPos(), piece);
     }
 
     public void move(final String sourceLoc, final String targetLoc) {
-
         Position sourcePosition = new Position(sourceLoc);
         Position targetPosition = new Position(targetLoc);
 
         Piece piece = findPiece(sourceLoc);
 
-        Rank sourceRank = ranks.get(sourcePosition.getYPos());
-        Rank targetRank = ranks.get(targetPosition.getYPos());
+        Rank sourceRank = getRankByPosition(sourcePosition);
+        Rank targetRank = getRankByPosition(targetPosition);
 
         sourceRank.removePiece(sourcePosition.getXPos());
         targetRank.addPiece(targetPosition.getXPos(), piece);
     }
 
-    public double calculatePoint(final Color color) {
+    private Rank getRankByPosition(final Position position) {
+        return ranks.get(position.getYPos());
+    }
 
+    public double calculatePoint(final Color color) {
         return IntStream.range(0, COLUMN_LENGTH)
                 .mapToDouble(col -> calculateColPoint(col, color)).sum();
     }
@@ -124,12 +112,10 @@ public class Board {
     만약, 한 col 에 두 개 이상의 pawn 이 있다면 pawn 의 점수를 반으로 줄인다.
      */
     private double calculateColPoint(final int col, final Color color) {
-
         return calculateColPawnPoint(col, color) + calculateColNonPawnPoint(col, color);
     }
 
     private double calculateColNonPawnPoint(final int col, final Color color) {
-
         return IntStream.range(0, ROW_LENGTH)
                 .mapToObj(i -> ranks.get(i).findPiece(col))
                 .filter(piece -> !piece.isSameType(Type.PAWN) && piece.isSameColor(color))
@@ -138,7 +124,6 @@ public class Board {
     }
 
     private double calculateColPawnPoint(final int col, final Color color) {
-
         double pawnCount = IntStream.range(0, ROW_LENGTH)
                 .mapToObj(row -> ranks.get(row).findPiece(col))
                 .filter(piece -> piece.isSameType(Type.PAWN) && piece.isSameColor(color))

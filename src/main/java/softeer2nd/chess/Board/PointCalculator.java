@@ -1,6 +1,8 @@
 package softeer2nd.chess.Board;
 
 
+import softeer2nd.utils.StringUtils;
+
 import static softeer2nd.chess.Board.Constants.*;
 
 public class PointCalculator {
@@ -11,11 +13,20 @@ public class PointCalculator {
         this.board = board;
     }
 
-    public double calculateWhitePoint() {
+    private double calculateWhitePoint() {
         return board.calculatePoint(Color.WHITE);
     }
 
-    public double calculateBlackPoint() {
+    private double calculateBlackPoint() {
         return board.calculatePoint(Color.BLACK);
+    }
+
+    public String showPoint() {
+
+        StringBuilder sb = new StringBuilder();
+        StringUtils.appendNewLine(sb.append("흰색 점수: ").append(calculateWhitePoint()))
+                .append("검은색 점수: ").append(calculateBlackPoint());
+
+        return sb.toString();
     }
 }

@@ -18,10 +18,7 @@ public class chessView {
     }
 
     public void showPoint() {
-        StringBuilder sb = new StringBuilder();
-        StringUtils.appendNewLine(sb.append("흰색 점수: ").append(pointCalculator.calculateWhitePoint()))
-                .append("검은색 점수: ").append(pointCalculator.calculateBlackPoint());
 
-        System.out.println(sb);
+        System.out.println(pointCalculator.showPoint());
     }
 }

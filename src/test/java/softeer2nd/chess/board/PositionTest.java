@@ -3,6 +3,7 @@ package softeer2nd.chess.board;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.Board.Position;
+import softeer2nd.chess.exception.positionException.InvalidBoardBoundException;
 import softeer2nd.chess.exception.positionException.InvalidPositionException;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -36,6 +37,26 @@ class PositionTest {
     void createAbnormalPosition() {
 
         assertThrows(InvalidPositionException.class, () -> new Position("b55"));
-        assertThrows(InvalidPositionException.class, () -> new Position("z2"));
+        assertThrows(InvalidBoardBoundException.class, () -> new Position("z2"));
     }
+
+
+    @Test
+    @DisplayName("정상적으로 다시 String position 이 반환되어야 한다.")
+    void getPositionString() {
+
+        Position p1 = new Position("b5");
+        Position p2 = new Position("b8");
+        Position p3 = new Position("d6");
+        Position p4 = new Position("f4");
+        Position p5 = new Position("h2");
+
+        assertEquals("b5", p1.getPositionString());
+        assertEquals("b8", p2.getPositionString());
+        assertEquals("d6", p3.getPositionString());
+        assertEquals("f4", p4.getPositionString());
+        assertEquals("h2", p5.getPositionString());
+
+    }
+
 }

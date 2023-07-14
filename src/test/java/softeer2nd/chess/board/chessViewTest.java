@@ -1,28 +1,37 @@
-package softeer2nd.chess;
+package softeer2nd.chess.board;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.Board.Board;
+import softeer2nd.chess.Board.PointCalculator;
+import softeer2nd.chess.Board.chessView;
 
-import static org.junit.Assert.assertEquals;
-import static softeer2nd.utils.StringUtils.appendNewLine;
+class chessViewTest {
 
-class ViewTest {
-
-    View view;
+    chessView chessView;
     Board board;
+    PointCalculator pointCalculator;
 
     @BeforeEach
     void setup() {
         board = new Board();
         board.initialize();
-        view = new View(board);
+        pointCalculator = new PointCalculator(board);
+        chessView = new chessView(board, pointCalculator);
     }
 
     @Test
     @DisplayName("보드판이 정상적으로 반환되어야 한다.")
-    void showBoard() throws Exception {
-        view.showBoard();
+    void showBoard() {
+        chessView.showBoard();
     }
+
+    @Test
+    @DisplayName("보드판이 정상적으로 반환되어야 한다.")
+    void showPoint() {
+        chessView.showPoint();
+    }
+
+
 }

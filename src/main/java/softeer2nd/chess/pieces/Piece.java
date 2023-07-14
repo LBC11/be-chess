@@ -2,10 +2,8 @@ package softeer2nd.chess.pieces;
 
 import softeer2nd.chess.Board.Constants.Type;
 import softeer2nd.chess.Board.Constants.Color;
-import softeer2nd.chess.Board.Constants.SortOrder;
 import softeer2nd.utils.StringUtils;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 

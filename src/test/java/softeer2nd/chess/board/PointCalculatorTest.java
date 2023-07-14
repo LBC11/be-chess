@@ -5,6 +5,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.Board.Board;
 import softeer2nd.chess.Board.PointCalculator;
+import softeer2nd.utils.StringUtils;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,15 +22,9 @@ class PointCalculatorTest {
     }
 
     @Test
-    @DisplayName("하얀색 기물들의 점수가 정상적으로 반환되어야 한다.")
-    void calculateWhitePoint() {
-        assertEquals(38.0, pointCalculator.calculateWhitePoint());
-    }
-
-    @Test
-    @DisplayName("검은색 기물들의 점수가 정상적으로 반환되어야 한다.")
-    void calculateBlackPoint() {
-        assertEquals(38.0, pointCalculator.calculateBlackPoint());
+    @DisplayName("기물들의 점수가 정상적으로 반환되어야 한다.")
+    void showPoint() {
+        assertEquals(StringUtils.appendNewLine("흰색 점수: 38.0") + "검은색 점수: 38.0", pointCalculator.showPoint());
     }
 
 }

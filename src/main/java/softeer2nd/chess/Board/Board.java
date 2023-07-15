@@ -3,8 +3,8 @@ package softeer2nd.chess.Board;
 
 import softeer2nd.chess.Board.Constants.Type;
 import softeer2nd.chess.Board.Constants.Color;
-import softeer2nd.chess.Board.Constants.SortOrder;
 
+import softeer2nd.chess.exception.moveException.InvalidDistanceException;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.utils.StringUtils;
 
@@ -98,6 +98,10 @@ public class Board {
         targetRank.addPiece(targetPosition.getXPos(), piece);
     }
 
+    private boolean isReach(final Position sourcePosition, final Position targetPosition) {
+        return (sourcePosition.getXPos() - targetPosition.getXPos()) <= 1 && (sourcePosition.getYPos() - targetPosition.getYPos()) <= 1;
+    }
+
     private Rank getRankByPosition(final Position position) {
         return ranks.get(position.getYPos());
     }
@@ -107,10 +111,6 @@ public class Board {
                 .mapToDouble(col -> calculateColPoint(col, color)).sum();
     }
 
-    /*
-    각 col 의 piece 를 순회하면서 점수를 계산한다.
-    만약, 한 col 에 두 개 이상의 pawn 이 있다면 pawn 의 점수를 반으로 줄인다.
-     */
     private double calculateColPoint(final int col, final Color color) {
         return calculateColPawnPoint(col, color) + calculateColNonPawnPoint(col, color);
     }

@@ -2,7 +2,6 @@ package softeer2nd.chess.board;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestTemplate;
 import softeer2nd.chess.Board.Position;
 import softeer2nd.chess.exception.positionException.InvalidBoardBoundException;
 import softeer2nd.chess.exception.positionException.InvalidPositionException;
@@ -63,9 +62,25 @@ class PositionTest {
     @Test
     @DisplayName("정상적으로 방향이 밪는지 검증해야 한다.")
     void doesPositionMatchAfterMove() {
-
         Position p1 = Position.of("b6");
         Position p2 = Position.of("b5");
         assertTrue(p1.doesPositionMatchAfterMove(p2, 0, 1));
     }
+
+    @Test
+    @DisplayName("유닛 벡터가 정상적으로 생성되야 한다.")
+    void generateUnitVector() {
+        Position p1 = Position.of("b8");
+        Position p2 = Position.of("b5");
+        assertEquals(Position.of("a7"), p1.generateUnitVector(p2));
+    }
+
+    @Test
+    @DisplayName("두 포지션이 정상적으로 더해져야 한다.")
+    void moveByAddingPosition() {
+        Position p1 = Position.of("b8");
+        Position p2 = Position.of("b5");
+        assertEquals(Position.of("c5"), p2.moveByAddingPosition(p1));
+    }
+
 }

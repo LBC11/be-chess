@@ -58,4 +58,8 @@ public class Position {
 
         return String.valueOf(x) + y;
     }
+
+    public boolean doesPositionMatchAfterMove(Position targetPosition, int dx, int dy) {
+        return (this.xPos - targetPosition.xPos) == dx && (this.yPos - targetPosition.yPos) == dy;
+    }
 }

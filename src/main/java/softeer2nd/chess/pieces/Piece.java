@@ -15,7 +15,7 @@ public class Piece {
     private final Color color;
     private final List<Direction> directions;
 
-    protected Piece(Type type, Color color, List<Direction> directions ) {
+    protected Piece(Type type, Color color, List<Direction> directions) {
         this.type = type;
         this.color = color;
         this.directions = directions;
@@ -32,6 +32,10 @@ public class Piece {
 
     public boolean isSameColor(final Color color) {
         return this.color.equals(color);
+    }
+
+    public boolean isSameColor(final Piece piece) {
+        return this.color.equals(piece.color);
     }
 
     public boolean isSameType(final Type type) {

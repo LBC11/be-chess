@@ -99,6 +99,11 @@ public class Board {
         Position targetPosition = Position.of(targetLoc);
 
         Piece sourcePiece = findPieceUsingPosition(sourcePosition);
+        Piece targetPiece = findPieceUsingPosition(targetPosition);
+
+        if (verifySameColorPieces(sourcePiece, targetPiece))
+            throw new InvalidColorMoveException(sourcePosition.getPositionString(), targetPosition.getPositionString());
+
         Direction direction = sourcePiece.getMaxMovement() == 1 ? findLimitedMovableDirection(sourcePosition, targetPosition) :
                 findUnLimitedMovalbeDirection(sourcePosition, targetPosition);
 
@@ -122,10 +127,6 @@ public class Board {
     private Direction findLimitedMovableDirection(final Position sourcePosition, final Position targetPosition) {
 
         Piece sourcePiece = findPieceUsingPosition(sourcePosition);
-        Piece targetPiece = findPieceUsingPosition(targetPosition);
-
-        if (verifySameColorPieces(sourcePiece, targetPiece))
-            throw new InvalidColorMoveException(sourcePosition.getPositionString(), targetPosition.getPositionString());
 
         return sourcePiece.getDirections().stream()
                 .filter(direction -> sourcePosition.doesPositionMatchAfterMove(targetPosition, direction.getXDegree(), direction.getYDegree()))

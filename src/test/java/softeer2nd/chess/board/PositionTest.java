@@ -66,6 +66,6 @@ class PositionTest {
 
         Position p1 = Position.of("b6");
         Position p2 = Position.of("b5");
-        assertTrue(p1.doesPositionMatchAfterMove(p2, 0, -1));
+        assertTrue(p1.doesPositionMatchAfterMove(p2, 0, 1));
     }
 }

@@ -60,6 +60,6 @@ public class Position {
     }
 
     public boolean doesPositionMatchAfterMove(Position targetPosition, int dx, int dy) {
-        return (this.xPos - targetPosition.xPos) == dx && (this.yPos - targetPosition.yPos) == dy;
+        return (targetPosition.xPos - this.xPos) == dx && (targetPosition.yPos - this.yPos) == dy;
     }
 }

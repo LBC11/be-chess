@@ -2,6 +2,7 @@ package softeer2nd.chess.board;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestTemplate;
 import softeer2nd.chess.Board.Position;
 import softeer2nd.chess.exception.positionException.InvalidBoardBoundException;
 import softeer2nd.chess.exception.positionException.InvalidPositionException;
@@ -59,4 +60,12 @@ class PositionTest {
 
     }
 
+    @Test
+    @DisplayName("정상적으로 방향이 밪는지 검증해야 한다.")
+    void doesPositionMatchAfterMove() {
+
+        Position p1 = Position.of("b6");
+        Position p2 = Position.of("b5");
+        assertTrue(p1.doesPositionMatchAfterMove(p2, 0, -1));
+    }
 }

@@ -4,6 +4,8 @@ package softeer2nd.chess.Board;
 import softeer2nd.chess.Board.Constants.Type;
 import softeer2nd.chess.Board.Constants.Color;
 
+import softeer2nd.chess.exception.moveException.InvalidColorMoveException;
+import softeer2nd.chess.exception.moveException.UnreachablePositionException;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.utils.StringUtils;
 

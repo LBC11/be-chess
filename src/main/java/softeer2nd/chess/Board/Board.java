@@ -98,6 +98,10 @@ public class Board {
         Position sourcePosition = Position.of(sourceLoc);
         Position targetPosition = Position.of(targetLoc);
 
+        Piece sourcePiece = findPieceUsingPosition(sourcePosition);
+        Direction direction = sourcePiece.getMaxMovement() == 1 ? findLimitedMovableDirection(sourcePosition, targetPosition) :
+                findUnLimitedMovalbeDirection(sourcePosition, targetPosition);
+
         moveUsingPosition(sourcePosition, targetPosition);
     }
 
@@ -111,8 +115,26 @@ public class Board {
         targetRank.addPiece(targetPosition.getXPos(), piece);
     }
 
-    private boolean isReach(final Position sourcePosition, final Position targetPosition) {
-        return (sourcePosition.getXPos() - targetPosition.getXPos()) <= 1 && (sourcePosition.getYPos() - targetPosition.getYPos()) <= 1;
+    private Direction findUnLimitedMovalbeDirection(final Position sourcePosition, final Position targetPosition) {
+        return Direction.EAST;
+    }
+
+    private Direction findLimitedMovableDirection(final Position sourcePosition, final Position targetPosition) {
+
+        Piece sourcePiece = findPieceUsingPosition(sourcePosition);
+        Piece targetPiece = findPieceUsingPosition(targetPosition);
+
+        if (verifySameColorPieces(sourcePiece, targetPiece))
+            throw new InvalidColorMoveException(sourcePosition.getPositionString(), targetPosition.getPositionString());
+
+        return sourcePiece.getDirections().stream()
+                .filter(direction -> sourcePosition.doesPositionMatchAfterMove(targetPosition, direction.getXDegree(), direction.getYDegree()))
+                .findFirst()
+                .orElseThrow(() -> new UnreachablePositionException(sourcePosition.getPositionString(), targetPosition.getPositionString()));
+    }
+
+    private boolean verifySameColorPieces(final Piece sourcePiece, final Piece targetPiece) {
+        return sourcePiece.isSameColor(targetPiece);
     }
 
     private Rank getRankByPosition(final Position position) {

@@ -30,6 +30,10 @@ public class Piece {
         return this.type.getDefaultPoint();
     }
 
+    public int getMaxMovement() {
+        return this.type.getMaxMovement();
+    }
+
     public boolean isSameColor(final Color color) {
         return this.color.equals(color);
     }

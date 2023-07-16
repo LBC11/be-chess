@@ -11,11 +11,7 @@ import static softeer2nd.utils.StringUtils.appendNewLine;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import softeer2nd.chess.pieces.Piece;
 import softeer2nd.chess.pieces.PieceFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 class BoardTest {
 
@@ -81,10 +77,6 @@ class BoardTest {
         String targetPosition = "b3";
         
         board.move(sourcePosition, targetPosition);
-
-        System.out.println(board.allPiecesCount());
-        System.out.println(board.findPiece(sourcePosition).isSameType(Type.NO_PIECE));
-        System.out.println(board.findPiece(targetPosition).isSameType(Type.NO_PIECE));
 
         assertEquals(PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR), board.findPiece(sourcePosition));
         assertEquals(PieceFactory.create(Type.PAWN, Color.WHITE), board.findPiece(targetPosition));

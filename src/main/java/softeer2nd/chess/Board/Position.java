@@ -10,10 +10,19 @@ public class Position {
     private final int xPos;
     private final int yPos;
 
-    public Position(String position) {
+    private Position(String position) {
         this.xPos = position.charAt(0) - 'a';
         this.yPos = COLUMN_LENGTH - (position.charAt(1) - '0');
         verifyPosition(position);
+    }
+
+    private Position(int xPos, int yPos) {
+        this.xPos = xPos;
+        this.yPos = yPos;
+    }
+
+    public static Position of(String position) {
+        return new Position(position);
     }
 
     public int getYPos() {

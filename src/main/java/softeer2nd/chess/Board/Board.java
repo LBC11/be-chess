@@ -73,7 +73,7 @@ public class Board {
     }
 
     public Piece findPiece(final String loc) {
-        Position position = new Position(loc);
+        Position position = Position.of(loc);
         return findPieceUsingPosition(position);
     }
 
@@ -83,7 +83,7 @@ public class Board {
     }
 
     public void addPiece(final String loc, final Piece piece) {
-        Position position = new Position(loc);
+        Position position = Position.of(loc);
         addPieceUsingPosition(position, piece);
     }
 
@@ -93,8 +93,8 @@ public class Board {
     }
 
     public void move(final String sourceLoc, final String targetLoc) {
-        Position sourcePosition = new Position(sourceLoc);
-        Position targetPosition = new Position(targetLoc);
+        Position sourcePosition = Position.of(sourceLoc);
+        Position targetPosition = Position.of(targetLoc);
 
         moveUsingPosition(sourcePosition, targetPosition);
     }

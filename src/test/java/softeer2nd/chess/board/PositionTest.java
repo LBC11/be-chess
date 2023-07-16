@@ -14,11 +14,11 @@ class PositionTest {
     @DisplayName("정상적으로 String 을 이용해 piece 의 위치를 만들어야 한다.")
     void createPosition() {
 
-        Position p1 = new Position("b5");
-        Position p2 = new Position("b8");
-        Position p3 = new Position("d6");
-        Position p4 = new Position("f4");
-        Position p5 = new Position("h2");
+        Position p1 = Position.of("b5");
+        Position p2 = Position.of("b8");
+        Position p3 = Position.of("d6");
+        Position p4 = Position.of("f4");
+        Position p5 = Position.of("h2");
 
         assertEquals(1, p1.getXPos());
         assertEquals(3, p1.getYPos());
@@ -36,8 +36,8 @@ class PositionTest {
     @DisplayName("비정상적인 Position 생성은 예외가 방생해야 합니다.")
     void createAbnormalPosition() {
 
-        assertThrows(InvalidPositionException.class, () -> new Position("b55"));
-        assertThrows(InvalidBoardBoundException.class, () -> new Position("z2"));
+        assertThrows(InvalidPositionException.class, () -> Position.of("b55"));
+        assertThrows(InvalidBoardBoundException.class, () -> Position.of("z2"));
     }
 
 
@@ -45,11 +45,11 @@ class PositionTest {
     @DisplayName("정상적으로 다시 String position 이 반환되어야 한다.")
     void getPositionString() {
 
-        Position p1 = new Position("b5");
-        Position p2 = new Position("b8");
-        Position p3 = new Position("d6");
-        Position p4 = new Position("f4");
-        Position p5 = new Position("h2");
+        Position p1 = Position.of("b5");
+        Position p2 = Position.of("b8");
+        Position p3 = Position.of("d6");
+        Position p4 = Position.of("f4");
+        Position p5 = Position.of("h2");
 
         assertEquals("b5", p1.getPositionString());
         assertEquals("b8", p2.getPositionString());

@@ -3,6 +3,8 @@ package softeer2nd.chess.Board;
 import softeer2nd.chess.exception.positionException.InvalidBoardBoundException;
 import softeer2nd.chess.exception.positionException.InvalidPositionException;
 
+import java.util.Objects;
+
 import static softeer2nd.chess.Board.Constants.COLUMN_LENGTH;
 
 public class Position {
@@ -61,5 +63,32 @@ public class Position {
 
     public boolean doesPositionMatchAfterMove(Position targetPosition, int dx, int dy) {
         return (targetPosition.xPos - this.xPos) == dx && (targetPosition.yPos - this.yPos) == dy;
+    }
+
+    public Position generateUnitVector(Position targetPosition) {
+        int unitX = targetPosition.xPos - this.xPos;
+        int unitY = targetPosition.yPos - this.yPos;
+
+        if(unitX != 0) unitX = unitX / Math.abs(unitX);
+        if(unitY != 0) unitY = unitY / Math.abs(unitY);
+
+        return new Position(unitX, unitY);
+    }
+
+    public Position moveByAddingPosition(Position position) {
+        return new Position(this.xPos + position.xPos, this.yPos + position.getYPos());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return xPos == position.xPos && yPos == position.yPos;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(xPos, yPos);
     }
 }

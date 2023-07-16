@@ -4,7 +4,6 @@ package softeer2nd.chess.Board;
 import softeer2nd.chess.Board.Constants.Type;
 import softeer2nd.chess.Board.Constants.Color;
 
-import softeer2nd.chess.exception.moveException.InvalidDistanceException;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.utils.StringUtils;
 
@@ -75,12 +74,20 @@ public class Board {
 
     public Piece findPiece(final String loc) {
         Position position = new Position(loc);
+        return findPieceUsingPosition(position);
+    }
+
+    private Piece findPieceUsingPosition(final Position position) {
         Rank rank = getRankByPosition(position);
         return rank.findPiece(position.getXPos());
     }
 
     public void addPiece(final String loc, final Piece piece) {
         Position position = new Position(loc);
+        addPieceUsingPosition(position, piece);
+    }
+
+    private void addPieceUsingPosition(final Position position, final Piece piece) {
         Rank rank = getRankByPosition(position);
         rank.addInitPiece(position.getXPos(), piece);
     }
@@ -89,7 +96,11 @@ public class Board {
         Position sourcePosition = new Position(sourceLoc);
         Position targetPosition = new Position(targetLoc);
 
-        Piece piece = findPiece(sourceLoc);
+        moveUsingPosition(sourcePosition, targetPosition);
+    }
+
+    private void moveUsingPosition(final Position sourcePosition, final Position targetPosition) {
+        Piece piece = findPieceUsingPosition(sourcePosition);
 
         Rank sourceRank = getRankByPosition(sourcePosition);
         Rank targetRank = getRankByPosition(targetPosition);

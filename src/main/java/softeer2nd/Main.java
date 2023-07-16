@@ -8,7 +8,6 @@ public class Main {
 
     public static void main(String[] args) {
         chess = new Chess();
-        chess.start();
-
+        chess.gameStart();
     }
 }

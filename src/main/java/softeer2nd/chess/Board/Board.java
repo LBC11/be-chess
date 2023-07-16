@@ -105,7 +105,7 @@ public class Board {
             throw new InvalidColorMoveException(sourcePosition.getPositionString(), targetPosition.getPositionString());
 
         Direction direction = sourcePiece.getMaxMovement() == 1 ? findLimitedMovableDirection(sourcePosition, targetPosition) :
-                findUnLimitedMovalbeDirection(sourcePosition, targetPosition);
+                findUnLimitedMovableDirection(sourcePosition, targetPosition);
 
         moveUsingPosition(sourcePosition, targetPosition);
     }
@@ -120,15 +120,22 @@ public class Board {
         targetRank.addPiece(targetPosition.getXPos(), piece);
     }
 
-    private Direction findUnLimitedMovalbeDirection(final Position sourcePosition, final Position targetPosition) {
-        return Direction.EAST;
+    private Direction findUnLimitedMovableDirection(final Position sourcePosition, final Position targetPosition) {
+        Position unitVector = sourcePosition.generateUnitVector(targetPosition);
+        Position sourcePositionWithUnitVector = sourcePosition.moveByAddingPosition(unitVector);
+        Piece sourcePiece = findPieceUsingPosition(sourcePosition);
+
+        return findMatchingDirection(sourcePiece, sourcePosition, sourcePositionWithUnitVector);
     }
 
     private Direction findLimitedMovableDirection(final Position sourcePosition, final Position targetPosition) {
-
         Piece sourcePiece = findPieceUsingPosition(sourcePosition);
+        return findMatchingDirection(sourcePiece, sourcePosition, targetPosition);
+    }
 
-        return sourcePiece.getDirections().stream()
+
+    private Direction findMatchingDirection(Piece piece, Position sourcePosition, Position targetPosition) {
+        return piece.getDirections().stream()
                 .filter(direction -> sourcePosition.doesPositionMatchAfterMove(targetPosition, direction.getXDegree(), direction.getYDegree()))
                 .findFirst()
                 .orElseThrow(() -> new UnreachablePositionException(sourcePosition.getPositionString(), targetPosition.getPositionString()));

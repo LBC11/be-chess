@@ -4,9 +4,7 @@ package softeer2nd.chess.Board;
 import softeer2nd.chess.Board.Constants.Type;
 import softeer2nd.chess.Board.Constants.Color;
 
-import softeer2nd.chess.exception.moveException.InvalidBlockedMoveException;
-import softeer2nd.chess.exception.moveException.InvalidColorMoveException;
-import softeer2nd.chess.exception.moveException.UnreachablePositionException;
+import softeer2nd.chess.exception.moveException.*;
 import softeer2nd.chess.pieces.Piece;
 import softeer2nd.utils.StringUtils;
 
@@ -14,6 +12,7 @@ import java.util.*;
 import java.util.stream.IntStream;
 
 import static softeer2nd.chess.Board.Constants.*;
+import static softeer2nd.chess.Board.Constants.Color.*;
 
 public class Board {
 
@@ -36,14 +35,14 @@ public class Board {
     }
 
     private void addInitPieces() {
-        ranks.add(rankFactory.createNonPawnPieces(Color.BLACK));
-        ranks.add(rankFactory.createPawnPieces(Color.BLACK));
+        ranks.add(rankFactory.createNonPawnPieces(BLACK));
+        ranks.add(rankFactory.createPawnPieces(BLACK));
         ranks.add(rankFactory.createBlankPieces());
         ranks.add(rankFactory.createBlankPieces());
         ranks.add(rankFactory.createBlankPieces());
         ranks.add(rankFactory.createBlankPieces());
-        ranks.add(rankFactory.createPawnPieces(Color.WHITE));
-        ranks.add(rankFactory.createNonPawnPieces(Color.WHITE));
+        ranks.add(rankFactory.createPawnPieces(WHITE));
+        ranks.add(rankFactory.createNonPawnPieces(WHITE));
     }
 
     private void addInitBlankPieces() {
@@ -95,15 +94,19 @@ public class Board {
         rank.addInitPiece(position.getXPos(), piece);
     }
 
-    public void move(final String sourceLoc, final String targetLoc) {
+    public void move(final String sourceLoc, final String targetLoc, final Color currentPlayerColor) {
         Position sourcePosition = Position.of(sourceLoc);
         Position targetPosition = Position.of(targetLoc);
 
         Piece sourcePiece = findPieceUsingPosition(sourcePosition);
         Piece targetPiece = findPieceUsingPosition(targetPosition);
 
+        validateColor(currentPlayerColor, sourcePiece);
+
+        if(sourcePiece.isSameColor(NOCOLOR)) throw new InvalidBlankMoveException(sourceLoc);
+
         if (verifySameColorPieces(sourcePiece, targetPiece))
-            throw new InvalidColorMoveException(sourcePosition.getPositionString(), targetPosition.getPositionString());
+            throw new InvalidSameColorException(sourcePosition.getPositionString(), targetPosition.getPositionString());
 
         if (sourcePiece.getMaxMovement() == 1) {
             isLimitedMovable(sourcePosition, targetPosition);
@@ -114,6 +117,12 @@ public class Board {
         }
 
         moveUsingPosition(sourcePosition, targetPosition);
+    }
+
+    private void validateColor(final Color currentPlayerColor, Piece sourcePiece) {
+        String color = currentPlayerColor == BLACK ? "하얀색" : "검정색";
+
+        if(!sourcePiece.isSameColor(currentPlayerColor)) throw new InvalidPlayerColorException(color);
     }
 
     private void moveUsingPosition(final Position sourcePosition, final Position targetPosition) {

@@ -3,17 +3,27 @@ package softeer2nd.chess;
 import softeer2nd.chess.Board.Board;
 import softeer2nd.chess.Board.PointCalculator;
 import softeer2nd.chess.Board.chessView;
+import softeer2nd.chess.Board.Constants.Color;
+
 import softeer2nd.chess.exception.commandException.InvalidDefaultCommandException;
 import softeer2nd.chess.exception.commandException.InvalidMoveCommandException;
 import softeer2nd.chess.exception.moveException.InvalidSamePositionException;
 
 import java.util.Scanner;
 
+import static softeer2nd.chess.Board.Constants.Color.*;
+import static softeer2nd.chess.Board.Constants.Color.BLACK;
+
 public class Chess {
 
     private static final String START = "start";
     private static final String END = "end";
     private static final String MOVE = "move";
+    private static final int NUMBER_OF_PLAYERS = 2;
+
+    private final Color[] colors = {BLACK, WHITE};
+    private int turn = 0;
+    private final Color currentPlayerColor = colors[turn % NUMBER_OF_PLAYERS];
 
     private Board board;
     private chessView chessView;
@@ -91,7 +101,7 @@ public class Chess {
 
         if(verifySameLocation(sourcePosition, targetPosition)) throw new InvalidSamePositionException(sourcePosition, targetPosition);
 
-        move(sourcePosition, targetPosition);
+        move(sourcePosition, targetPosition, currentPlayerColor);
     }
 
     private void RequestCommandInput() {System.out.print("명령어를 입력해주세요: ");}
@@ -113,8 +123,11 @@ public class Chess {
         System.out.println("게임이 종료되었습니다.");
     }
 
-    private void move(String sourcePosition, String targetPosition) {
-        board.move(sourcePosition, targetPosition);
+    private void move(String sourcePosition, String targetPosition, Color currentPlayerColor) {
+        board.move(sourcePosition, targetPosition, currentPlayerColor);
+
+        turn++;
+
         chessView.showBoard();
         chessView.showPoint();
     }

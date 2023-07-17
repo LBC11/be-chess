@@ -6,11 +6,15 @@ import softeer2nd.chess.Board.Constants.Type;
 import softeer2nd.chess.Board.Constants.Color;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static softeer2nd.utils.StringUtils.appendNewLine;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import softeer2nd.chess.exception.moveException.InvalidBlockedMoveException;
+import softeer2nd.chess.exception.moveException.InvalidColorMoveException;
+import softeer2nd.chess.exception.moveException.UnreachablePositionException;
 import softeer2nd.chess.pieces.PieceFactory;
 
 class BoardTest {
@@ -41,7 +45,7 @@ class BoardTest {
 
 
     @Test
-    @DisplayName("board의 piece 개수가 정상적으로 반환된다.")
+    @DisplayName("board 의 piece 개수가 정상적으로 반환된다.")
     void pieceTypeColorCount() {
 
         assertEquals(8, board.pieceCount(Type.PAWN, Color.BLACK));
@@ -80,6 +84,42 @@ class BoardTest {
 
         assertEquals(PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR), board.findPiece(sourcePosition));
         assertEquals(PieceFactory.create(Type.PAWN, Color.WHITE), board.findPiece(targetPosition));
+    }
+
+    @Test
+    @DisplayName("기물의 이동거리 밖으로 움직이려 할때 UnreachablePositionException 이 발생해야 한다.")
+    void move_UnreachablePositionException() {
+        board.initialize();
+
+        String sourcePosition = "b2";
+        String targetPosition = "b4";
+
+        assertThrows(UnreachablePositionException.class, () ->
+                board.move(sourcePosition, targetPosition));
+    }
+
+    @Test
+    @DisplayName("이동 중간에 장애이물이 있어도 기물이 움직이려 할 때 InvalidBlockedMoveException 이 실행되어야 한다.")
+    void move_InvalidBlockedMoveException() {
+        board.initialize();
+
+        String sourcePosition = "d1";
+        String targetPosition = "d3";
+
+        assertThrows(InvalidBlockedMoveException.class, () ->
+                board.move(sourcePosition, targetPosition));
+    }
+
+    @Test
+    @DisplayName("시작점과 도착점의 색깔이 같을 떄 InvalidColorMoveException 이 실행되어야 한다.")
+    void move_InvalidColorMoveException() {
+        board.initialize();
+
+        String sourcePosition = "d1";
+        String targetPosition = "d2";
+
+        assertThrows(InvalidColorMoveException.class, () ->
+                board.move(sourcePosition, targetPosition));
     }
 
     @Test

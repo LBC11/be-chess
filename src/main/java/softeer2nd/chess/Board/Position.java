@@ -27,6 +27,10 @@ public class Position {
         return new Position(position);
     }
 
+    public static Position of(int xPos, int yPos) {
+        return new Position(xPos, yPos);
+    }
+
     public int getYPos() {
         return yPos;
     }
@@ -45,7 +49,7 @@ public class Position {
 
     private void verifyPosition(String position) {
 
-        if(!isValidPosition(position)) {
+        if (!isValidPosition(position)) {
             throw new InvalidPositionException(position);
         }
 
@@ -69,14 +73,18 @@ public class Position {
         int unitX = targetPosition.xPos - this.xPos;
         int unitY = targetPosition.yPos - this.yPos;
 
-        if(unitX != 0) unitX = unitX / Math.abs(unitX);
-        if(unitY != 0) unitY = unitY / Math.abs(unitY);
+        if (unitX != 0) unitX = unitX / Math.abs(unitX);
+        if (unitY != 0) unitY = unitY / Math.abs(unitY);
 
         return new Position(unitX, unitY);
     }
 
     public Position moveByAddingPosition(Position position) {
         return new Position(this.xPos + position.xPos, this.yPos + position.getYPos());
+    }
+
+    public int calculateStepToTarget(Position position) {
+        return Math.min(Math.abs(position.getXPos() - this.xPos), Math.abs(position.getYPos() - this.yPos));
     }
 
     @Override

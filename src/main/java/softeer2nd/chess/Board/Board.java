@@ -4,6 +4,7 @@ package softeer2nd.chess.Board;
 import softeer2nd.chess.Board.Constants.Type;
 import softeer2nd.chess.Board.Constants.Color;
 
+import softeer2nd.chess.exception.moveException.InvalidBlockedMoveException;
 import softeer2nd.chess.exception.moveException.InvalidColorMoveException;
 import softeer2nd.chess.exception.moveException.UnreachablePositionException;
 import softeer2nd.chess.pieces.Piece;
@@ -104,8 +105,13 @@ public class Board {
         if (verifySameColorPieces(sourcePiece, targetPiece))
             throw new InvalidColorMoveException(sourcePosition.getPositionString(), targetPosition.getPositionString());
 
-        Direction direction = sourcePiece.getMaxMovement() == 1 ? findLimitedMovableDirection(sourcePosition, targetPosition) :
-                findUnLimitedMovableDirection(sourcePosition, targetPosition);
+        if (sourcePiece.getMaxMovement() == 1) {
+            isLimitedMovable(sourcePosition, targetPosition);
+        }
+
+        if (sourcePiece.getMaxMovement() == 8) {
+            isUnlimitedMovable(sourcePosition, targetPosition);
+        }
 
         moveUsingPosition(sourcePosition, targetPosition);
     }
@@ -120,7 +126,28 @@ public class Board {
         targetRank.addPiece(targetPosition.getXPos(), piece);
     }
 
-    private Direction findUnLimitedMovableDirection(final Position sourcePosition, final Position targetPosition) {
+    private void isUnlimitedMovable(final Position sourcePosition, final Position targetPosition) {
+        Direction direction = findUnLimitedMovalbleDirection(sourcePosition, targetPosition);
+        isUnLimitedBlocked(sourcePosition, targetPosition, direction);
+    }
+
+    private void isLimitedMovable(final Position sourcePosition, final Position targetPosition) {
+        findLimitedMovableDirection(sourcePosition, targetPosition);
+        // 한 번의 step 만 움직이는 경우에는 block 의 여부를 검사할 필요가 없다.
+    }
+
+    private void isUnLimitedBlocked(final Position sourcePosition, final Position targetPosition, final Direction direction) {
+
+        int distance = sourcePosition.calculateStepToTarget(targetPosition);
+
+        IntStream.range(0, distance).forEach(i -> {
+            Position middlePosition = sourcePosition.moveByAddingPosition(Position.of(direction.getXDegree(), direction.getYDegree()));
+            if (!findPieceUsingPosition(middlePosition).isSameType(Type.NO_PIECE))
+                throw new InvalidBlockedMoveException(sourcePosition.getPositionString(), targetPosition.getPositionString());
+        });
+    }
+
+    private Direction findUnLimitedMovalbleDirection(final Position sourcePosition, final Position targetPosition) {
         Position unitVector = sourcePosition.generateUnitVector(targetPosition);
         Position sourcePositionWithUnitVector = sourcePosition.moveByAddingPosition(unitVector);
         Piece sourcePiece = findPieceUsingPosition(sourcePosition);
@@ -128,11 +155,10 @@ public class Board {
         return findMatchingDirection(sourcePiece, sourcePosition, sourcePositionWithUnitVector);
     }
 
-    private Direction findLimitedMovableDirection(final Position sourcePosition, final Position targetPosition) {
+    private void findLimitedMovableDirection(final Position sourcePosition, final Position targetPosition) {
         Piece sourcePiece = findPieceUsingPosition(sourcePosition);
-        return findMatchingDirection(sourcePiece, sourcePosition, targetPosition);
+        findMatchingDirection(sourcePiece, sourcePosition, targetPosition);
     }
-
 
     private Direction findMatchingDirection(Piece piece, Position sourcePosition, Position targetPosition) {
         return piece.getDirections().stream()

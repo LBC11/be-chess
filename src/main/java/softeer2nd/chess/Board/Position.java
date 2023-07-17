@@ -1,7 +1,7 @@
 package softeer2nd.chess.Board;
 
 import softeer2nd.chess.exception.positionException.InvalidBoardBoundException;
-import softeer2nd.chess.exception.positionException.InvalidPositionException;
+import softeer2nd.chess.exception.positionException.InvalidPositionLengthException;
 
 import java.util.Objects;
 
@@ -50,7 +50,7 @@ public class Position {
     private void verifyPosition(String position) {
 
         if (!isValidPosition(position)) {
-            throw new InvalidPositionException(position);
+            throw new InvalidPositionLengthException(position);
         }
 
         if (!isWithinBoardBounds(xPos, yPos)) {

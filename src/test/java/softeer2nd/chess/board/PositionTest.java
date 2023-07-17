@@ -4,7 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import softeer2nd.chess.Board.Position;
 import softeer2nd.chess.exception.positionException.InvalidBoardBoundException;
-import softeer2nd.chess.exception.positionException.InvalidPositionException;
+import softeer2nd.chess.exception.positionException.InvalidPositionLengthException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -36,7 +36,7 @@ class PositionTest {
     @DisplayName("비정상적인 Position 생성은 예외가 방생해야 합니다.")
     void createAbnormalPosition() {
 
-        assertThrows(InvalidPositionException.class, () -> Position.of("b55"));
+        assertThrows(InvalidPositionLengthException.class, () -> Position.of("b55"));
         assertThrows(InvalidBoardBoundException.class, () -> Position.of("z2"));
     }
 

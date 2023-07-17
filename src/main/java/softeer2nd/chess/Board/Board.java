@@ -140,7 +140,7 @@ public class Board {
 
         int distance = sourcePosition.calculateStepToTarget(targetPosition);
 
-        IntStream.range(0, distance).forEach(i -> {
+        IntStream.range(0, distance - EXCLUDE_TARGET_POSITION).forEach(i -> {
             Position middlePosition = sourcePosition.moveByAddingPosition(Position.of(direction.getXDegree(), direction.getYDegree()));
             if (!findPieceUsingPosition(middlePosition).isSameType(Type.NO_PIECE))
                 throw new InvalidBlockedMoveException(sourcePosition.getPositionString(), targetPosition.getPositionString());

@@ -45,11 +45,15 @@ public class Chess {
 
             String cmd = commands[0];
 
-            switch (cmd) {
-                case START -> handleStartCommand();
-                case END -> handleEndCommand();
-                case MOVE -> handleMoveCommand(commands);
-                default -> throw new InvalidDefaultCommandException();
+            try {
+                switch (cmd) {
+                    case START -> handleStartCommand();
+                    case END -> handleEndCommand();
+                    case MOVE -> handleMoveCommand(commands);
+                    default -> throw new InvalidDefaultCommandException();
+                }
+            } catch (RuntimeException e) {
+                System.out.println("An error occurred: " + e.getMessage());
             }
         }
 

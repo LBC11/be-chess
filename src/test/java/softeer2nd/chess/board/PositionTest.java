@@ -89,6 +89,10 @@ class PositionTest {
         Position p1 = Position.of("b8");
         Position p2 = Position.of("b5");
         assertEquals(3, p2.calculateStepToTarget(p1));
+
+        Position p3 = Position.of("a5");
+        Position p4 = Position.of("b5");
+        assertEquals(1, p3.calculateStepToTarget(p4));
     }
 
 }

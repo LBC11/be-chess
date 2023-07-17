@@ -83,4 +83,12 @@ class PositionTest {
         assertEquals(Position.of("c5"), p2.moveByAddingPosition(p1));
     }
 
+    @Test
+    @DisplayName("정상적으로 두 기물 사이에 몇번 움직여야 도착하는지 반환되어야 한다.")
+    void calculateStepToTarget() {
+        Position p1 = Position.of("b8");
+        Position p2 = Position.of("b5");
+        assertEquals(3, p2.calculateStepToTarget(p1));
+    }
+
 }

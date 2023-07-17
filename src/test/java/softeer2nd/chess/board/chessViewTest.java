@@ -20,18 +20,4 @@ class chessViewTest {
         pointCalculator = new PointCalculator(board);
         chessView = new chessView(board, pointCalculator);
     }
-
-    @Test
-    @DisplayName("보드판이 정상적으로 반환되어야 한다.")
-    void showBoard() {
-        chessView.showBoard();
-    }
-
-    @Test
-    @DisplayName("보드판이 정상적으로 반환되어야 한다.")
-    void showPoint() {
-        chessView.showPoint();
-    }
-
-
 }

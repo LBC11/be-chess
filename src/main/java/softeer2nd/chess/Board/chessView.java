@@ -11,12 +11,17 @@ public class chessView {
         this.pointCalculator = pointCalculator;
     }
 
-    public void showBoard() {
+    private void showBoard() {
         System.out.println(board.showBoard());
     }
 
-    public void showPoint() {
+    private void showPoint() {
 
         System.out.println(pointCalculator.showPoint());
+    }
+
+    public void showUpdate() {
+        showBoard();
+        showPoint();
     }
 }

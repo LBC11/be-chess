@@ -111,8 +111,7 @@ public class Chess {
 
         System.out.println("게임이 시작되었습니다.");
 
-        chessView.showBoard();
-        chessView.showPoint();
+        chessView.showUpdate();
     }
 
     private void end() {
@@ -128,8 +127,7 @@ public class Chess {
 
         turn++;
 
-        chessView.showBoard();
-        chessView.showPoint();
+        chessView.showUpdate();
     }
 
     private boolean verifySameLocation(final String sourcePosition, final String targetPosition) {

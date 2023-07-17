@@ -84,7 +84,13 @@ public class Position {
     }
 
     public int calculateStepToTarget(Position position) {
-        return Math.min(Math.abs(position.getXPos() - this.xPos), Math.abs(position.getYPos() - this.yPos));
+
+        int xStep = Math.abs(position.getXPos() - this.xPos);
+        int yStep = Math.abs(position.getYPos() - this.yPos);
+
+        if(xStep == 0 || yStep == 0) return Math.max(xStep, yStep);
+
+        return Math.min(xStep, yStep);
     }
 
     @Override

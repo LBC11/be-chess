@@ -19,7 +19,7 @@ class PieceFactoryTest {
         assertTrue(PieceFactory.create(Type.BISHOP, Color.WHITE).compare(Type.BISHOP, Color.WHITE));
         assertTrue(PieceFactory.create(Type.QUEEN, Color.WHITE).compare(Type.QUEEN, Color.WHITE));
         assertTrue(PieceFactory.create(Type.KING, Color.WHITE).compare(Type.KING, Color.WHITE));
-        assertTrue(PieceFactory.create(Type.NO_PIECE, Color.WHITE).compare(Type.NO_PIECE, Color.WHITE));
+        assertTrue(PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR).compare(Type.NO_PIECE, Color.NOCOLOR));
     }
 
     @Test

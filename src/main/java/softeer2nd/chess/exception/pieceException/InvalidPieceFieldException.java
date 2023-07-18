@@ -1,6 +1,6 @@
 package softeer2nd.chess.exception.pieceException;
 
-public class InvalidPieceFieldException extends IllegalArgumentException {
+public abstract class InvalidPieceFieldException extends RuntimeException {
     public InvalidPieceFieldException(String message) {
         super(message);
     }

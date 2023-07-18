@@ -20,12 +20,15 @@ import softeer2nd.chess.pieces.PieceFactory;
 class BoardTest {
 
     Board board;
+    PieceFactory pieceFactory;
 
     @BeforeEach
     public void setup() {
 
         board = new Board();
         board.initialize();
+
+        pieceFactory = PieceFactory.INSTANCE;
     }
 
     @Test
@@ -66,10 +69,10 @@ class BoardTest {
     @DisplayName("위치에 따른 기물이 정상적으로 반환된다.")
     void findPiece() {
 
-        assertEquals(PieceFactory.create(Type.ROOK, BLACK), board.findPiece("a8"));
-        assertEquals(PieceFactory.create(Type.ROOK, BLACK), board.findPiece("h8"));
-        assertEquals(PieceFactory.create(Type.ROOK, WHITE), board.findPiece("a1"));
-        assertEquals(PieceFactory.create(Type.ROOK, WHITE), board.findPiece("h1"));
+        assertEquals(pieceFactory.create(Type.ROOK, BLACK), board.findPiece("a8"));
+        assertEquals(pieceFactory.create(Type.ROOK, BLACK), board.findPiece("h8"));
+        assertEquals(pieceFactory.create(Type.ROOK, WHITE), board.findPiece("a1"));
+        assertEquals(pieceFactory.create(Type.ROOK, WHITE), board.findPiece("h1"));
     }
 
     @Test
@@ -82,8 +85,8 @@ class BoardTest {
         
         board.move(sourcePosition, targetPosition, BLACK);
 
-        assertEquals(PieceFactory.create(Type.NO_PIECE, NOCOLOR), board.findPiece(sourcePosition));
-        assertEquals(PieceFactory.create(Type.PAWN, BLACK), board.findPiece(targetPosition));
+        assertEquals(pieceFactory.create(Type.NO_PIECE, NOCOLOR), board.findPiece(sourcePosition));
+        assertEquals(pieceFactory.create(Type.PAWN, BLACK), board.findPiece(targetPosition));
     }
 
     @Test
@@ -127,22 +130,22 @@ class BoardTest {
     void calculatePoint() {
         board.initializeEmpty();
 
-        board.addPiece("b6", PieceFactory.create(Type.PAWN, BLACK));
-        board.addPiece("e6", PieceFactory.create(Type.QUEEN, BLACK));
-        board.addPiece("b8", PieceFactory.create(Type.KING, BLACK));
-        board.addPiece("c8", PieceFactory.create(Type.ROOK, BLACK));
+        board.addPiece("b6", pieceFactory.create(Type.PAWN, BLACK));
+        board.addPiece("e6", pieceFactory.create(Type.QUEEN, BLACK));
+        board.addPiece("b8", pieceFactory.create(Type.KING, BLACK));
+        board.addPiece("c8", pieceFactory.create(Type.ROOK, BLACK));
 
-        board.addPiece("f2", PieceFactory.create(Type.PAWN, WHITE));
-        board.addPiece("g2", PieceFactory.create(Type.PAWN, WHITE));
-        board.addPiece("e1", PieceFactory.create(Type.ROOK, WHITE));
-        board.addPiece("f1", PieceFactory.create(Type.KING, WHITE));
+        board.addPiece("f2", pieceFactory.create(Type.PAWN, WHITE));
+        board.addPiece("g2", pieceFactory.create(Type.PAWN, WHITE));
+        board.addPiece("e1", pieceFactory.create(Type.ROOK, WHITE));
+        board.addPiece("f1", pieceFactory.create(Type.KING, WHITE));
 
         // 0.01은 오차범위를 의미한다.
         assertEquals(15.0, board.calculatePoint(BLACK), 0.01);
         assertEquals(7.0, board.calculatePoint(WHITE), 0.01);
 
         // Pawn 이 같은 세로줄에 2개 이상 있는 경우
-        board.addPiece("b5", PieceFactory.create(Type.PAWN, BLACK));
+        board.addPiece("b5", pieceFactory.create(Type.PAWN, BLACK));
         assertEquals(15.0, board.calculatePoint(BLACK), 0.01);
 
     }

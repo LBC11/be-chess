@@ -15,19 +15,24 @@ import static softeer2nd.chess.Board.Constants.*;
 class RankTest {
     
     Rank rank;
+
+    PieceFactory pieceFactory;
+    
     
     @BeforeEach
     void setup() {
+        pieceFactory = PieceFactory.INSTANCE;
+
         rank = new Rank();
 
-        rank.addInitPiece(0, PieceFactory.create(Type.ROOK, Color.WHITE));
-        rank.addInitPiece(1, PieceFactory.create(Type.KNIGHT, Color.WHITE));
-        rank.addInitPiece(2, PieceFactory.create(Type.BISHOP, Color.WHITE));
-        rank.addInitPiece(3, PieceFactory.create(Type.QUEEN, Color.WHITE));
-        rank.addInitPiece(4, PieceFactory.create(Type.KING, Color.WHITE));
-        rank.addInitPiece(5, PieceFactory.create(Type.BISHOP, Color.WHITE));
-        rank.addInitPiece(6, PieceFactory.create(Type.KNIGHT, Color.WHITE));
-        rank.addInitPiece(7, PieceFactory.create(Type.ROOK, Color.WHITE));
+        rank.addInitPiece(0, pieceFactory.create(Type.ROOK, Color.WHITE));
+        rank.addInitPiece(1, pieceFactory.create(Type.KNIGHT, Color.WHITE));
+        rank.addInitPiece(2, pieceFactory.create(Type.BISHOP, Color.WHITE));
+        rank.addInitPiece(3, pieceFactory.create(Type.QUEEN, Color.WHITE));
+        rank.addInitPiece(4, pieceFactory.create(Type.KING, Color.WHITE));
+        rank.addInitPiece(5, pieceFactory.create(Type.BISHOP, Color.WHITE));
+        rank.addInitPiece(6, pieceFactory.create(Type.KNIGHT, Color.WHITE));
+        rank.addInitPiece(7, pieceFactory.create(Type.ROOK, Color.WHITE));
     }
 
     @Test
@@ -40,14 +45,14 @@ class RankTest {
     @Test
     @DisplayName("정상적으로 rank 에서 Piece 가 조회되어야 한다.")
     void findPiece() {
-        Assertions.assertEquals(PieceFactory.create(Type.ROOK, Color.WHITE), rank.findPiece(0));
-        assertEquals(PieceFactory.create(Type.KNIGHT, Color.WHITE), rank.findPiece(1));
-        assertEquals(PieceFactory.create(Type.BISHOP, Color.WHITE), rank.findPiece(2));
-        assertEquals(PieceFactory.create(Type.QUEEN, Color.WHITE), rank.findPiece(3));
-        assertEquals(PieceFactory.create(Type.KING, Color.WHITE), rank.findPiece(4));
-        assertEquals(PieceFactory.create(Type.BISHOP, Color.WHITE), rank.findPiece(5));
-        assertEquals(PieceFactory.create(Type.KNIGHT, Color.WHITE), rank.findPiece(6));
-        assertEquals(PieceFactory.create(Type.ROOK, Color.WHITE), rank.findPiece(7));
+        Assertions.assertEquals(pieceFactory.create(Type.ROOK, Color.WHITE), rank.findPiece(0));
+        assertEquals(pieceFactory.create(Type.KNIGHT, Color.WHITE), rank.findPiece(1));
+        assertEquals(pieceFactory.create(Type.BISHOP, Color.WHITE), rank.findPiece(2));
+        assertEquals(pieceFactory.create(Type.QUEEN, Color.WHITE), rank.findPiece(3));
+        assertEquals(pieceFactory.create(Type.KING, Color.WHITE), rank.findPiece(4));
+        assertEquals(pieceFactory.create(Type.BISHOP, Color.WHITE), rank.findPiece(5));
+        assertEquals(pieceFactory.create(Type.KNIGHT, Color.WHITE), rank.findPiece(6));
+        assertEquals(pieceFactory.create(Type.ROOK, Color.WHITE), rank.findPiece(7));
     }
 
     @Test
@@ -70,14 +75,14 @@ class RankTest {
     @DisplayName("정상적으로 기물이 rank 에서 삭제된다.")
     void removePiece() {
         rank.removePiece(0);
-        assertEquals(rank.findPiece(0), PieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
+        assertEquals(rank.findPiece(0), pieceFactory.create(Type.NO_PIECE, Color.NOCOLOR));
     }
 
     @Test
     @DisplayName("정상적으로 기물이 rank 위에 놓여진다.")
     void addPiece() {
-        rank.addPiece(0, PieceFactory.create(Type.KING, Color.BLACK));
-        assertEquals(rank.findPiece(0), PieceFactory.create(Type.KING, Color.BLACK));
+        rank.addPiece(0, pieceFactory.create(Type.KING, Color.BLACK));
+        assertEquals(rank.findPiece(0), pieceFactory.create(Type.KING, Color.BLACK));
     }
 
 }

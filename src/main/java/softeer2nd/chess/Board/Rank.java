@@ -15,9 +15,11 @@ import static softeer2nd.chess.Board.Constants.Type.*;
 public class Rank {
 
     private final List<Piece> pieces;
+    private final PieceFactory pieceFactory;
 
     public Rank() {
         pieces = new LinkedList<>();
+        pieceFactory = PieceFactory.INSTANCE;
     }
 
     public String showPieces() {
@@ -39,7 +41,7 @@ public class Rank {
 
     public void removePiece(final int idx) {
         pieces.remove(idx);
-        pieces.add(idx, PieceFactory.create(NO_PIECE, NOCOLOR));
+        pieces.add(idx, pieceFactory.create(NO_PIECE, NOCOLOR));
     }
 
     public Piece findPiece(final int idx) {

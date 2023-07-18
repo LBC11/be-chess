@@ -21,7 +21,7 @@ public class Chess {
     private static final String MOVE = "move";
     private static final int NUMBER_OF_PLAYERS = 2;
 
-    private final Color[] colors = {BLACK, WHITE};
+    private final Color[] colors = {WHITE, BLACK};
     private int turn = 0;
     private final Color currentPlayerColor = colors[turn % NUMBER_OF_PLAYERS];
 

@@ -45,8 +45,6 @@ class BoardTest {
                 board.showBoard());
     }
 
-
-
     @Test
     @DisplayName("board 의 piece 개수가 정상적으로 반환된다.")
     void pieceTypeColorCount() {
@@ -76,6 +74,18 @@ class BoardTest {
     }
 
     @Test
+    @DisplayName("기물의 이동거리 밖으로 움직이려 할때 UnreachablePositionException 이 발생해야 한다.")
+    void move_UnreachablePositionException() {
+        board.initialize();
+
+        String sourcePosition = "a2";
+        String targetPosition = "a4";
+
+        assertThrows(UnreachablePositionException.class, () ->
+                board.move(sourcePosition, targetPosition, WHITE));
+    }
+
+    @Test
     @DisplayName("기물의 이동이 정상적으로 실행되어야 한다.")
     void move() {
         board.initialize();
@@ -90,14 +100,14 @@ class BoardTest {
     }
 
     @Test
-    @DisplayName("기물의 이동거리 밖으로 움직이려 할때 UnreachablePositionException 이 발생해야 한다.")
-    void move_UnreachablePositionException() {
+    @DisplayName("시작점과 도착점의 색깔이 같을 떄 InvalidSameColorException 이 실행되어야 한다.")
+    void move_InvalidColorMoveException() {
         board.initialize();
 
-        String sourcePosition = "a2";
-        String targetPosition = "a4";
+        String sourcePosition = "d1";
+        String targetPosition = "d2";
 
-        assertThrows(UnreachablePositionException.class, () ->
+        assertThrows(InvalidSameColorException.class, () ->
                 board.move(sourcePosition, targetPosition, WHITE));
     }
 
@@ -111,18 +121,6 @@ class BoardTest {
 
         assertThrows(InvalidBlockedMoveException.class, () ->
                 board.move(sourcePosition, targetPosition, BLACK));
-    }
-
-    @Test
-    @DisplayName("시작점과 도착점의 색깔이 같을 떄 InvalidSameColorException 이 실행되어야 한다.")
-    void move_InvalidColorMoveException() {
-        board.initialize();
-
-        String sourcePosition = "d1";
-        String targetPosition = "d2";
-
-        assertThrows(InvalidSameColorException.class, () ->
-                board.move(sourcePosition, targetPosition, WHITE));
     }
 
     @Test
@@ -147,6 +145,5 @@ class BoardTest {
         // Pawn 이 같은 세로줄에 2개 이상 있는 경우
         board.addPiece("b5", pieceFactory.create(Type.PAWN, BLACK));
         assertEquals(15.0, board.calculatePoint(BLACK), 0.01);
-
     }
 }

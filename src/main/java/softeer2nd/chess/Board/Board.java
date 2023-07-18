@@ -120,7 +120,7 @@ public class Board {
     }
 
     private void validateColor(final Color currentPlayerColor, Piece sourcePiece) {
-        String color = currentPlayerColor == BLACK ? "하얀색" : "검정색";
+        String color = currentPlayerColor == BLACK ? WHITE.getName() : BLACK.getName();
 
         if (!sourcePiece.isSameColor(currentPlayerColor)) throw new InvalidPlayerColorException(color);
     }

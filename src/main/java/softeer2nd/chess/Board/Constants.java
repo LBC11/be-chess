@@ -11,7 +11,17 @@ public class Constants {
     public static final int EXCLUDE_TARGET_POSITION = 1;
 
     public enum Color {
-        WHITE, BLACK, NOCOLOR
+        WHITE("하얀색"), BLACK("검정색"), NOCOLOR("무색");
+
+        private final String name;
+
+        Color(String name) {
+            this.name = name;
+        }
+
+        public String getName() {
+            return this.name;
+        }
     }
 
     public enum Type {

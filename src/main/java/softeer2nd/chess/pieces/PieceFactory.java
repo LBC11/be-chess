@@ -12,7 +12,6 @@ public enum PieceFactory {
     INSTANCE;
 
     public static Piece create(Type type, Color color) {
-
         verifyField(type, color);
 
         switch (type) {

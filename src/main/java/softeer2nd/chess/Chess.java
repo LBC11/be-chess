@@ -2,7 +2,7 @@ package softeer2nd.chess;
 
 import softeer2nd.chess.Board.Board;
 import softeer2nd.chess.Board.PointCalculator;
-import softeer2nd.chess.Board.chessView;
+import softeer2nd.chess.Board.ChessView;
 import softeer2nd.chess.Board.Constants.Color;
 
 import softeer2nd.chess.exception.commandException.InvalidDefaultCommandException;
@@ -26,7 +26,7 @@ public class Chess {
     private final Color currentPlayerColor = colors[turn % NUMBER_OF_PLAYERS];
 
     private Board board;
-    private chessView chessView;
+    private ChessView chessView;
     private PointCalculator pointCalculator;
 
     private boolean isContinue;
@@ -38,7 +38,7 @@ public class Chess {
 
         pointCalculator = new PointCalculator(board);
 
-        chessView = new chessView(board, pointCalculator);
+        chessView = new ChessView(board, pointCalculator);
 
         isStarted = true;
     }
@@ -48,7 +48,7 @@ public class Chess {
 
         Scanner sc = new Scanner(System.in);
 
-        while(isContinue) {
+        while (isContinue) {
             RequestCommandInput();
 
             String[] commands = sc.nextLine().split(" ");
@@ -71,7 +71,7 @@ public class Chess {
     }
 
     private void handleStartCommand() {
-        if(isStarted) {
+        if (isStarted) {
             System.out.println("이미 게임중입니다.");
             return;
         }
@@ -80,7 +80,7 @@ public class Chess {
     }
 
     private void handleEndCommand() {
-        if(!isStarted) {
+        if (!isStarted) {
             System.out.println("게임를 하고 있지 않습니다.");
             return;
         }
@@ -89,22 +89,25 @@ public class Chess {
     }
 
     private void handleMoveCommand(String[] commands) {
-        if(!isStarted) {
+        if (!isStarted) {
             System.out.println("게임을 하고 있지 않습니다.");
             return;
         }
 
-        if(commands.length != 3) throw new InvalidMoveCommandException();
+        if (commands.length != 3) throw new InvalidMoveCommandException();
 
         String sourcePosition = commands[1];
         String targetPosition = commands[2];
 
-        if(verifySameLocation(sourcePosition, targetPosition)) throw new InvalidSamePositionException(sourcePosition, targetPosition);
+        if (verifySameLocation(sourcePosition, targetPosition))
+            throw new InvalidSamePositionException(sourcePosition, targetPosition);
 
         move(sourcePosition, targetPosition, currentPlayerColor);
     }
 
-    private void RequestCommandInput() {System.out.print("명령어를 입력해주세요: ");}
+    private void RequestCommandInput() {
+        System.out.print("명령어를 입력해주세요: ");
+    }
 
     private void start() {
         init();
@@ -115,7 +118,6 @@ public class Chess {
     }
 
     private void end() {
-
         isContinue = false;
         isStarted = false;
 

@@ -1,11 +1,11 @@
 package softeer2nd.chess.Board;
 
-public class chessView {
+public class ChessView {
 
     private final Board board;
     private final PointCalculator pointCalculator;
 
-    public chessView(Board board, PointCalculator pointCalculator) {
+    public ChessView(Board board, PointCalculator pointCalculator) {
 
         this.board = board;
         this.pointCalculator = pointCalculator;
@@ -16,7 +16,6 @@ public class chessView {
     }
 
     private void showPoint() {
-
         System.out.println(pointCalculator.showPoint());
     }
 

@@ -22,7 +22,6 @@ public class PointCalculator {
     }
 
     public String showPoint() {
-
         StringBuilder sb = new StringBuilder();
         StringUtils.appendNewLine(sb.append("흰색 점수: ").append(calculateWhitePoint()))
                 .append("검은색 점수: ").append(calculateBlackPoint());

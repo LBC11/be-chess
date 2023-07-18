@@ -1,15 +1,13 @@
 package softeer2nd.chess.board;
 
 import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
 import softeer2nd.chess.Board.Board;
 import softeer2nd.chess.Board.PointCalculator;
-import softeer2nd.chess.Board.chessView;
+import softeer2nd.chess.Board.ChessView;
 
 class chessViewTest {
 
-    chessView chessView;
+    ChessView chessView;
     Board board;
     PointCalculator pointCalculator;
 
@@ -18,6 +16,6 @@ class chessViewTest {
         board = new Board();
         board.initialize();
         pointCalculator = new PointCalculator(board);
-        chessView = new chessView(board, pointCalculator);
+        chessView = new ChessView(board, pointCalculator);
     }
 }

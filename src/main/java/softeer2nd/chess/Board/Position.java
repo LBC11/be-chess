@@ -48,7 +48,6 @@ public class Position {
     }
 
     private void verifyPosition(String position) {
-
         if (!isValidPosition(position)) {
             throw new InvalidPositionLengthException(position);
         }
@@ -88,7 +87,7 @@ public class Position {
         int xStep = Math.abs(position.getXPos() - this.xPos);
         int yStep = Math.abs(position.getYPos() - this.yPos);
 
-        if(xStep == 0 || yStep == 0) return Math.max(xStep, yStep);
+        if (xStep == 0 || yStep == 0) return Math.max(xStep, yStep);
 
         return Math.min(xStep, yStep);
     }

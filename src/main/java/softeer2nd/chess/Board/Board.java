@@ -103,7 +103,7 @@ public class Board {
 
         validateColor(currentPlayerColor, sourcePiece);
 
-        if(sourcePiece.isSameColor(NOCOLOR)) throw new InvalidBlankMoveException(sourceLoc);
+        if (sourcePiece.isSameColor(NOCOLOR)) throw new InvalidBlankMoveException(sourceLoc);
 
         if (verifySameColorPieces(sourcePiece, targetPiece))
             throw new InvalidSameColorException(sourcePosition.getPositionString(), targetPosition.getPositionString());
@@ -122,7 +122,7 @@ public class Board {
     private void validateColor(final Color currentPlayerColor, Piece sourcePiece) {
         String color = currentPlayerColor == BLACK ? "하얀색" : "검정색";
 
-        if(!sourcePiece.isSameColor(currentPlayerColor)) throw new InvalidPlayerColorException(color);
+        if (!sourcePiece.isSameColor(currentPlayerColor)) throw new InvalidPlayerColorException(color);
     }
 
     private void moveUsingPosition(final Position sourcePosition, final Position targetPosition) {
